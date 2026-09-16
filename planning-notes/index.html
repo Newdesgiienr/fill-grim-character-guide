@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>FILL GRIM · 기획 노트</title>
+<style>
+:root{--bg:#f2f5f9;--card:#fff;--line:#d6dde8;--text:#12284f;--muted:#63728a;--accent:#f28c54;--shadow:0 12px 24px rgba(15,23,42,.08);--radius:22px}
+*{box-sizing:border-box}html,body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,Pretendard,"Noto Sans KR",system-ui,sans-serif}
+.page{width:min(100% - 28px,1540px);margin:0 auto;padding:14px 0 34px}
+.back{display:inline-flex;align-items:center;min-height:38px;margin-bottom:10px;padding:0 14px;border:1px solid var(--line);border-radius:12px;background:#fff;color:var(--text);font-size:12px;font-weight:900;text-decoration:none}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)}
+.top-card{display:flex;justify-content:space-between;align-items:center;gap:18px;padding:18px 22px}
+.brand{display:flex;align-items:center;gap:18px;min-width:0}.logo{width:68px;height:68px;border-radius:18px;display:grid;place-items:center;text-align:center;font-size:15px;font-weight:950;line-height:1.05;color:#fff;background:linear-gradient(145deg,#334155,#111827)}
+h1{margin:0;font-size:31px;line-height:1.1;letter-spacing:-.04em}.sub{margin-top:7px;color:var(--muted);font-size:14px;font-weight:700}
+.toggle{width:42px;height:42px;border:1px solid var(--line);border-radius:12px;background:#fff;display:grid;place-items:center;cursor:pointer}.toggle i{width:10px;height:10px;border-right:1.8px solid #294564;border-bottom:1.8px solid #294564;transform:rotate(225deg) translate(-1px,-1px);transition:.2s}.collapsed .toggle i{transform:rotate(45deg) translate(-2px,-2px)}
+.stack{display:grid;gap:16px;margin-top:16px}.collapsed .stack{display:none}.frame-wrap{background:#fff;border:1px solid var(--line);border-radius:20px;overflow:hidden;box-shadow:0 8px 18px rgba(15,23,42,.05)}iframe{width:100%;border:0;display:block;min-height:420px;background:#f2f5f9}
+@media(max-width:640px){.page{width:min(100% - 12px,1540px);padding-top:6px}.top-card{padding:14px}.logo{width:58px;height:58px;border-radius:15px;font-size:12px}h1{font-size:25px}.sub{font-size:12px}}
+</style>
+</head>
+<body>
+<main class="page" id="planningRoot">
+<a class="back" href="../">← FILL GRIM 가이드</a>
+<header class="top-card panel">
+  <div class="brand"><div class="logo">PLAN<br>NOTE</div><div><h1>기획 노트</h1><div class="sub">게임 규칙을 데이터와 연출로 설계한 과정을 확인합니다.</div></div></div>
+  <button class="toggle" id="toggle" type="button" aria-expanded="true" aria-label="기획 노트 접기"><i></i></button>
+</header>
+<section class="stack" id="stack">
+  <div class="frame-wrap"><iframe src="data-table.html" title="데이터 테이블" loading="eager"></iframe></div>
+  <div class="frame-wrap"><iframe src="skill-chain.html" title="스킬 연계 연출" loading="eager" allow="autoplay"></iframe></div>
+  <div class="frame-wrap"><iframe src="card-farming-feedback.html" title="카드 파밍 피드백" loading="eager" allow="autoplay"></iframe></div>
+</section>
+</main>
+<script>
+const root=document.getElementById('planningRoot'),btn=document.getElementById('toggle');
+btn.addEventListener('click',()=>{const open=btn.getAttribute('aria-expanded')==='true';btn.setAttribute('aria-expanded',String(!open));root.classList.toggle('collapsed',open)});
+function fit(frame){try{const doc=frame.contentDocument;if(!doc)return;const set=()=>{frame.style.height=Math.max(360,doc.documentElement.scrollHeight,doc.body?.scrollHeight||0)+'px'};set();new ResizeObserver(set).observe(doc.documentElement)}catch(e){}}
+document.querySelectorAll('iframe').forEach(f=>f.addEventListener('load',()=>fit(f)));
+</script>
+</body></html>
