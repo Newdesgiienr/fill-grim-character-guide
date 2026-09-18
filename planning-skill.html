@@ -1,0 +1,1826 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>FILL GRIM · 턴제 액션 데모</title>
+
+<style>
+:root{
+  --bg:#eef2f7;
+  --paper:#ffffff;
+  --navy:#10243f;
+  --navy-2:#1d2940;
+  --ink:#10213a;
+  --muted:#5f7188;
+  --line:#d5dfeb;
+  --line-soft:#e8edf3;
+  --orange:#ff7a3d;
+  --orange-soft:#fff1e8;
+  --blue:#2f6fe4;
+  --soft:#f6f8fb;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--ink);
+  font-family:Pretendard,"Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  letter-spacing:-.02em;
+}
+button{font:inherit}
+.shell{
+  width:min(1400px,calc(100% - 24px));
+  margin:0 auto;
+  padding:18px 0 72px;
+}
+.page-top{
+  display:grid;
+  grid-template-columns:64px minmax(0,1fr) auto;
+  align-items:center;
+  gap:16px;
+  min-height:94px;
+  margin-bottom:16px;
+  padding:14px 20px;
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:20px;
+}
+.page-top::before{
+  content:"TURN\\A ACTION";
+  white-space:pre;
+  width:62px;
+  height:62px;
+  border-radius:17px;
+  display:grid;
+  place-items:center;
+  background:#1a2940;
+  color:#fff;
+  font-size:13px;
+  line-height:1.05;
+  font-weight:950;
+  text-align:center;
+}
+.page-kicker{
+  margin-bottom:5px;
+  color:#76859a;
+  font-size:10px;
+  font-weight:800;
+  letter-spacing:.05em;
+}
+.page-top h1{
+  margin:0;
+  font-size:27px;
+  line-height:1.1;
+  letter-spacing:-.045em;
+}
+.prototype-note{
+  padding:9px 12px;
+  border:1px solid var(--line);
+  border-radius:12px;
+  color:#68788e;
+  background:#fff;
+  font-size:11px;
+  font-weight:800;
+}
+.note{
+  overflow:hidden;
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:20px;
+}
+.note-head{
+  min-height:92px;
+  display:grid;
+  grid-template-columns:minmax(0,1fr) 44px;
+  align-items:center;
+  gap:18px;
+  padding:16px 20px;
+  background:#fff;
+  color:var(--ink);
+  border-bottom:1px solid var(--line);
+  cursor:pointer;
+  user-select:none;
+}
+.note-head:hover{background:#fbfcfe}
+.note-title{
+  display:flex;
+  align-items:center;
+  min-width:0;
+  gap:14px;
+}
+.orange{
+  width:4px;
+  height:44px;
+  flex:none;
+  border-radius:99px;
+  background:var(--orange);
+}
+.note-head h2{
+  margin:0;
+  flex:none;
+  font-size:24px;
+  line-height:1.15;
+  letter-spacing:-.04em;
+}
+.note-head p{
+  margin:0;
+  color:#53657c;
+  font-size:13px;
+  font-weight:700;
+  line-height:1.55;
+}
+.chev{
+  width:42px;
+  height:42px;
+  padding:0;
+  display:grid;
+  place-items:center;
+  border:1px solid var(--line);
+  border-radius:12px;
+  background:#fff;
+  cursor:pointer;
+}
+.chev:hover{background:#f6f8fb}
+.chev-icon{
+  width:10px;
+  height:10px;
+  border-right:1.8px solid #294564;
+  border-bottom:1.8px solid #294564;
+  transform:rotate(225deg) translate(-1px,-1px);
+  transition:transform .22s ease;
+}
+.note.collapsed .chev-icon{transform:rotate(45deg) translate(-2px,-2px)}
+.note-body-wrap{
+  display:grid;
+  grid-template-rows:1fr;
+  opacity:1;
+  transition:grid-template-rows .3s ease,opacity .18s ease;
+}
+.note-body-clip{min-height:0;overflow:hidden}
+.note.collapsed .note-body-wrap{grid-template-rows:0fr;opacity:0}
+.note-body{
+  padding:18px;
+  background:#fff;
+}
+.thesis{
+  display:grid;
+  grid-template-columns:minmax(0,1.25fr) minmax(320px,.75fr);
+  margin:0 0 18px;
+  border:1px solid var(--line);
+  border-radius:16px;
+  overflow:hidden;
+  background:#fff;
+}
+.thesis-main{
+  position:relative;
+  padding:22px 24px 22px 28px;
+  border-right:1px solid var(--line);
+}
+.thesis-main::before{
+  content:"";
+  position:absolute;
+  left:0;
+  top:0;
+  bottom:0;
+  width:4px;
+  background:var(--orange);
+}
+.thesis h3{
+  margin:0;
+  font-size:25px;
+  line-height:1.3;
+  letter-spacing:-.045em;
+}
+.thesis p{
+  margin:10px 0 0;
+  color:#5d6f86;
+  font-size:13.5px;
+  line-height:1.72;
+}
+.thesis-side{
+  padding:20px 22px;
+  background:#f8fafc;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+}
+.thesis-side b{
+  color:#2c405a;
+  font-size:12px;
+  font-weight:900;
+}
+.thesis-side p{
+  margin:7px 0 0;
+  color:#627389;
+  font-size:12.5px;
+  line-height:1.65;
+}
+.formula{
+  margin-top:12px;
+  padding:10px 11px;
+  border:1px solid #dde5ee;
+  border-radius:9px;
+  background:#fff;
+  color:#3f5570;
+  font-size:11px;
+  font-weight:850;
+}
+.character-tabs{
+  display:flex;
+  justify-content:flex-end;
+  gap:9px;
+  margin:0 0 14px;
+}
+.char-tab{
+  min-height:42px;
+  padding:0 16px;
+  border:1px solid var(--line);
+  border-radius:12px;
+  background:#fff;
+  color:#172a44;
+  font-size:12px;
+  font-weight:900;
+  cursor:pointer;
+}
+.char-tab::before{
+  content:"MI";
+  display:inline-grid;
+  place-items:center;
+  width:25px;
+  height:25px;
+  margin-right:8px;
+  border-radius:50%;
+  background:#4d7ee9;
+  color:#fff;
+  font-size:9px;
+  font-weight:950;
+  vertical-align:middle;
+}
+.char-tab:nth-child(2)::before{content:"NE";background:#8a48dd}
+.char-tab.active{
+  color:#fff;
+  background:#1d2940;
+  border-color:#1d2940;
+}
+.char-tab.active::before{box-shadow:0 0 0 3px rgba(255,255,255,.14)}
+.character-head{
+  display:flex;
+  align-items:flex-end;
+  justify-content:space-between;
+  gap:20px;
+  margin:0;
+  padding:14px 18px;
+  border:1px solid var(--line);
+  border-bottom:0;
+  border-radius:16px 16px 0 0;
+  background:#fff;
+}
+.character-head h3{
+  margin:0;
+  font-size:22px;
+  letter-spacing:-.04em;
+}
+.character-head p{
+  margin:0;
+  color:#738297;
+  font-size:11px;
+  line-height:1.5;
+}
+.workspace{
+  display:grid;
+  grid-template-columns:350px minmax(0,1fr);
+  gap:0;
+  align-items:stretch;
+  border:1px solid var(--line);
+  border-radius:0 0 16px 16px;
+  overflow:hidden;
+  background:#fff;
+}
+.mechanic-list{
+  padding:14px;
+  background:#f5f8fc;
+  border-right:1px solid var(--line);
+}
+.mechanic-card{
+  width:100%;
+  margin:0 0 9px;
+  padding:14px 14px;
+  border:1px solid #d9e2ed;
+  border-radius:11px;
+  background:#fff;
+  text-align:left;
+  cursor:pointer;
+  transition:border-color .15s ease,background .15s ease,transform .15s ease;
+}
+.mechanic-card:last-child{margin-bottom:0}
+.mechanic-card:hover{
+  border-color:#b9c9dc;
+  transform:translateY(-1px);
+}
+.mechanic-card.active{
+  border-color:#ff9b69;
+  background:#fff6f0;
+  box-shadow:inset 3px 0 0 var(--orange);
+}
+.mechanic-num{
+  display:block;
+  margin-bottom:6px;
+  color:#8997a7;
+  font-size:9.5px;
+  font-weight:900;
+  letter-spacing:.06em;
+}
+.mechanic-card.active .mechanic-num{color:#e76c30}
+.mechanic-title{
+  display:block;
+  color:#263c57;
+  font-size:14px;
+  font-weight:900;
+  line-height:1.45;
+}
+.mechanic-summary{
+  display:block;
+  margin-top:6px;
+  color:#66778d;
+  font-size:11.5px;
+  line-height:1.6;
+}
+.player-card{
+  min-width:0;
+  border:0;
+  border-radius:0;
+  background:#fff;
+  overflow:hidden;
+}
+.player-top{
+  padding:18px 20px 16px;
+  border-bottom:1px solid var(--line);
+}
+.player-topline{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:18px;
+}
+.strategy-label{
+  margin-bottom:4px;
+  color:var(--orange);
+  font-size:10px;
+  font-weight:950;
+  letter-spacing:.02em;
+}
+.player-top h4{
+  margin:0;
+  color:#122843;
+  font-size:24px;
+  line-height:1.3;
+  letter-spacing:-.045em;
+}
+.cost-total{
+  flex:none;
+  padding:7px 10px;
+  border:1px solid #bcd5ff;
+  border-radius:999px;
+  background:#f4f8ff;
+  color:#235fbf;
+  text-align:center;
+}
+.cost-total small{
+  display:block;
+  font-size:8px;
+  font-weight:850;
+}
+.cost-total b{
+  display:block;
+  margin-top:1px;
+  font-size:15px;
+}
+.strategy-desc{
+  margin:9px 0 0;
+  color:#5f7188;
+  font-size:12.5px;
+  line-height:1.65;
+}
+.timeline{
+  display:flex;
+  align-items:stretch;
+  gap:0;
+  padding:12px 16px;
+  overflow:auto;
+  border-bottom:1px solid var(--line);
+  background:#f8fafc;
+}
+.step{
+  min-width:155px;
+  flex:1 0 155px;
+  position:relative;
+  padding:10px 11px;
+  border:1px solid #d8e2ed;
+  border-radius:10px;
+  background:#fff;
+  cursor:pointer;
+  transition:.15s ease;
+}
+.step.active{
+  border-color:#ff9d6b;
+  background:#fff3ea;
+  box-shadow:0 0 0 2px rgba(255,122,61,.08);
+}
+.step.done{
+  border-color:#a9c7b3;
+  background:#f3faf5;
+}
+.step .slot{
+  display:inline-grid;
+  place-items:center;
+  width:25px;
+  height:25px;
+  border-radius:7px;
+  background:#eaf0f6;
+  color:#415872;
+  font-size:10px;
+  font-weight:950;
+}
+.step.active .slot{
+  background:var(--orange);
+  color:#fff;
+}
+.step .name{
+  display:block;
+  margin-top:7px;
+  color:#2a405a;
+  font-size:12px;
+  font-weight:900;
+}
+.step .note{
+  display:block;
+  margin-top:4px;
+  color:#758499;
+  font-size:10px;
+  line-height:1.45;
+}
+.step .cost{
+  position:absolute;
+  right:9px;
+  top:9px;
+  color:#7e684f;
+  font-size:9.5px;
+  font-weight:900;
+}
+.t-arrow{
+  flex:0 0 26px;
+  display:grid;
+  place-items:center;
+  color:#9ca9b7;
+  font-size:16px;
+}
+.video-wrap{
+  position:relative;
+  aspect-ratio:16/9;
+  background:#0c131d;
+}
+video{
+  width:100%;
+  height:100%;
+  display:block;
+  object-fit:contain;
+  background:#0c131d;
+}
+.video-overlay{
+  position:absolute;
+  left:13px;
+  top:13px;
+  pointer-events:none;
+}
+.now-badge{
+  width:max-content;
+  padding:6px 8px;
+  border:1px solid rgba(255,255,255,.15);
+  border-radius:6px;
+  background:rgba(8,15,24,.84);
+  color:#fff;
+  font-size:11px;
+  font-weight:800;
+}
+.now-badge strong{color:#ffad79}
+.timecode{
+  width:max-content;
+  margin-top:6px;
+  padding:7px 9px;
+  border:1px solid rgba(255,255,255,.15);
+  border-radius:6px;
+  background:rgba(8,15,24,.9);
+  color:#fff;
+  font:800 15px/1 Consolas,monospace;
+  letter-spacing:.055em;
+  font-variant-numeric:tabular-nums;
+}
+.progress-wrap{
+  position:absolute;
+  left:0;right:0;bottom:0;
+  height:3px;
+  background:rgba(255,255,255,.12);
+}
+.progress{height:100%;width:0;background:var(--orange)}
+.controls{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:16px;
+  padding:11px 14px;
+  border-top:1px solid #253241;
+  background:#111b28;
+}
+.play-btn{
+  padding:8px 12px;
+  border:0;
+  border-radius:7px;
+  background:var(--orange);
+  color:#fff;
+  font-size:11px;
+  font-weight:900;
+  cursor:pointer;
+}
+.control-note{
+  color:#aab7c7;
+  font-size:10.5px;
+  line-height:1.5;
+  text-align:right;
+}
+.control-note b{color:#fff}
+.why{
+  display:grid;
+  grid-template-columns:105px minmax(0,1fr);
+  gap:18px;
+  padding:15px 18px;
+  border-top:1px solid var(--line);
+  background:#fff;
+}
+.why-label{
+  color:#7e8b9c;
+  font-size:10px;
+  font-weight:900;
+}
+.why p{
+  margin:0;
+  color:#506279;
+  font-size:12.5px;
+  line-height:1.7;
+}
+.footer-note{
+  margin-top:11px;
+  color:#8391a1;
+  font-size:10px;
+  line-height:1.55;
+}
+.footer-note b{color:#67778a}
+@media(max-width:960px){
+  .shell{width:min(100% - 14px,1400px)}
+  .page-top{grid-template-columns:56px minmax(0,1fr);padding:12px 14px}
+  .page-top::before{width:54px;height:54px;border-radius:14px;font-size:11px}
+  .prototype-note{display:none}
+  .note-head{padding:15px}
+  .note-title{
+    display:grid;
+    grid-template-columns:4px minmax(0,1fr);
+    column-gap:12px;
+    row-gap:7px;
+  }
+  .note-title .orange{grid-row:1/span 2;height:42px}
+  .note-title h2,.note-title p{grid-column:2}
+  .note-body{padding:12px}
+  .thesis{grid-template-columns:1fr}
+  .thesis-main{border-right:0;border-bottom:1px solid var(--line)}
+  .character-head{align-items:flex-start;flex-direction:column;gap:6px}
+  .workspace{grid-template-columns:1fr}
+  .mechanic-list{border-right:0;border-bottom:1px solid var(--line)}
+  .why{grid-template-columns:1fr;gap:7px}
+}
+</style>
+
+<style>
+/* 캐릭터 가이드의 기/승/전/결 아이콘 문법을 타임라인에 그대로 반영 */
+.step{
+  padding:12px 12px 12px 58px !important;
+  min-height:68px;
+}
+.step .slot{
+  position:absolute !important;
+  left:10px;
+  top:10px;
+  width:38px !important;
+  height:38px !important;
+  margin:0 !important;
+  border-radius:10px !important;
+  color:#fff !important;
+  font-size:14px !important;
+  font-weight:950 !important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.25),0 3px 7px rgba(16,33,58,.14);
+}
+.step.skill-gi .slot{background:linear-gradient(180deg,#3b82f6,#1558d5) !important}
+.step.skill-seung .slot{background:linear-gradient(180deg,#17b789,#078a69) !important}
+.step.skill-jeon .slot{background:linear-gradient(180deg,#f59b18,#df7200) !important}
+.step.skill-gyeol .slot{background:linear-gradient(180deg,#8a4bea,#6b2bd0) !important}
+
+.step .cost{
+  position:absolute !important;
+  left:38px !important;
+  top:38px !important;
+  right:auto !important;
+  width:18px;
+  height:18px;
+  padding:0;
+  border:2px solid #fff;
+  border-radius:999px;
+  display:grid;
+  place-items:center;
+  background:#15223a;
+  color:#fff !important;
+  font-size:9px !important;
+  font-weight:950 !important;
+  line-height:1;
+  box-shadow:0 1px 4px rgba(15,32,53,.2);
+}
+.step .name{
+  margin-top:1px !important;
+  font-size:12.5px !important;
+}
+.step .note{
+  margin-top:5px !important;
+}
+.step.active .slot{
+  outline:3px solid #ffb487;
+  outline-offset:2px;
+}
+.step.done .slot{
+  filter:saturate(.72);
+}
+
+/* MIME / NEVE 전환 아이콘도 현재 사이트의 작은 원형 뱃지처럼 */
+.char-tab{
+  display:inline-flex !important;
+  align-items:center;
+  gap:0;
+}
+.char-tab::before{
+  flex:none;
+}
+
+/* 화살표도 타임라인 아이콘 사이에서 더 또렷하게 */
+.t-arrow{
+  flex-basis:30px !important;
+  font-size:18px !important;
+  color:#91a0b2 !important;
+  font-weight:850;
+}
+</style>
+
+
+<style>
+/* ===== v9 · LIGHT SKILL CHAIN PASS ===== */
+
+/* 타임라인을 밝게, 카드 정렬 중심으로 */
+.timeline{
+  display:flex !important;
+  align-items:stretch !important;
+  gap:0 !important;
+  padding:14px 16px !important;
+  background:#f6f8fb !important;
+  border-bottom:1px solid var(--line) !important;
+  overflow:auto !important;
+}
+
+.step{
+  min-width:176px !important;
+  flex:1 0 176px !important;
+  min-height:86px !important;
+  position:relative !important;
+  display:grid !important;
+  grid-template-columns:34px minmax(0,1fr) auto !important;
+  grid-template-rows:30px 22px 1fr !important;
+  column-gap:9px !important;
+  align-items:center !important;
+  padding:10px 11px 10px 10px !important;
+  border:1px solid #d6e0eb !important;
+  border-radius:10px !important;
+  background:#fff !important;
+  box-shadow:none !important;
+  overflow:hidden !important;
+  cursor:pointer;
+}
+.step:hover{
+  border-color:#b7c7d8 !important;
+  background:#fbfdff !important;
+}
+.step.active{
+  border-color:#ff9c68 !important;
+  background:#fff7f1 !important;
+  box-shadow:0 0 0 1px rgba(255,122,61,.08) inset !important;
+}
+.step.done{
+  border-color:#b9cabc !important;
+  background:#f8fbf9 !important;
+}
+
+/* 기/승/전/결 아이콘 */
+.step .slot{
+  position:static !important;
+  grid-column:1 !important;
+  grid-row:1 !important;
+  width:30px !important;
+  height:30px !important;
+  margin:0 !important;
+  display:grid !important;
+  place-items:center !important;
+  border-radius:8px !important;
+  color:#fff !important;
+  font-size:12px !important;
+  font-weight:950 !important;
+  box-shadow:none !important;
+  outline:0 !important;
+}
+.step.skill-gi .slot{background:#3478df !important}
+.step.skill-seung .slot{background:#149d77 !important}
+.step.skill-jeon .slot{background:#e58a0d !important}
+.step.skill-gyeol .slot{background:#7b45cf !important}
+
+/* 코스트 */
+.step .cost{
+  position:static !important;
+  grid-column:3 !important;
+  grid-row:1 !important;
+  width:auto !important;
+  height:auto !important;
+  padding:0 !important;
+  border:0 !important;
+  border-radius:0 !important;
+  background:transparent !important;
+  box-shadow:none !important;
+  color:#795b3b !important;
+  font-size:10px !important;
+  font-weight:900 !important;
+  line-height:1 !important;
+  text-align:right;
+}
+
+/* 스킬명 */
+.step .name{
+  grid-column:1 / 4 !important;
+  grid-row:2 !important;
+  display:block !important;
+  margin:0 !important;
+  padding:0 !important;
+  color:#243a55 !important;
+  font-size:12.5px !important;
+  font-weight:900 !important;
+  line-height:1.35 !important;
+  white-space:nowrap !important;
+  overflow:hidden !important;
+  text-overflow:ellipsis !important;
+}
+
+/* 핵심 수정: 설명은 그냥 텍스트 */
+.step .clip-note{
+  grid-column:1 / 4 !important;
+  grid-row:3 !important;
+  display:block !important;
+  align-self:start !important;
+  margin:3px 0 0 !important;
+  padding:0 !important;
+  border:0 !important;
+  border-radius:0 !important;
+  background:transparent !important;
+  box-shadow:none !important;
+  color:#7b8999 !important;
+  font-size:10.5px !important;
+  font-weight:650 !important;
+  line-height:1.4 !important;
+  white-space:nowrap !important;
+  overflow:hidden !important;
+  text-overflow:ellipsis !important;
+}
+
+/* 메인 .note 스타일이 clip-note에 절대 안 먹도록 방어 */
+.step .clip-note::before,
+.step .clip-note::after{content:none !important}
+
+/* 화살표 */
+.t-arrow{
+  flex:0 0 28px !important;
+  min-width:28px !important;
+  display:grid !important;
+  place-items:center !important;
+  color:#93a3b5 !important;
+  font-size:18px !important;
+  font-weight:800 !important;
+}
+
+/* 현재 단계는 아이콘에도 살짝 강조 */
+.step.active .slot{
+  box-shadow:0 0 0 2px #ffd4bd !important;
+}
+
+/* 영상 위 정보는 깔끔하게 좌우 정렬 */
+.video-overlay{
+  left:13px !important;
+  right:13px !important;
+  top:13px !important;
+  display:flex !important;
+  justify-content:space-between !important;
+  align-items:flex-start !important;
+  gap:10px !important;
+}
+.now-badge{
+  max-width:70%;
+  height:30px;
+  display:flex !important;
+  align-items:center !important;
+  padding:0 9px !important;
+  border-radius:6px !important;
+}
+.timecode{
+  flex:none;
+  height:30px;
+  min-width:76px;
+  margin:0 !important;
+  display:grid !important;
+  place-items:center !important;
+  padding:0 9px !important;
+  border-radius:6px !important;
+  font-size:13px !important;
+  letter-spacing:.025em !important;
+}
+
+/* 컨트롤도 과한 '편집기 검정' 느낌 줄임 */
+.controls{
+  min-height:48px !important;
+  padding:8px 12px !important;
+  background:#152130 !important;
+}
+.play-btn{
+  height:32px !important;
+  padding:0 11px !important;
+  border-radius:6px !important;
+}
+.control-note{
+  font-size:9.5px !important;
+  line-height:1.45 !important;
+}
+
+/* 왼쪽 메커니즘 카드 높이와 텍스트 기준선 정리 */
+.mechanic-card{
+  min-height:104px !important;
+  padding:13px 14px !important;
+}
+.mechanic-title{
+  min-height:38px !important;
+  display:flex !important;
+  align-items:flex-start !important;
+}
+.mechanic-summary{
+  margin-top:6px !important;
+}
+
+/* 반응형 */
+@media(max-width:960px){
+  .step{
+    min-width:164px !important;
+    flex-basis:164px !important;
+  }
+}
+</style>
+
+
+<style>
+/* ===== v10 · MINIMAL CONTENT PASS ===== */
+
+.shell{
+  padding-top:18px !important;
+}
+
+/* 바깥 중복 헤더를 제거했으므로 개발노트 자체가 첫 카드 */
+.note{
+  box-shadow:0 8px 24px rgba(25,43,66,.05) !important;
+}
+
+/* 헤더 */
+.note-head{
+  min-height:78px !important;
+  padding:14px 18px !important;
+}
+.note-head h2{
+  font-size:22px !important;
+}
+.note-head p{
+  font-size:12.5px !important;
+  color:#5b6d83 !important;
+}
+
+/* 본문은 필요한 요소 사이만 여백 */
+.note-body{
+  padding:14px !important;
+}
+
+/* 캐릭터 탭 */
+.character-tabs{
+  margin:0 0 10px !important;
+}
+
+/* 캐릭터 제목: 단순 구분선 역할 */
+.character-head{
+  min-height:52px !important;
+  padding:11px 14px !important;
+}
+.character-head h3{
+  font-size:18px !important;
+}
+
+/* 왼쪽 선택 목록: 번호 + 제목만 */
+.workspace{
+  grid-template-columns:286px minmax(0,1fr) !important;
+}
+.mechanic-list{
+  padding:10px !important;
+  gap:7px !important;
+}
+.mechanic-card{
+  min-height:62px !important;
+  display:grid !important;
+  grid-template-columns:30px minmax(0,1fr) !important;
+  grid-template-rows:1fr !important;
+  align-items:center !important;
+  gap:9px !important;
+  margin:0 !important;
+  padding:10px 11px !important;
+  border-radius:9px !important;
+}
+.mechanic-num{
+  display:grid !important;
+  place-items:center !important;
+  width:28px;
+  height:28px;
+  margin:0 !important;
+  border-radius:7px;
+  background:#edf2f7;
+  color:#63758b !important;
+  font:900 9px/1 Consolas,monospace !important;
+}
+.mechanic-card.active .mechanic-num{
+  background:#ff7a3d;
+  color:#fff !important;
+}
+.mechanic-title{
+  min-height:0 !important;
+  margin:0 !important;
+  font-size:12.5px !important;
+  line-height:1.42 !important;
+}
+.mechanic-summary{
+  display:none !important;
+}
+
+/* 상세 헤더 */
+.player-top{
+  padding:14px 16px 12px !important;
+}
+.strategy-label{
+  margin-bottom:4px !important;
+  font-size:9.5px !important;
+}
+.player-top h4{
+  font-size:20px !important;
+}
+.strategy-desc{
+  max-width:820px;
+  margin-top:6px !important;
+  font-size:11.5px !important;
+  line-height:1.55 !important;
+}
+.cost-total{
+  min-width:auto !important;
+  padding:7px 10px !important;
+  border-radius:8px !important;
+}
+.cost-total b{
+  margin:0 !important;
+  font-size:11px !important;
+}
+
+/* 밝은 스킬 타임라인 */
+.timeline{
+  padding:12px 14px !important;
+}
+.step{
+  min-height:82px !important;
+}
+.step .clip-note{
+  color:#738297 !important;
+}
+
+/* 영상 */
+.video-overlay{
+  top:12px !important;
+  left:12px !important;
+  right:12px !important;
+}
+.now-badge,
+.timecode{
+  height:29px !important;
+}
+.timecode{
+  min-width:72px !important;
+}
+
+/* 재생바: 버튼 하나만 */
+.controls{
+  min-height:46px !important;
+  justify-content:flex-start !important;
+  padding:7px 12px !important;
+}
+.control-note{
+  display:none !important;
+}
+
+/* 사용하지 않는 요소 */
+.thesis,
+.footer-note,
+.prototype-note,
+.page-top{
+  display:none !important;
+}
+
+@media(max-width:960px){
+  .workspace{
+    grid-template-columns:1fr !important;
+  }
+}
+</style>
+
+
+<style>
+.step.done{opacity:.68}
+.step.active{opacity:1}
+.step.active::after{
+  content:"";
+  position:absolute;
+  left:0;
+  right:0;
+  bottom:0;
+  height:3px;
+  background:#ff7a3d;
+}
+</style>
+
+
+<style>
+/* =========================================================
+   TURN ACTION v14 · MAIN SITE TAB LANGUAGE
+   기존 기능 유지 / 시각 구조만 정리
+   ========================================================= */
+
+/* 본문 여백을 정돈 */
+.note-body{
+  padding:14px !important;
+}
+
+/* ---------------------------------------------------------
+   캐릭터 제목 + MIME/NEVE 전환을 같은 행으로
+   --------------------------------------------------------- */
+.character-head{
+  min-height:60px !important;
+  margin:0 !important;
+  padding:9px 12px 9px 16px !important;
+  display:flex !important;
+  align-items:center !important;
+  justify-content:space-between !important;
+  gap:16px !important;
+  border:1px solid var(--line) !important;
+  border-radius:14px 14px 0 0 !important;
+  background:#fff !important;
+}
+.character-head h3{
+  margin:0 !important;
+  font-size:18px !important;
+  line-height:1.2 !important;
+  color:#132741 !important;
+}
+.character-tabs{
+  margin:0 !important;
+  display:flex !important;
+  align-items:center !important;
+  justify-content:flex-end !important;
+  gap:8px !important;
+}
+.char-tab{
+  min-height:40px !important;
+  padding:0 13px !important;
+  border-radius:10px !important;
+  font-size:11.5px !important;
+}
+.char-tab::before{
+  width:24px !important;
+  height:24px !important;
+  margin-right:7px !important;
+}
+
+/* ---------------------------------------------------------
+   세로 카드 목록 → 사이트의 "캐릭터 일러스트 / 스킬 설명" 탭 구조
+   --------------------------------------------------------- */
+.workspace{
+  display:block !important;
+  border:1px solid var(--line) !important;
+  border-top:0 !important;
+  border-radius:0 0 14px 14px !important;
+  overflow:hidden !important;
+  background:#fff !important;
+}
+
+.mechanic-list{
+  width:100% !important;
+  min-height:55px !important;
+  padding:0 !important;
+  display:flex !important;
+  align-items:stretch !important;
+  gap:0 !important;
+  overflow-x:auto !important;
+  background:#f1f5fa !important;
+  border-right:0 !important;
+  border-bottom:1px solid var(--line) !important;
+  scrollbar-width:thin;
+}
+
+.mechanic-card{
+  position:relative !important;
+  flex:1 1 0 !important;
+  min-width:250px !important;
+  min-height:55px !important;
+  margin:0 !important;
+  padding:0 16px !important;
+  display:flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+  gap:7px !important;
+  border:0 !important;
+  border-right:1px solid #e2e8ef !important;
+  border-radius:0 !important;
+  background:transparent !important;
+  box-shadow:none !important;
+  transform:none !important;
+  color:#30445d !important;
+  white-space:nowrap;
+}
+.mechanic-card:last-child{
+  border-right:0 !important;
+}
+.mechanic-card:hover{
+  background:#f8fafc !important;
+  border-color:#e2e8ef !important;
+  transform:none !important;
+}
+.mechanic-card.active{
+  background:#fff !important;
+  border-color:#e2e8ef !important;
+  box-shadow:inset 0 -3px 0 var(--orange) !important;
+}
+
+.mechanic-num{
+  flex:none !important;
+  display:inline-block !important;
+  width:auto !important;
+  height:auto !important;
+  margin:0 !important;
+  padding:0 !important;
+  border-radius:0 !important;
+  background:transparent !important;
+  color:#8a98aa !important;
+  font:900 9px/1 Consolas,monospace !important;
+}
+.mechanic-card.active .mechanic-num{
+  background:transparent !important;
+  color:var(--orange) !important;
+}
+
+.mechanic-title{
+  min-height:0 !important;
+  display:block !important;
+  margin:0 !important;
+  color:#263b54 !important;
+  font-size:12.5px !important;
+  font-weight:900 !important;
+  line-height:1.3 !important;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+.mechanic-card.active .mechanic-title{
+  color:#d86124 !important;
+}
+.mechanic-summary{
+  display:none !important;
+}
+
+/* ---------------------------------------------------------
+   선택된 연계 설명 영역도 카드 안에서 한 덩어리로 정리
+   --------------------------------------------------------- */
+.player-card{
+  border:0 !important;
+  border-radius:0 !important;
+}
+.player-top{
+  padding:14px 16px 13px !important;
+  background:#fff !important;
+}
+.player-topline{
+  align-items:center !important;
+}
+.strategy-label{
+  margin-bottom:3px !important;
+  font-size:9px !important;
+  letter-spacing:.04em !important;
+}
+.player-top h4{
+  margin:0 !important;
+  font-size:19px !important;
+  line-height:1.32 !important;
+}
+.strategy-desc{
+  margin-top:6px !important;
+  font-size:11.5px !important;
+  line-height:1.5 !important;
+}
+.cost-total{
+  flex:none !important;
+  padding:6px 10px !important;
+  border-radius:8px !important;
+  background:#f5f8fc !important;
+}
+
+/* 타임라인은 기존 밝은 UI 유지하되 탭과 자연스럽게 연결 */
+.timeline{
+  padding:11px 14px 12px !important;
+  background:#f7f9fc !important;
+  border-top:1px solid #e7edf3 !important;
+}
+
+/* 모바일/좁은 화면에서는 가로 탭 스크롤 */
+@media(max-width:960px){
+  .character-head{
+    align-items:center !important;
+  }
+  .mechanic-list{
+    overflow-x:auto !important;
+  }
+  .mechanic-card{
+    flex:0 0 260px !important;
+  }
+}
+</style>
+
+
+<style>
+/* =========================================================
+   TURN ACTION v15 · SITE-INTEGRATED FINAL PASS
+   ========================================================= */
+
+/* 데이터 테이블 개발노트와 동일한 아코디언 헤더 */
+.note{
+  border-radius:18px !important;
+  border:1px solid #cfd8e3 !important;
+  box-shadow:0 14px 34px rgba(22,40,64,.06) !important;
+}
+.note-head{
+  min-height:84px !important;
+  padding:19px 20px 19px 25px !important;
+  background:#172942 !important;
+  color:#fff !important;
+  border-bottom:0 !important;
+  grid-template-columns:minmax(0,1fr) 44px !important;
+  gap:18px !important;
+}
+.note-head:hover{
+  background:#1b304d !important;
+}
+.note-title{
+  gap:13px !important;
+}
+.orange{
+  width:3px !important;
+  height:31px !important;
+  border-radius:99px !important;
+  background:#ec7f37 !important;
+}
+.note-head h2{
+  color:#fff !important;
+  font-size:20px !important;
+  line-height:1.2 !important;
+}
+.note-head p{
+  color:#d2dbe7 !important;
+  font-size:13px !important;
+  line-height:1.55 !important;
+}
+.chev{
+  width:42px !important;
+  height:42px !important;
+  border:1px solid rgba(255,255,255,.25) !important;
+  border-radius:11px !important;
+  background:rgba(255,255,255,.04) !important;
+}
+.chev:hover{
+  background:rgba(255,255,255,.09) !important;
+  border-color:rgba(255,255,255,.38) !important;
+}
+.chev-icon{
+  width:11px !important;
+  height:11px !important;
+  border-right:1.7px solid #f0f4f8 !important;
+  border-bottom:1.7px solid #f0f4f8 !important;
+}
+
+/* 연계 탭: 순차 번호 없이 제목만 */
+.mechanic-card{
+  padding:0 18px !important;
+}
+.mechanic-num{
+  display:none !important;
+}
+.mechanic-title{
+  font-size:12.5px !important;
+  text-align:center !important;
+}
+
+/* 선택한 연계 설명 + 재생 버튼을 같은 기준선에 */
+.player-top{
+  padding:14px 16px !important;
+}
+.player-topline{
+  display:flex !important;
+  align-items:center !important;
+  justify-content:space-between !important;
+  gap:20px !important;
+}
+.strategy-copy{
+  min-width:0;
+  flex:1 1 auto;
+}
+.strategy-label{
+  margin-bottom:3px !important;
+  color:#ec6c2c !important;
+  font-size:9px !important;
+}
+.player-top h4{
+  font-size:19px !important;
+  line-height:1.3 !important;
+}
+.strategy-desc{
+  margin:5px 0 0 !important;
+  font-size:11.5px !important;
+  line-height:1.5 !important;
+}
+
+/* 총 코스트 배지 대신 재생 버튼 */
+.player-play-btn{
+  flex:none !important;
+  min-height:36px !important;
+  padding:0 13px !important;
+  border:0 !important;
+  border-radius:8px !important;
+  background:#ff7a3d !important;
+  color:#fff !important;
+  font-size:11px !important;
+  font-weight:900 !important;
+  box-shadow:none !important;
+  white-space:nowrap !important;
+}
+.player-play-btn:hover{
+  background:#ed6d31 !important;
+}
+.cost-total,
+.controls{
+  display:none !important;
+}
+
+/* 스킬 타임라인: 아이콘 왼쪽 / 텍스트 오른쪽 */
+.timeline{
+  padding:12px 14px !important;
+  gap:0 !important;
+  background:#f7f9fc !important;
+  border-top:1px solid #e7edf3 !important;
+  border-bottom:1px solid var(--line) !important;
+}
+.step{
+  min-width:210px !important;
+  flex:1 0 210px !important;
+  min-height:70px !important;
+  padding:11px 12px !important;
+  display:grid !important;
+  grid-template-columns:38px minmax(0,1fr) !important;
+  grid-template-rows:1fr !important;
+  column-gap:11px !important;
+  align-items:center !important;
+  overflow:hidden !important;
+}
+.step .slot{
+  position:static !important;
+  grid-column:1 !important;
+  grid-row:1 !important;
+  width:38px !important;
+  height:38px !important;
+  margin:0 !important;
+  align-self:center !important;
+}
+.step .cost{
+  display:none !important;
+}
+.step-copy{
+  grid-column:2 !important;
+  grid-row:1 !important;
+  min-width:0 !important;
+  display:flex !important;
+  flex-direction:column !important;
+  justify-content:center !important;
+  gap:5px !important;
+}
+.step .name{
+  display:block !important;
+  margin:0 !important;
+  padding:0 !important;
+  color:#263b54 !important;
+  font-size:12px !important;
+  font-weight:900 !important;
+  line-height:1.3 !important;
+  white-space:nowrap !important;
+  overflow:hidden !important;
+  text-overflow:ellipsis !important;
+}
+.step .clip-note{
+  display:block !important;
+  margin:0 !important;
+  padding:0 !important;
+  color:#738297 !important;
+  font-size:10.5px !important;
+  font-weight:650 !important;
+  line-height:1.35 !important;
+  white-space:nowrap !important;
+  overflow:hidden !important;
+  text-overflow:ellipsis !important;
+}
+
+/* 현재 단계 표시도 카드 구조를 방해하지 않게 */
+.step.active::after{
+  content:"" !important;
+  position:absolute !important;
+  left:0 !important;
+  right:0 !important;
+  bottom:0 !important;
+  height:3px !important;
+  background:#ff7a3d !important;
+}
+.t-arrow{
+  flex:0 0 28px !important;
+  min-width:28px !important;
+  align-self:stretch !important;
+}
+
+/* 모바일 */
+@media(max-width:960px){
+  .note-head{
+    padding:17px !important;
+  }
+  .note-title{
+    display:grid !important;
+    grid-template-columns:4px minmax(0,1fr) !important;
+    column-gap:12px !important;
+    row-gap:7px !important;
+  }
+  .note-title .orange{
+    grid-row:1 / span 2 !important;
+    height:28px !important;
+  }
+  .note-title h2,
+  .note-title p{
+    grid-column:2 !important;
+  }
+  .player-topline{
+    align-items:flex-start !important;
+  }
+  .player-play-btn{
+    min-height:34px !important;
+  }
+}
+</style>
+
+
+<style>
+/* =========================================================
+   TURN ACTION v16 · TYPOGRAPHY / CLIP STARTS
+   ========================================================= */
+
+/* 전략 라벨과 제목을 한 줄로 */
+.strategy-copy{
+  display:grid !important;
+  grid-template-columns:auto minmax(0,1fr) !important;
+  grid-template-areas:
+    "label title"
+    "summary summary" !important;
+  align-items:end !important;
+  column-gap:10px !important;
+  row-gap:4px !important;
+}
+.strategy-label{
+  grid-area:label !important;
+  margin:0 !important;
+  color:#ec6c2c !important;
+  font-size:12.5px !important;
+  font-weight:900 !important;
+  line-height:1.35 !important;
+  white-space:nowrap !important;
+}
+.player-top h4{
+  grid-area:title !important;
+  margin:0 !important;
+  font-size:19px !important;
+  line-height:1.3 !important;
+}
+.strategy-desc{
+  grid-area:summary !important;
+  margin:0 !important;
+  font-size:11.5px !important;
+  line-height:1.5 !important;
+}
+
+/* 타임라인 카드 텍스트 크기 = 데이터 테이블 읽는 순서와 유사하게 */
+.step{
+  min-height:68px !important;
+}
+.step .name{
+  font-size:12.5px !important;
+  line-height:1.2 !important;
+}
+.step .clip-note{
+  font-size:10.5px !important;
+  line-height:1.2 !important;
+  color:#7b8999 !important;
+}
+
+/* 플레이 버튼 정렬 유지 */
+.player-topline{
+  align-items:center !important;
+}
+
+@media(max-width:900px){
+  .strategy-copy{
+    grid-template-columns:1fr !important;
+    grid-template-areas:
+      "label"
+      "title"
+      "summary" !important;
+    row-gap:3px !important;
+  }
+}
+</style>
+
+<style id="planning-child-style">
+html,body{
+  margin:0!important;padding:0!important;height:auto!important;min-height:0!important;
+  background:transparent!important;overflow-x:hidden!important;overflow-y:visible!important;
+  overflow-anchor:none!important;
+}
+.shell{width:100%!important;margin:0!important;padding:0!important;height:auto!important;min-height:0!important}
+.page-top,.topline{display:none!important}
+.note{
+  margin:0!important;padding:0!important;border:0!important;border-radius:0!important;
+  box-shadow:none!important;background:transparent!important;overflow:visible!important;
+  height:auto!important;min-height:0!important;
+}
+.note-head{display:none!important}
+.note-body-wrap,.note.collapsed .note-body-wrap{
+  display:block!important;opacity:1!important;overflow:visible!important;height:auto!important;min-height:0!important;
+}
+.note-body-clip{min-height:0!important;height:auto!important;overflow:visible!important}
+.note-body,.note.collapsed .note-body{
+  display:block!important;visibility:visible!important;opacity:1!important;height:auto!important;
+  min-height:0!important;max-height:none!important;overflow:visible!important;padding:0!important;background:transparent!important;
+}
+</style>
+</head><body>
+<div class="shell">
+<section class="note" id="note">
+<header class="note-head" id="noteToggle" role="button" tabindex="0" aria-expanded="true"><div class="note-title"><i class="orange"></i><h2>스킬 연계 연출</h2><p>코스트를 모아 여러 스킬을 한 턴에 연속으로 사용하고, 스킬 콤보와 연출을 애니메이션처럼 연결했습니다.</p></div><button class="chev" type="button" id="toggleButton"><span class="chev-icon"></span></button></header>
+<div class="note-body-wrap"><div class="note-body-clip"><div class="note-body">
+<div class="character-head"><h3 id="charTitle"></h3><div class="character-tabs" id="charTabs"></div></div>
+<div class="workspace"><div class="mechanic-list" id="mechanicList"></div><section class="player-card">
+<div class="player-top"><div class="player-topline"><div class="strategy-copy"><div class="strategy-label" id="strategyLabel"></div><h4 id="strategyTitle"></h4><p class="strategy-desc" id="strategySummary"></p></div><button class="play-btn player-play-btn" id="playChain" type="button">▶ 스킬 연계 재생</button></div></div>
+<div class="timeline" id="timeline"></div>
+<div class="video-wrap"><video id="video" controls playsinline preload="metadata"></video><div class="video-overlay">
+  <div class="now-badge" id="nowBadge"></div>
+  <div class="timecode" id="timecode">00.000</div>
+</div>
+<div class="progress-wrap"><div class="progress" id="progress"></div></div></div>
+
+
+</section></div>
+</div></div></div></section></div>
+<script>
+const DATA={"neve": {"name": "NEVE","ko": "네베","skills": {"gi": {"slot": "기","name": "일곱난쟁이의 부름","cost": 2,"video": "https://newdesgiienr.github.io/fill-grim-character-guide/Assets/VIDEOS/NEVE/gi.mp4"},"seung": {"slot": "승","name": "자기혐오의 꿈","cost": 2,"video": "https://newdesgiienr.github.io/fill-grim-character-guide/Assets/VIDEOS/NEVE/seung.mp4"},"jeon": {"slot": "전","name": "독사과","cost": 2,"video": "https://newdesgiienr.github.io/fill-grim-character-guide/Assets/VIDEOS/NEVE/jeon.mp4"},"gyeol": {"slot": "결","name": "종언","cost": 4,"video": "https://newdesgiienr.github.io/fill-grim-character-guide/Assets/VIDEOS/NEVE/gyeol.mp4"}},"mechanics": [{"num": "01","title": "[승] → [기]로 자기혐오 스택을 피해로 전환","summary": "[승]으로 자기혐오 스택을 먼저 쌓고, [기]로 누적된 스택을 피해로 바꿉니다.","why": "스택을 준비하는 스킬과 소비하는 스킬을 연속으로 사용해, 한 턴 안에서 준비와 폭발이 이어집니다.","steps": [{"skill": "seung","note": "승 스킬로 자기혐오 스택 누적","start": 0.386,"end": 0.934},{"skill": "gi","note": "기 스킬로 누적 스택 피해 전환","start": 0.491}]},{"num": "02","title": "[승] → [결] → [기]로 스택당 피해 강화","summary": "[승]으로 스택을 쌓고, [결]로 스택당 피해를 강화한 다음, [기]로 큰 피해를 넣습니다.","why": "누적 → 강화 → 폭발을 한 턴 안에서 이어가며, 충분한 코스트가 있을수록 연계의 완성도가 높아집니다.","steps": [{"skill": "seung","note": "승 스킬로 자기혐오 스택 누적","start": 0.386,"end": 0.934},{"skill": "gyeol","note": "결 스킬로 스택당 피해 증가","start": 0.828,"end": 2.998},{"skill": "gi","note": "기 스킬로 강화된 스택 피해","start": 0.491}]}]},"mime": {"name": "MIME","ko": "마임","skills": {"gi": {"slot": "기","name": "도약하는 물레","cost": 3,"video": "https://newdesgiienr.github.io/fill-grim-character-guide/Assets/VIDEOS/MIME/gi.mp4"},"seung": {"slot": "승","name": "가시나무","cost": 1,"video": "https://newdesgiienr.github.io/fill-grim-character-guide/Assets/VIDEOS/MIME/seung.mp4"},"jeon": {"slot": "전","name": "유혹하는 물레","cost": 2,"video": "https://newdesgiienr.github.io/fill-grim-character-guide/Assets/VIDEOS/MIME/jeon.mp4"},"gyeol": {"slot": "결","name": "영원한 잠","cost": 3,"video": "https://newdesgiienr.github.io/fill-grim-character-guide/Assets/VIDEOS/MIME/gyeol.mp4"}},"mechanics": [{"num": "01","title": "반복 사용으로 [기]를 진화시키고 큰 피해","summary": "[기]를 반복해서 사용하며 강화 스택을 쌓고, 진화한 [기]로 더 큰 피해를 노립니다.","why": "반복 사용 자체가 다음 공격을 강화해, 코스트를 공격력으로 누적시키는 연계입니다.","steps": [{"skill": "gi","note": "기 스킬 반복 사용","start": 0.672,"end": 2.559},{"skill": "gi","note": "기 스킬 강화","start": 0.672,"end": 2.559},{"skill": "gi","note": "강화된 기 스킬로 큰 피해","start": 0.672,"end": 2.559}]},{"num": "02","title": "[전] → [기]로 취약 후 피해 증폭","summary": "먼저 [전]으로 취약을 부여한 뒤 [기]를 연결해 더 큰 피해를 넣습니다.","why": "디버프를 먼저 걸고 공격을 이어가는 순서가 중요해, 같은 코스트도 연계 순서에 따라 결과가 달라집니다.","steps": [{"skill": "jeon","note": "전 스킬로 취약 부여","start": 0.307,"end": 2.007},{"skill": "gi","note": "취약 상태에 기 스킬 피해 집중","start": 0.672,"end": 2.559}]},{"num": "03","title": "[결] → [전] → [기]로 봉인·취약·큰 피해","summary": "[결]로 상대 스킬을 봉인하고, [전]으로 취약을 만든 뒤, [기]로 큰 피해를 넣는 3단 연계입니다.","why": "행동 제한 → 피해 증폭 → 마무리 공격을 한 턴 안에 연결해, 턴제 안에서도 콤보처럼 몰아치는 흐름을 만듭니다.","steps": [{"skill": "gyeol","note": "결 스킬로 상대 스킬 사용 봉인","start": 0.333,"end": 5.029},{"skill": "jeon","note": "전 스킬로 취약 부여","start": 0.307,"end": 2.007},{"skill": "gi","note": "기 스킬로 증폭 피해 마무리","start": 0.672,"end": 2.559}]}]}};
+let charKey="neve",mechanicIndex=0,stepIndex=0,chainMode=false;
+const $=s=>document.querySelector(s),video=$("#video");
+function C(){return DATA[charKey]} function M(){return C().mechanics[mechanicIndex]} function S(){return M().steps[stepIndex]} function K(){return C().skills[S().skill]}
+function renderTabs(){$("#charTabs").innerHTML=Object.entries(DATA).map(([k,c])=>`<button class="char-tab ${k===charKey?"active":""}" data-char="${k}">${c.ko} · ${c.name}</button>`).join("");document.querySelectorAll("[data-char]").forEach(b=>b.onclick=()=>{stopChain();charKey=b.dataset.char;mechanicIndex=0;stepIndex=0;renderAll();loadStep(false)})}
+function renderMechanics(){const c=C();$("#charTitle").textContent=`${c.ko} (${c.name})`;$("#mechanicList").innerHTML=c.mechanics.map((m,i)=>`<button class="mechanic-card ${i===mechanicIndex?"active":""}" data-mech="${i}"><span class="mechanic-title">${m.title}</span></button>`).join("");document.querySelectorAll("[data-mech]").forEach(b=>b.onclick=()=>{stopChain();mechanicIndex=+b.dataset.mech;stepIndex=0;renderAll();loadStep(false)})}
+function renderStrategy(){const m=M(),c=C();$("#strategyLabel").textContent=`${c.name} 스킬 연계`;$("#strategyTitle").textContent=m.title;$("#strategySummary").textContent=m.summary}
+function renderTimeline(){const c=C(),m=M();$("#timeline").innerHTML=m.steps.map((s,i)=>{const k=c.skills[s.skill],state=i===stepIndex?"active":(chainMode&&i<stepIndex?"done":"");return `${i?'<span class="t-arrow">→</span>':''}<div class="step ${state} skill-${s.skill}" data-step="${i}"><span class="slot">${k.slot}</span><span class="step-copy"><span class="name">${k.name}</span><span class="clip-note">${s.note}</span></span></div>`}).join("");document.querySelectorAll("[data-step]").forEach(el=>el.onclick=()=>{stopChain();stepIndex=+el.dataset.step;renderTimeline();loadStep(true)})}
+let playToken=0;
+
+function waitForEvent(target,eventName,timeout=5000){
+  return new Promise((resolve,reject)=>{
+    let timer=null;
+    const cleanup=()=>{
+      target.removeEventListener(eventName,onEvent);
+      target.removeEventListener("error",onError);
+      if(timer) clearTimeout(timer);
+    };
+    const onEvent=()=>{cleanup();resolve();};
+    const onError=()=>{cleanup();reject(new Error("video error"));};
+    target.addEventListener(eventName,onEvent,{once:true});
+    target.addEventListener("error",onError,{once:true});
+    timer=setTimeout(()=>{cleanup();resolve();},timeout);
+  });
+}
+
+async function loadStep(auto){
+  const token=++playToken;
+  const k=K();
+  clipBoundaryHandled=false;
+
+  $("#nowBadge").innerHTML=`<strong>${k.slot} 스킬</strong> · ${k.name} <span style="opacity:.68">(${stepIndex+1}/${M().steps.length})</span>`;
+  $("#timecode").textContent="00.000";
+  $("#progress").style.width="0%";
+
+  const sourceChanged=video.dataset.source!==k.video;
+
+  if(sourceChanged){
+    video.pause();
+    video.dataset.source=k.video;
+    video.src=k.video;
+    video.load();
+
+    if(video.readyState<1){
+      await waitForEvent(video,"loadedmetadata");
+    }
+  }
+
+  if(token!==playToken) return;
+
+  try{
+    video.currentTime=Number(S().start||0);
+  }catch(e){}
+
+  if(auto){
+    try{
+      await video.play();
+    }catch(e){
+      console.warn("연계 영상 재생 실패:",e);
+    }
+  }
+}
+
+async function playChain(){
+  chainMode=true;
+  stepIndex=0;
+  renderTimeline();
+  $("#playChain").textContent="■ 연계 재생 중지";
+  await loadStep(true);
+}
+
+function stopChain(){
+  chainMode=false;
+  playToken++;
+  video.pause();
+  $("#playChain").textContent="▶ 스킬 연계 재생";
+  renderTimeline();
+}
+
+$("#playChain").onclick=()=>chainMode?stopChain():playChain();
+
+video.addEventListener("ended",async ()=>{
+  await finishCurrentClip();
+});
+function formatTimecode(sec){
+  if(!isFinite(sec) || sec < 0) sec = 0;
+  const whole = Math.floor(sec);
+  const ms = Math.floor((sec - whole) * 1000);
+  return `${String(whole).padStart(2,"0")}.${String(ms).padStart(3,"0")}`;
+}
+let timeRaf=null;
+function clipStart(){return Number(S().start||0)}
+function clipEnd(){
+  const e=Number(S().end);
+  if(isFinite(e)&&e>clipStart()) return e;
+  if(video.duration&&isFinite(video.duration)) return video.duration;
+  return Infinity;
+}
+function clipCurrent(){return Math.max(0,video.currentTime-clipStart())}
+function clipDuration(){
+  const e=clipEnd();
+  if(!isFinite(e)) return 0;
+  return Math.max(0.001,e-clipStart());
+}
+let clipBoundaryHandled=false;
+
+async function finishCurrentClip(){
+  if(clipBoundaryHandled) return;
+  clipBoundaryHandled=true;
+
+  const end=clipEnd();
+  if(isFinite(end)){
+    try{ video.currentTime=end; }catch(e){}
+  }
+  video.pause();
+
+  if(chainMode){
+    if(stepIndex<M().steps.length-1){
+      stepIndex++;
+      renderTimeline();
+      await loadStep(true);
+    }else{
+      chainMode=false;
+      $("#playChain").textContent="↻ 다시 연계 재생";
+      renderTimeline();
+      $("#timecode").textContent=formatTimecode(clipDuration());
+      $("#progress").style.width="100%";
+    }
+  }
+}
+
+function updatePreciseTime(){
+  const current=clipCurrent();
+  const duration=clipDuration();
+
+  $("#timecode").textContent=formatTimecode(current);
+
+  if(duration>0&&isFinite(duration)){
+    $("#progress").style.width=(Math.min(current/duration,1)*100)+"%";
+  }
+
+  const end=clipEnd();
+  if(!clipBoundaryHandled && isFinite(end) && video.currentTime >= end - 0.006){
+    finishCurrentClip();
+    return;
+  }
+
+  if(!video.paused&&!video.ended) timeRaf=requestAnimationFrame(updatePreciseTime);
+}
+video.addEventListener("loadedmetadata",()=>{
+  $("#timecode").textContent=formatTimecode(clipCurrent());
+});
+video.addEventListener("play",()=>{
+  cancelAnimationFrame(timeRaf);
+  updatePreciseTime();
+});
+video.addEventListener("pause",()=>{
+  cancelAnimationFrame(timeRaf);
+  $("#timecode").textContent=formatTimecode(clipCurrent());
+});
+video.addEventListener("seeked",()=>{
+  $("#timecode").textContent=formatTimecode(clipCurrent());
+});
+video.addEventListener("timeupdate",()=>{
+  const end=clipEnd();
+  if(!clipBoundaryHandled && isFinite(end) && video.currentTime >= end - 0.006){
+    finishCurrentClip();
+  }
+});
+function renderAll(){renderTabs();renderMechanics();renderStrategy();renderTimeline()} renderAll();loadStep(false);
+(()=>{const note=$("#note"),toggle=$("#noteToggle"),btn=$("#toggleButton");const setOpen=o=>{note.classList.toggle("collapsed",!o);toggle.setAttribute("aria-expanded",String(o))};const flip=()=>setOpen(toggle.getAttribute("aria-expanded")!=="true");toggle.addEventListener("click",flip);toggle.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();flip()}});btn.addEventListener("click",e=>e.stopPropagation());btn.addEventListener("click",flip);setOpen(true)})();
+</script>
+<script id="planning-height-reporter">
+(function(){
+  const KEY="skill";
+  let lastHeight=0, raf=0;
+  function contentHeight(){
+    const target=document.querySelector(".note-body")||document.querySelector(".note")||document.querySelector(".shell")||document.body;
+    if(!target)return 0;
+    const r=target.getBoundingClientRect();
+    return Math.ceil(Math.max(target.scrollHeight||0,target.offsetHeight||0,r.height||0));
+  }
+  function report(force=false){
+    cancelAnimationFrame(raf);
+    raf=requestAnimationFrame(()=>{
+      const h=contentHeight();
+      if(!h)return;
+      if(!force&&Math.abs(h-lastHeight)<1)return;
+      lastHeight=h;
+      parent.postMessage({type:"fill-grim-planning-height",key:KEY,height:h},"*");
+    });
+  }
+  window.addEventListener("load",()=>{report(true);setTimeout(()=>report(true),80);setTimeout(()=>report(true),300);setTimeout(()=>report(true),900)});
+  window.addEventListener("message",e=>{if(e.data&&e.data.type==="fill-grim-planning-measure")report(true)});
+  document.addEventListener("click",()=>{report();setTimeout(()=>report(true),120);setTimeout(()=>report(true),400)});
+  if(window.ResizeObserver){
+    const target=document.querySelector(".note-body")||document.querySelector(".note")||document.querySelector(".shell");
+    if(target)new ResizeObserver(()=>report()).observe(target);
+  }
+  if(document.fonts&&document.fonts.ready)document.fonts.ready.then(()=>report(true));
+})();
+</script>
+
+</body></html>
