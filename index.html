@@ -1219,10 +1219,11 @@
 .planning-intent-host{width:100%;margin:0 0 18px!important;padding:0;box-sizing:border-box;}
 .planning-intent-frame{display:block;width:100%;max-width:100%;height:92px;min-height:92px;border:0;background:transparent;overflow:hidden;box-sizing:border-box;}
 
-/* 빠른 이동 순서: 기획 과정 → 게임 가이드 → 캐릭터 가이드 */
+/* 빠른 이동 순서: 기획 과정 → 게임 가이드 → 캐릭터 가이드 → 밸런싱 사이트 */
 .guide-navigator .guide-nav-button[onclick*="__openPlanningNotes"]{order:1;}
 .guide-navigator .guide-nav-button[data-guide-target="gameGuideHeader"]{order:2;}
 .guide-navigator .guide-nav-button[data-guide-target="characterGuideHeader"]{order:3;}
+.guide-navigator .balance-nav-button{order:4;text-decoration:none;}
 
 .hero-meta-row{display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:16px;}
 .hero-meta-row .meta{margin-top:0!important;}
@@ -1253,7 +1254,8 @@
   <nav class="guide-navigator" aria-label="가이드 빠른 이동">
     <button class="guide-nav-button" type="button" onclick="window.__openPlanningNotes&&window.__openPlanningNotes()">기획 과정</button>
     <button class="guide-nav-button" type="button" data-guide-target="gameGuideHeader" data-guide-toggle="gameGuideToggle">게임 가이드로 이동</button>
-    <button class="guide-nav-button" type="button" data-guide-target="characterGuideHeader" data-guide-toggle="characterGuideToggle">캐릭터 가이드로 이동</button>
+    <button class="guide-nav-button" type="button" data-guide-target="characterGuideHeader" data-guide-toggle="characterGuideToggle" data-guide-character="neve">캐릭터 가이드로 이동</button>
+    <a class="guide-nav-button balance-nav-button" href="https://newdesgiienr.github.io/Fill-Grim-Balance-Dashboard/" target="_blank" rel="noopener noreferrer">밸런싱 사이트로 이동</a>
   </nav>
 
   <header class="top-card panel guide-overview-card" id="gameGuideHeader">
@@ -2003,7 +2005,7 @@ $$('.main-tab').forEach(btn => btn.addEventListener('click', () => {
   }
 }));
 
-setCharacter('mime');
+setCharacter('neve');
 </script>
 
 <script>
@@ -2076,6 +2078,10 @@ setCharacter('mime');
       const toggle = document.getElementById(button.dataset.guideToggle);
       if (!target) return;
 
+      if (button.dataset.guideCharacter && typeof setCharacter === 'function') {
+        setCharacter(button.dataset.guideCharacter);
+      }
+
       if (toggle && toggle.getAttribute('aria-expanded') !== 'true') {
         toggle.click();
       }
@@ -2139,7 +2145,7 @@ setCharacter('mime');
       <div class="logo planning-notes-logo">PLAN<br>NOTE</div>
       <div class="brand-copy">
         <h1>기획 과정</h1>
-        <div class="brand-sub">플레이 시나리오, 데이터 구조, 스킬 연계 연출, 카드의 타격감 연출을 확인합니다.</div>
+        <div class="brand-sub">플레이 시나리오, 데이터 구조, 스킬 연계 연출을 확인합니다.</div>
       </div>
     </div>
     <button class="guide-toggle" id="planningNotesToggle" type="button"
@@ -2262,25 +2268,7 @@ setCharacter('mime');
           </div>
         </section>
 
-        <section class="planning-note-entry">
-          <div class="section-titlebar collapsible-section-titlebar">
-            <div class="section-heading">
-              <div class="section-title">카드의 타격감 연출</div>
-              <div class="section-subtitle">카드 배분·매칭·연속 획득·획득 보류의 주요 판정마다 즉각적인 시각 피드백과 템포를 배치했습니다.</div>
-            </div>
-            <button class="section-toggle planning-entry-toggle" type="button"
-              aria-expanded="false" aria-controls="planningCardPanel" aria-label="카드의 타격감 연출 펼치기">
-              <span class="section-toggle-icon" aria-hidden="true"></span>
-            </button>
-          </div>
-          <div class="planning-collapse" id="planningCardPanel">
-            <div class="planning-entry-clip">
-              <div class="content-card panel section-collapse-content planning-entry-content">
-                <iframe class="planning-note-frame" id="planningCardFrame" data-note-key="card" title="카드의 타격감 연출 내용" allow="autoplay; fullscreen"></iframe>
-              </div>
-            </div>
-          </div>
-        </section>
+        
 
       </div>
     </div>
@@ -2359,118 +2347,6 @@ setCharacter('mime');
     }catch(e){}
   });
 
-  const cdf=node.querySelector("#planningCardFrame");
-  if(cdf)cdf.addEventListener("load",()=>{
-    try{
-      const cd=cdf.contentDocument;
-      const cw=cdf.contentWindow;
-      if(cd&&cd.head&&!cd.getElementById("fillgrim-card-quality-copy")){
-        const cs=cd.createElement("style");
-        cs.id="fillgrim-card-quality-copy";
-        cs.textContent=
-          ".flow{min-width:1240px!important}"+
-          ".stage-desc{font-size:13.4px!important;line-height:1.6!important;font-weight:740!important}"+
-          ".video-shell{width:100%!important;aspect-ratio:16/9!important;overflow:hidden!important;background:#0b111a!important}"+
-          ".video-shell video{width:100%!important;height:100%!important;max-width:none!important;max-height:none!important;object-fit:contain!important;image-rendering:auto!important;display:block!important;background:#0b111a!important}";
-        cd.head.appendChild(cs);
-      }
-
-      /* 카드 타격감 영상도 embedded base64가 아니라 Assets의 원본 MP4를 직접 사용 */
-      const CARD_ASSET_URL="Assets/VIDEOS/SCENARIO/01_card_matching.mp4";
-      const segments=[
-        {title:"카드 배분",start:0.000,end:1.796},
-        {title:"카드 매칭",start:10.442,end:13.533},
-        {title:"연속 획득",start:6.184,end:10.192},
-        {title:"획득 보류",start:2.074,end:5.862}
-      ];
-      const video=cd.querySelector("#video");
-      const buttons=Array.from(cd.querySelectorAll(".stage"));
-      const title=cd.querySelector("#currentTitle");
-      const playBtn=cd.querySelector("#clipPlayBtn");
-      const errorBox=cd.querySelector("#videoError");
-      let activeIndex=0;
-      let pendingPlay=false;
-
-      const seekCurrent=(autoplay=false)=>{
-        const seg=segments[activeIndex];
-        if(!video||!seg)return;
-        const apply=()=>{
-          try{video.currentTime=seg.start;}catch(e){}
-          if(autoplay){
-            const p=video.play();
-            if(p&&p.catch)p.catch(()=>{});
-          }
-        };
-        if(video.dataset.directAsset!==CARD_ASSET_URL){
-          video.pause();
-          video.dataset.directAsset=CARD_ASSET_URL;
-          video.removeAttribute("src");
-          video.src=CARD_ASSET_URL;
-          video.preload="metadata";
-          video.load();
-          if(video.readyState>=1)apply();
-          else video.addEventListener("loadedmetadata",apply,{once:true});
-        }else{
-          apply();
-        }
-      };
-
-      const selectStage=(index,autoplay=false)=>{
-        activeIndex=index;
-        buttons.forEach((el,i)=>el.classList.toggle("active",i===index));
-        if(title)title.textContent=segments[index].title;
-        if(playBtn)playBtn.textContent="▶ 재생";
-        if(errorBox)errorBox.style.display="none";
-        seekCurrent(autoplay);
-      };
-
-      buttons.forEach((el,index)=>{
-        el.addEventListener("click",e=>{
-          e.preventDefault();
-          e.stopImmediatePropagation();
-          try{parent.postMessage({type:"fill-grim-frame-scroll-lock",key:"card",phase:"start"},"*");}catch(_){}
-          selectStage(index,false);
-          setTimeout(()=>{try{parent.postMessage({type:"fill-grim-frame-scroll-lock",key:"card",phase:"settle"},"*");}catch(_){ }},450);
-        },true);
-      });
-
-      if(playBtn)playBtn.addEventListener("click",e=>{
-        e.preventDefault();
-        e.stopImmediatePropagation();
-        const seg=segments[activeIndex];
-        if(video.paused||video.ended){
-          if(video.ended||video.currentTime<seg.start-.05||video.currentTime>=seg.end-.03){
-            try{video.currentTime=seg.start;}catch(_){}
-          }
-          const p=video.play();
-          if(p&&p.catch)p.catch(()=>{});
-        }else{
-          video.pause();
-        }
-      },true);
-
-      if(video){
-        video.addEventListener("timeupdate",()=>{
-          const seg=segments[activeIndex];
-          if(!seg)return;
-          if(video.currentTime>=seg.end){
-            video.pause();
-            try{video.currentTime=seg.end;}catch(_){}
-            if(playBtn)playBtn.textContent="↻ 다시 재생";
-          }
-        });
-        video.addEventListener("play",()=>{if(playBtn)playBtn.textContent="■ 정지";});
-        video.addEventListener("pause",()=>{
-          const seg=segments[activeIndex];
-          if(playBtn&&(!seg||video.currentTime<seg.end-.03))playBtn.textContent="▶ 재생";
-        });
-        video.addEventListener("error",()=>{if(errorBox)errorBox.style.display="block";});
-      }
-
-      selectStage(0,false);
-    }catch(e){}
-  });
-
   window.addEventListener("message",e=>{
     const m=e.data;
     if(!m||m.type!=="fillgrim-intent-height")return;
@@ -2478,8 +2354,8 @@ setCharacter('mime');
     if(f)f.style.height=Math.max(84,Math.ceil(Number(m.height)||84))+"px";
   });
 }(function(){
-  const NOTE_URL={data:"planning-data.html",skill:"planning-skill.html",card:"planning-card.html"};
-  const frameIds={data:"planningDataFrame",skill:"planningSkillFrame",card:"planningCardFrame"};
+  const NOTE_URL={data:"planning-data.html",skill:"planning-skill.html"};
+  const frameIds={data:"planningDataFrame",skill:"planningSkillFrame"};
   const urls={};
   let viewportLock=null;
   let viewportLockRaf=0;
@@ -2635,7 +2511,6 @@ setCharacter('mime');
   function ensureFrameLoaded(key){
     const frame=document.getElementById(frameIds[key]);
     if(!frame||frame.dataset.loaded==="1")return;
-    frame.addEventListener("load",()=>installFrameScrollGuard(frame,key),{once:true});
     frame.src=NOTE_URL[key];
     frame.dataset.loaded="1";
   }
@@ -2650,7 +2525,7 @@ setCharacter('mime');
     if(!d)return;
 
     if(d.type==="fill-grim-frame-scroll-lock"){
-      const frame=d.key==="card"?document.getElementById("planningCardFrame"):document.getElementById("planningNotesSection");
+      const frame=document.getElementById("planningNotesSection");
       if(d.phase==="start"){
         if(!viewportLock)beginViewportLock(frame,3000);
         else extendViewportLock(1800);
@@ -2667,9 +2542,6 @@ setCharacter('mime');
     if(!frame||!h)return;
     const current=Math.round(frame.getBoundingClientRect().height);
     if(Math.abs(current-h)>=1)frame.style.height=h+"px";
-    if(d.key==="card"&&viewportLock){
-      extendViewportLock(1000);
-    }
   });
 
   function bindEntryToggle(button,label,key){
@@ -2703,7 +2575,6 @@ setCharacter('mime');
   bindEntryToggle(document.querySelector('[aria-controls="planningScenarioPanel"]'),"플레이 시나리오",null);
   bindEntryToggle(document.querySelector('[aria-controls="planningDataPanel"]'),"데이터 테이블","data");
   bindEntryToggle(document.querySelector('[aria-controls="planningSkillPanel"]'),"스킬 연계 연출","skill");
-  bindEntryToggle(document.querySelector('[aria-controls="planningCardPanel"]'),"카드의 타격감 연출","card");
 
   /* 플레이 시나리오 */
   const scenarioStages=[{"title":"카드 매칭","desc":"카드를 내고, 같은 월을 맞춰 가져간다.","source":"Assets/VIDEOS/SCENARIO/01_card_matching.mp4"},{"title":"족보 완성","desc":"족보를 맞춰 코스트를 번다.","source":"Assets/VIDEOS/SCENARIO/02_yaku_complete.mp4"},{"title":"특수 상황","desc":"특수 상황으로 코스트를 번다.","source":"Assets/VIDEOS/SCENARIO/03_special_situation.mp4"},{"title":"게임 종료 조건","desc":"코스트로 발동한 스킬로 상대의 체력을 0으로 만든다.","source":"Assets/VIDEOS/SCENARIO/04_game_end_condition.mp4"}];
