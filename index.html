@@ -14,17 +14,52 @@ html,body{margin:0;background:#f2f5f9;font-family:Inter,Pretendard,"Noto Sans KR
 <div class="boot" id="boot">FILL GRIM 가이드를 불러오는 중...</div>
 <script>
 (async function(){
-  const BASE_INDEX_URL="https://raw.githubusercontent.com/Newdesgiienr/fill-grim-character-guide/ea0d7aa553cd3304dd880f9dd32ed301d26f3cae/index.html";
+  const BASE_INDEX_URLS=[
+    "https://cdn.jsdelivr.net/gh/Newdesgiienr/fill-grim-character-guide@ea0d7aa553cd3304dd880f9dd32ed301d26f3cae/index.html",
+    "https://raw.githubusercontent.com/Newdesgiienr/fill-grim-character-guide/ea0d7aa553cd3304dd880f9dd32ed301d26f3cae/index.html"
+  ];
 
   function replaceRequired(source,from,to,label){
     if(!source.includes(from)) throw new Error(label+" 수정 위치를 찾지 못했습니다.");
     return source.replace(from,to);
   }
 
+  async function fetchTextWithTimeout(url,timeout=12000){
+    const controller=new AbortController();
+    const timer=setTimeout(()=>controller.abort(),timeout);
+    try{
+      const response=await fetch(url,{cache:"no-store",signal:controller.signal});
+      if(!response.ok)throw new Error("HTTP "+response.status);
+      return await response.text();
+    }finally{
+      clearTimeout(timer);
+    }
+  }
+
+  async function fetchFirst(urls){
+    let lastError=null;
+    for(const url of urls){
+      try{
+        return await fetchTextWithTimeout(url);
+      }catch(err){
+        lastError=err;
+      }
+    }
+    throw lastError||new Error("메인 가이드 소스를 불러오지 못했습니다.");
+  }
+
   try{
-    const response=await fetch(BASE_INDEX_URL,{cache:"no-store"});
-    if(!response.ok)throw new Error("base index "+response.status);
-    let source=await response.text();
+    let source=await fetchFirst(BASE_INDEX_URLS);
+
+    /* 중첩 로더가 raw.githubusercontent.com을 다시 기다리며 멈추는 문제 방지 */
+    source=source.replace(
+      'const SNAPSHOT_URL="https://raw.githubusercontent.com/Newdesgiienr/fill-grim-character-guide/be4fc85758df63aa37a53973ff18fadbc3e1d6be/index.html";',
+      'const SNAPSHOT_URL="https://cdn.jsdelivr.net/gh/Newdesgiienr/fill-grim-character-guide@be4fc85758df63aa37a53973ff18fadbc3e1d6be/index.html";'
+    );
+    source=source.replace(
+      'const response=await fetch(SNAPSHOT_URL,{cache:"no-store"});',
+      'const controller=new AbortController();const timer=setTimeout(()=>controller.abort(),12000);let response;try{response=await fetch(SNAPSHOT_URL,{cache:"no-store",signal:controller.signal});}finally{clearTimeout(timer);}'
+    );
 
     const SCENARIO_VIDEO_SOURCES=[
       "https://newdesgiienr.github.io/fill-grim-character-guide/Assets/VIDEOS/SCENARIO/01_card_matching.mp4",
@@ -121,7 +156,10 @@ html,body{margin:0;background:#f2f5f9;font-family:Inter,Pretendard,"Noto Sans KR
     document.write(source);
     document.close();
   }catch(err){
-    document.getElementById("boot").innerHTML='<div class="boot-error"><b>통합 사이트를 불러오지 못했습니다.</b><br>'+String(err.message||err)+'</div>';
+    document.getElementById("boot").innerHTML=
+      '<div class="boot-error"><b>통합 사이트를 불러오지 못했습니다.</b><br>'+
+      String(err&&err.message?err.message:err)+
+      '<br><small>네트워크 로딩이 12초를 넘으면 자동으로 중단되도록 수정했습니다.</small></div>';
   }
 })();
 </script>
