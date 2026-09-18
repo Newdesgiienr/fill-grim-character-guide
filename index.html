@@ -29,7 +29,7 @@ html,body{margin:0;background:#f2f5f9;font-family:Inter,Pretendard,"Noto Sans KR
     source=replaceRequired(
       source,
       'aria-expanded=\\"true\\" aria-controls=\\"planningNotesContent\\" aria-label=\\"기획 노트 접기\\"',
-      'aria-expanded=\\"false\\" aria-controls=\\"planningNotesContent\\" aria-label=\\"기획 노트 펼치기\\"',
+      'aria-expanded=\\"false\\" aria-controls=\\"planningNotesContent\\" aria-label=\\"기획 과정 펼치기\\"',
       "기획 노트 토글"
     );
     source=replaceRequired(
@@ -52,13 +52,25 @@ html,body{margin:0;background:#f2f5f9;font-family:Inter,Pretendard,"Noto Sans KR
     const newMount='if(host&&template){const node=template.content.firstElementChild.cloneNode(true);const gg=document.getElementById("gameGuideHeader");if(gg)host.insertBefore(node,gg);else host.appendChild(node);const pif=node.querySelector("#planningIntentFrame");if(pif)pif.addEventListener("load",()=>{try{const d=pif.contentDocument;const target=d.querySelector(".preview-shell")||d.body||d.documentElement;const fit=()=>{if(!target)return;const h=Math.max(84,Math.ceil(target.getBoundingClientRect().height));pif.style.height=h+"px";};fit();if(window.ResizeObserver)new ResizeObserver(fit).observe(target);pif.contentWindow.addEventListener("resize",fit);}catch(e){}});window.addEventListener("message",e=>{const m=e.data;if(!m||m.type!=="fillgrim-intent-height")return;const f=document.getElementById("planningIntentFrame");if(f)f.style.height=Math.max(84,Math.ceil(Number(m.height)||84))+"px";});}';
     source=replaceRequired(source,oldMount,newMount,"기획 노트 배치");
 
+    source=replaceRequired(
+      source,
+      '<h1>기획 노트</h1>',
+      '<h1>기획 과정</h1>',
+      "기획 과정 제목"
+    );
+
+    const navOld='\'$1\\n    <button class="guide-nav-button" type="button" onclick="window.__openPlanningNotes&&window.__openPlanningNotes()">기획 노트로 이동</button>\'';
+    const navNew='\'<button class="guide-nav-button" type="button" onclick="window.__openPlanningNotes&&window.__openPlanningNotes()">기획 과정</button>\\n    $1\'';
+    source=replaceRequired(source,navOld,navNew,"기획 과정 버튼 순서");
+
+    source=source.replace('`기획 노트 ${open?"접기":"펼치기"}`','`기획 과정 ${open?"접기":"펼치기"}`');
+
     const responseHook='let html=await response.text();';
     const responsePatch=`let html=await response.text();
     html=html.replace(
       '<div class="meta">화투 기반 카드 매칭 전략 게임</div>',
       '<div class="hero-meta-row"><div class="hero-tools-badge"><span class="hero-tool-item"><img class="hero-tool-icon" src="Assets/TOOLS/codex.png" alt=""><span>ChatGPT Codex</span></span><span class="hero-tool-item"><img class="hero-tool-icon" src="Assets/TOOLS/unity.png" alt=""><span>Unity</span></span><span class="hero-tool-note">연동 개발</span></div><div class="meta">화투 기반 카드 매칭 전략 게임</div></div>'
-    );
-    html=html.replace(/<\\/body>/i,"<script id=\"planning-process-ui-patch\">\ndocument.addEventListener(\"DOMContentLoaded\",function(){\n  setTimeout(function(){\n    const navButtons=[...document.querySelectorAll(\".guide-nav-button\")];\n    const planningButton=navButtons.find(btn=>/기획\\s*노트/.test(btn.textContent||\"\"));\n    if(planningButton){\n      planningButton.textContent=\"기획 과정\";\n      const navParent=planningButton.parentElement;\n      if(navParent)navParent.insertBefore(planningButton,navParent.firstElementChild);\n    }\n    const planningTitle=document.querySelector(\"#planningNotesHeader h1\");\n    if(planningTitle)planningTitle.textContent=\"기획 과정\";\n    const planningToggle=document.getElementById(\"planningNotesToggle\");\n    if(planningToggle){\n      const opened=planningToggle.getAttribute(\"aria-expanded\")===\"true\";\n      planningToggle.setAttribute(\"aria-label\",opened?\"기획 과정 접기\":\"기획 과정 펼치기\");\n    }\n  },0);\n});\n<\\/script>\n</body>");`;
+    );`;
     source=replaceRequired(source,responseHook,responsePatch,"히어로 도구 표시");
 
     const cssHook='html=html.replace(/<\\/head>/i,planningCss+"\\n</head>");';
