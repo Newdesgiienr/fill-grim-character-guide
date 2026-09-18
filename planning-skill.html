@@ -341,7 +341,7 @@ button{font:inherit}
   display:block;
   margin-top:6px;
   color:#66778d;
-  font-size:11.5px;
+  font-size:13.4px;
   line-height:1.6;
 }
 .player-card{
@@ -397,8 +397,8 @@ button{font:inherit}
 .strategy-desc{
   margin:9px 0 0;
   color:#5f7188;
-  font-size:12.5px;
-  line-height:1.65;
+  font-size:13.4px;
+  line-height:1.6;
 }
 .timeline{
   display:flex;
@@ -455,8 +455,8 @@ button{font:inherit}
   display:block;
   margin-top:4px;
   color:#758499;
-  font-size:10px;
-  line-height:1.45;
+  font-size:13.4px;
+  line-height:1.6;
 }
 .step .cost{
   position:absolute;
@@ -1620,7 +1620,7 @@ html,body{
 </section></div>
 </div></div></div></section></div>
 <script>
-const DATA={"neve": {"name": "NEVE","ko": "네베","skills": {"gi": {"slot": "기","name": "일곱난쟁이의 부름","cost": 2,"video": "https://newdesgiienr.github.io/fill-grim-character-guide/Assets/VIDEOS/NEVE/gi.mp4"},"seung": {"slot": "승","name": "자기혐오의 꿈","cost": 2,"video": "https://newdesgiienr.github.io/fill-grim-character-guide/Assets/VIDEOS/NEVE/seung.mp4"},"jeon": {"slot": "전","name": "독사과","cost": 2,"video": "https://newdesgiienr.github.io/fill-grim-character-guide/Assets/VIDEOS/NEVE/jeon.mp4"},"gyeol": {"slot": "결","name": "종언","cost": 4,"video": "https://newdesgiienr.github.io/fill-grim-character-guide/Assets/VIDEOS/NEVE/gyeol.mp4"}},"mechanics": [{"num": "01","title": "[승] → [기]로 자기혐오 스택을 피해로 전환","summary": "[승]으로 자기혐오 스택을 먼저 쌓고, [기]로 누적된 스택을 피해로 바꿉니다.","why": "스택을 준비하는 스킬과 소비하는 스킬을 연속으로 사용해, 한 턴 안에서 준비와 폭발이 이어집니다.","steps": [{"skill": "seung","note": "승 스킬로 자기혐오 스택 누적","start": 0.386,"end": 0.934},{"skill": "gi","note": "기 스킬로 누적 스택 피해 전환","start": 0.491}]},{"num": "02","title": "[승] → [결] → [기]로 스택당 피해 강화","summary": "[승]으로 스택을 쌓고, [결]로 스택당 피해를 강화한 다음, [기]로 큰 피해를 넣습니다.","why": "누적 → 강화 → 폭발을 한 턴 안에서 이어가며, 충분한 코스트가 있을수록 연계의 완성도가 높아집니다.","steps": [{"skill": "seung","note": "승 스킬로 자기혐오 스택 누적","start": 0.386,"end": 0.934},{"skill": "gyeol","note": "결 스킬로 스택당 피해 증가","start": 0.828,"end": 2.998},{"skill": "gi","note": "기 스킬로 강화된 스택 피해","start": 0.491}]}]},"mime": {"name": "MIME","ko": "마임","skills": {"gi": {"slot": "기","name": "도약하는 물레","cost": 3,"video": "https://newdesgiienr.github.io/fill-grim-character-guide/Assets/VIDEOS/MIME/gi.mp4"},"seung": {"slot": "승","name": "가시나무","cost": 1,"video": "https://newdesgiienr.github.io/fill-grim-character-guide/Assets/VIDEOS/MIME/seung.mp4"},"jeon": {"slot": "전","name": "유혹하는 물레","cost": 2,"video": "https://newdesgiienr.github.io/fill-grim-character-guide/Assets/VIDEOS/MIME/jeon.mp4"},"gyeol": {"slot": "결","name": "영원한 잠","cost": 3,"video": "https://newdesgiienr.github.io/fill-grim-character-guide/Assets/VIDEOS/MIME/gyeol.mp4"}},"mechanics": [{"num": "01","title": "반복 사용으로 [기]를 진화시키고 큰 피해","summary": "[기]를 반복해서 사용하며 강화 스택을 쌓고, 진화한 [기]로 더 큰 피해를 노립니다.","why": "반복 사용 자체가 다음 공격을 강화해, 코스트를 공격력으로 누적시키는 연계입니다.","steps": [{"skill": "gi","note": "기 스킬 반복 사용","start": 0.672,"end": 2.559},{"skill": "gi","note": "기 스킬 강화","start": 0.672,"end": 2.559},{"skill": "gi","note": "강화된 기 스킬로 큰 피해","start": 0.672,"end": 2.559}]},{"num": "02","title": "[전] → [기]로 취약 후 피해 증폭","summary": "먼저 [전]으로 취약을 부여한 뒤 [기]를 연결해 더 큰 피해를 넣습니다.","why": "디버프를 먼저 걸고 공격을 이어가는 순서가 중요해, 같은 코스트도 연계 순서에 따라 결과가 달라집니다.","steps": [{"skill": "jeon","note": "전 스킬로 취약 부여","start": 0.307,"end": 2.007},{"skill": "gi","note": "취약 상태에 기 스킬 피해 집중","start": 0.672,"end": 2.559}]},{"num": "03","title": "[결] → [전] → [기]로 봉인·취약·큰 피해","summary": "[결]로 상대 스킬을 봉인하고, [전]으로 취약을 만든 뒤, [기]로 큰 피해를 넣는 3단 연계입니다.","why": "행동 제한 → 피해 증폭 → 마무리 공격을 한 턴 안에 연결해, 턴제 안에서도 콤보처럼 몰아치는 흐름을 만듭니다.","steps": [{"skill": "gyeol","note": "결 스킬로 상대 스킬 사용 봉인","start": 0.333,"end": 5.029},{"skill": "jeon","note": "전 스킬로 취약 부여","start": 0.307,"end": 2.007},{"skill": "gi","note": "기 스킬로 증폭 피해 마무리","start": 0.672,"end": 2.559}]}]}};
+const DATA={"neve": {"name": "NEVE","ko": "네베","skills": {"gi": {"slot": "기","name": "일곱난쟁이의 부름","cost": 2,"video": "Assets/VIDEOS/NEVE/gi.mp4"},"seung": {"slot": "승","name": "자기혐오의 꿈","cost": 2,"video": "Assets/VIDEOS/NEVE/seung.mp4"},"jeon": {"slot": "전","name": "독사과","cost": 2,"video": "Assets/VIDEOS/NEVE/jeon.mp4"},"gyeol": {"slot": "결","name": "종언","cost": 4,"video": "Assets/VIDEOS/NEVE/gyeol.mp4"}},"mechanics": [{"num": "01","title": "[승] → [기]로 자기혐오 스택을 피해로 전환","summary": "[승]으로 자기혐오 스택을 먼저 쌓고, [기]로 누적된 스택을 피해로 바꿉니다.","why": "스택을 준비하는 스킬과 소비하는 스킬을 연속으로 사용해, 한 턴 안에서 준비와 폭발이 이어집니다.","steps": [{"skill": "seung","note": "승 스킬로 자기혐오 스택 누적","start": 0.386,"end": 0.934},{"skill": "gi","note": "기 스킬로 누적 스택 피해 전환","start": 0.491}]},{"num": "02","title": "[승] → [결] → [기]로 스택당 피해 강화","summary": "[승]으로 스택을 쌓고, [결]로 스택당 피해를 강화한 다음, [기]로 큰 피해를 넣습니다.","why": "누적 → 강화 → 폭발을 한 턴 안에서 이어가며, 충분한 코스트가 있을수록 연계의 완성도가 높아집니다.","steps": [{"skill": "seung","note": "승 스킬로 자기혐오 스택 누적","start": 0.386,"end": 0.934},{"skill": "gyeol","note": "결 스킬로 스택당 피해 증가","start": 0.828,"end": 2.998},{"skill": "gi","note": "기 스킬로 강화된 스택 피해","start": 0.491}]}]},"mime": {"name": "MIME","ko": "마임","skills": {"gi": {"slot": "기","name": "도약하는 물레","cost": 3,"video": "Assets/VIDEOS/MIME/gi.mp4"},"seung": {"slot": "승","name": "가시나무","cost": 1,"video": "Assets/VIDEOS/MIME/seung.mp4"},"jeon": {"slot": "전","name": "유혹하는 물레","cost": 2,"video": "Assets/VIDEOS/MIME/jeon.mp4"},"gyeol": {"slot": "결","name": "영원한 잠","cost": 3,"video": "Assets/VIDEOS/MIME/gyeol.mp4"}},"mechanics": [{"num": "01","title": "반복 사용으로 [기]를 진화시키고 큰 피해","summary": "[기]를 반복해서 사용하며 강화 스택을 쌓고, 진화한 [기]로 더 큰 피해를 노립니다.","why": "반복 사용 자체가 다음 공격을 강화해, 코스트를 공격력으로 누적시키는 연계입니다.","steps": [{"skill": "gi","note": "기 스킬 반복 사용","start": 0.672,"end": 2.559},{"skill": "gi","note": "기 스킬 강화","start": 0.672,"end": 2.559},{"skill": "gi","note": "강화된 기 스킬로 큰 피해","start": 0.672,"end": 2.559}]},{"num": "02","title": "[전] → [기]로 취약 후 피해 증폭","summary": "먼저 [전]으로 취약을 부여한 뒤 [기]를 연결해 더 큰 피해를 넣습니다.","why": "디버프를 먼저 걸고 공격을 이어가는 순서가 중요해, 같은 코스트도 연계 순서에 따라 결과가 달라집니다.","steps": [{"skill": "jeon","note": "전 스킬로 취약 부여","start": 0.307,"end": 2.007},{"skill": "gi","note": "취약 상태에 기 스킬 피해 집중","start": 0.672,"end": 2.559}]},{"num": "03","title": "[결] → [전] → [기]로 봉인·취약·큰 피해","summary": "[결]로 상대 스킬을 봉인하고, [전]으로 취약을 만든 뒤, [기]로 큰 피해를 넣는 3단 연계입니다.","why": "행동 제한 → 피해 증폭 → 마무리 공격을 한 턴 안에 연결해, 턴제 안에서도 콤보처럼 몰아치는 흐름을 만듭니다.","steps": [{"skill": "gyeol","note": "결 스킬로 상대 스킬 사용 봉인","start": 0.333,"end": 5.029},{"skill": "jeon","note": "전 스킬로 취약 부여","start": 0.307,"end": 2.007},{"skill": "gi","note": "기 스킬로 증폭 피해 마무리","start": 0.672,"end": 2.559}]}]}};
 let charKey="neve",mechanicIndex=0,stepIndex=0,chainMode=false;
 const $=s=>document.querySelector(s),video=$("#video");
 function C(){return DATA[charKey]} function M(){return C().mechanics[mechanicIndex]} function S(){return M().steps[stepIndex]} function K(){return C().skills[S().skill]}
