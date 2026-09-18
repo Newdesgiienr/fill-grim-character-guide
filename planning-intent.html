@@ -31,7 +31,7 @@ body{
   letter-spacing:-.018em;
 }
 button{font:inherit}
-.preview-shell{width:min(1440px,calc(100% - 34px));margin:0 auto;padding:34px 0 84px}
+.preview-shell{width:100%;margin:0;padding:0}
 
 /* 기존 기획 노트의 섹션 타이틀 바와 맞춘 단독 정보 바 */
 .intent-entry{margin:0;padding:0}
@@ -56,8 +56,17 @@ button{font:inherit}
   width:42px;height:42px;border-radius:11px;border:1px solid rgba(255,255,255,.25);
   display:grid;place-items:center;color:#eef3f8;background:rgba(255,255,255,.04);cursor:pointer
 }
-.intent-toggle::before{content:"⌃";font-size:18px;line-height:1;transform:translateY(2px);transition:transform .2s ease}
-.intent-toggle[aria-expanded="false"]::before{transform:rotate(180deg) translateY(-1px)}
+.intent-toggle::before{
+  content:"";
+  width:9px;
+  height:9px;
+  border-right:1.5px solid currentColor;
+  border-bottom:1.5px solid currentColor;
+  transform:rotate(225deg);
+  transform-origin:center;
+  transition:transform .2s ease;
+}
+.intent-toggle[aria-expanded="false"]::before{transform:rotate(45deg)}
 .intent-collapse{display:grid;grid-template-rows:1fr;opacity:1;transition:grid-template-rows .3s ease,opacity .2s ease}
 .intent-collapse.is-closed{grid-template-rows:0fr;opacity:0}
 .intent-clip{min-height:0;overflow:hidden}
@@ -210,7 +219,7 @@ button{font:inherit}
   .fillgrim-arrow{transform:rotate(90deg)}
 }
 @media(max-width:640px){
-  .preview-shell{width:min(100% - 20px,1440px);padding-top:18px}
+  .preview-shell{width:100%;padding-top:0}
   .intent-titlebar{padding:16px 14px 16px 18px;grid-template-columns:minmax(0,1fr) 40px}
   .intent-subtitle{font-size:12.5px;text-align:left}
   .intent-body{padding:13px}
@@ -552,5 +561,27 @@ toggle.addEventListener('click',()=>{
   panel.classList.toggle('is-closed',open);
 });
 </script>
+
+<script id="planning-intent-height-sync">
+(function(){
+  const shell=document.querySelector('.preview-shell');
+  const panel=document.getElementById('intentPanel');
+  function report(){
+    if(!shell)return;
+    const h=Math.max(84,Math.ceil(shell.getBoundingClientRect().height));
+    parent.postMessage({type:'fillgrim-intent-height',height:h},'*');
+  }
+  window.addEventListener('load',()=>{report();setTimeout(report,80);setTimeout(report,360);});
+  window.addEventListener('resize',report);
+  if(window.ResizeObserver&&shell)new ResizeObserver(report).observe(shell);
+  if(panel)panel.addEventListener('transitionend',report);
+  document.getElementById('intentToggle')?.addEventListener('click',()=>{
+    requestAnimationFrame(report);
+    setTimeout(report,80);
+    setTimeout(report,340);
+  });
+})();
+</script>
+
 </body>
 </html>
