@@ -36,37 +36,43 @@ button{font:inherit}
 /* 기존 기획 노트의 섹션 타이틀 바와 맞춘 단독 정보 바 */
 .intent-entry{margin:0;padding:0}
 .intent-titlebar{
-  min-height:84px;
-  display:grid;
-  grid-template-columns:minmax(0,1fr) 44px;
+  position:relative;
+  min-height:92px;
+  margin-top:0;
+  padding:0 23px 0 28px;
+  border-radius:18px 18px 4px 4px;
+  display:flex;
   align-items:center;
-  gap:18px;
-  padding:18px 20px 18px 25px;
-  border-radius:18px 18px 0 0;
-  background:var(--navy);
+  justify-content:space-between;
+  gap:20px;
+  background:linear-gradient(135deg,#29324a,#34405d);
   color:#fff;
-  box-shadow:var(--shadow);
+  box-shadow:0 12px 24px rgba(15,23,42,.13);
+  overflow:visible;
 }
-.intent-heading{display:flex;align-items:center;gap:13px;min-width:0}
-.intent-accent{width:3px;height:31px;border-radius:99px;background:var(--orange);flex:none}
-.intent-title-copy{min-width:0;display:grid;grid-template-columns:auto minmax(0,1fr);align-items:center;column-gap:18px;row-gap:6px}
-.intent-title{font-size:22px;line-height:1.2;font-weight:950;letter-spacing:-.035em;white-space:nowrap}
-.intent-subtitle{margin-top:0;color:#d2dbe7;font-size:14px;font-weight:700;line-height:1.55;text-align:right}
+.intent-heading{display:flex;align-items:center;min-width:0;z-index:2}
+.intent-accent{width:3px;height:32px;margin-right:14px;border-radius:999px;background:#f28c54;flex:0 0 auto}
+.intent-title-copy{min-width:0;display:flex;align-items:center}
+.intent-title{font-size:21px;line-height:1.2;font-weight:950;letter-spacing:-.03em;white-space:nowrap}
+.intent-subtitle{margin-left:10px;color:#d9e0eb;font-size:13px;font-weight:800;line-height:1.45;text-align:left;white-space:nowrap}
 .intent-toggle{
-  width:42px;height:42px;border-radius:11px;border:1px solid rgba(255,255,255,.25);
-  display:grid;place-items:center;color:#eef3f8;background:rgba(255,255,255,.04);cursor:pointer
+  width:44px;height:44px;flex:0 0 auto;display:grid;place-items:center;z-index:3;
+  border:1px solid rgba(255,255,255,.22);border-radius:13px;
+  background:rgba(255,255,255,.08);color:#fff;cursor:pointer;
+  transition:transform .18s ease,background .18s ease,border-color .18s ease
 }
+.intent-toggle:hover{transform:translateY(-1px);background:rgba(255,255,255,.14);border-color:rgba(255,255,255,.38)}
+.intent-toggle:focus-visible{outline:3px solid rgba(242,140,84,.35);outline-offset:2px}
 .intent-toggle::before{
   content:"";
-  width:9px;
-  height:9px;
-  border-right:1.5px solid currentColor;
-  border-bottom:1.5px solid currentColor;
-  transform:rotate(225deg);
+  width:11px;height:11px;
+  border-right:2px solid currentColor;
+  border-bottom:2px solid currentColor;
+  transform:rotate(225deg) translate(-2px,-2px);
   transform-origin:center;
-  transition:transform .2s ease;
+  transition:transform .2s ease
 }
-.intent-toggle[aria-expanded="false"]::before{transform:rotate(45deg)}
+.intent-toggle[aria-expanded="false"]::before{transform:rotate(45deg) translate(-2px,-2px)}
 .intent-collapse{display:grid;grid-template-rows:1fr;opacity:1;transition:grid-template-rows .3s ease,opacity .2s ease}
 .intent-collapse.is-closed{grid-template-rows:0fr;opacity:0}
 .intent-clip{min-height:0;overflow:hidden}
@@ -74,9 +80,9 @@ button{font:inherit}
   padding:24px;
   border:1px solid #cfd8e3;
   border-top:0;
-  border-radius:0 0 18px 18px;
+  border-radius:0 0 22px 22px;
   background:linear-gradient(180deg,#fafbfd 0,#fff 270px);
-  box-shadow:var(--shadow);
+  box-shadow:0 12px 24px rgba(15,23,42,.08);
 }
 
 /* 두괄식 핵심 문장 */
@@ -212,6 +218,8 @@ button{font:inherit}
 @media(max-width:640px){.fillgrim-demo-grid{grid-template-columns:1fr}.fillgrim-demo-media{aspect-ratio:16/9}.fillgrim-logic-grid{grid-template-columns:1fr}}
 
 
+@media(max-width:860px){.intent-subtitle{display:none}}
+
 @media(max-width:900px){
   .game-grid{grid-template-columns:1fr}
   .fusion-summary{grid-template-columns:1fr}
@@ -220,8 +228,9 @@ button{font:inherit}
 }
 @media(max-width:640px){
   .preview-shell{width:100%;padding-top:0}
-  .intent-titlebar{padding:16px 14px 16px 18px;grid-template-columns:minmax(0,1fr) 40px}
-  .intent-subtitle{font-size:12.5px;text-align:left}
+  .intent-titlebar{min-height:80px;padding:0 18px}
+  .intent-title{font-size:19px}
+  .intent-subtitle{display:none}
   .intent-body{padding:13px}
   .thesis{padding:20px 18px 19px}
   .thesis h1{font-size:26px}
@@ -236,7 +245,7 @@ button{font:inherit}
 @media(max-width:900px){.fillgrim-design-row-single .fillgrim-design-text{white-space:normal}}
 
 /* 메인 사이트의 기획 노트 iframe 안에서만 바깥 여백을 제거합니다. */
-html,body{background:transparent!important;}
+html,body{background:transparent!important;overflow-x:hidden!important;overflow-y:hidden!important;}
 .preview-shell{width:100%!important;margin:0!important;padding:0!important;}
 
 </style>
