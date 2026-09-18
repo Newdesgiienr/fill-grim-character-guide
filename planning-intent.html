@@ -1,0 +1,556 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>FILL GRIM · 기획 의도</title>
+<style>
+:root{
+  --bg:#f2f5f9;
+  --paper:#fff;
+  --navy:#172942;
+  --navy-2:#22344e;
+  --ink:#172235;
+  --muted:#6f7d8e;
+  --line:#d9e0e9;
+  --line-2:#e9edf2;
+  --orange:#ec7f37;
+  --orange-strong:#ff7a3d;
+  --orange-soft:#fff2e9;
+  --blue:#376b9e;
+  --blue-soft:#eef5fc;
+  --shadow:0 14px 34px rgba(22,40,64,.08);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--ink);
+  font-family:Pretendard,"Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif;
+  letter-spacing:-.018em;
+}
+button{font:inherit}
+.preview-shell{width:min(1440px,calc(100% - 34px));margin:0 auto;padding:34px 0 84px}
+
+/* 기존 기획 노트의 섹션 타이틀 바와 맞춘 단독 정보 바 */
+.intent-entry{margin:0;padding:0}
+.intent-titlebar{
+  min-height:84px;
+  display:grid;
+  grid-template-columns:minmax(0,1fr) 44px;
+  align-items:center;
+  gap:18px;
+  padding:18px 20px 18px 25px;
+  border-radius:18px 18px 0 0;
+  background:var(--navy);
+  color:#fff;
+  box-shadow:var(--shadow);
+}
+.intent-heading{display:flex;align-items:center;gap:13px;min-width:0}
+.intent-accent{width:3px;height:31px;border-radius:99px;background:var(--orange);flex:none}
+.intent-title-copy{min-width:0;display:grid;grid-template-columns:auto minmax(0,1fr);align-items:center;column-gap:18px;row-gap:6px}
+.intent-title{font-size:22px;line-height:1.2;font-weight:950;letter-spacing:-.035em;white-space:nowrap}
+.intent-subtitle{margin-top:0;color:#d2dbe7;font-size:14px;font-weight:700;line-height:1.55;text-align:right}
+.intent-toggle{
+  width:42px;height:42px;border-radius:11px;border:1px solid rgba(255,255,255,.25);
+  display:grid;place-items:center;color:#eef3f8;background:rgba(255,255,255,.04);cursor:pointer
+}
+.intent-toggle::before{content:"⌃";font-size:18px;line-height:1;transform:translateY(2px);transition:transform .2s ease}
+.intent-toggle[aria-expanded="false"]::before{transform:rotate(180deg) translateY(-1px)}
+.intent-collapse{display:grid;grid-template-rows:1fr;opacity:1;transition:grid-template-rows .3s ease,opacity .2s ease}
+.intent-collapse.is-closed{grid-template-rows:0fr;opacity:0}
+.intent-clip{min-height:0;overflow:hidden}
+.intent-body{
+  padding:24px;
+  border:1px solid #cfd8e3;
+  border-top:0;
+  border-radius:0 0 18px 18px;
+  background:linear-gradient(180deg,#fafbfd 0,#fff 270px);
+  box-shadow:var(--shadow);
+}
+
+/* 두괄식 핵심 문장 */
+.thesis{
+  position:relative;
+  overflow:hidden;
+  border:1px solid var(--line);
+  border-radius:16px;
+  background:#fff;
+  padding:26px 28px 25px;
+}
+.thesis::before{content:"";position:absolute;left:0;right:0;bottom:0;height:5px;background:var(--orange)}
+.thesis-kicker{color:var(--orange-strong);font-size:11px;font-weight:950;letter-spacing:.08em}
+.thesis h1{margin:0;font-size:clamp(27px,2.55vw,40px);line-height:1.34;letter-spacing:-.045em;color:#142842;max-width:none;text-align:center}
+.thesis h1 strong{color:#e56f2d}
+.thesis p{margin:14px 0 0;color:#708095;font-size:14.5px;font-weight:700;line-height:1.7;text-align:center}
+
+.stage{margin-top:20px;border:1px solid var(--line);border-radius:16px;background:#fff;overflow:hidden}
+.stage-head{display:flex;gap:16px;align-items:flex-start;padding:20px 22px;border-bottom:1px solid var(--line-2);background:#fbfcfe}
+.stage-num{display:grid;place-items:center;min-width:37px;height:27px;padding:0 9px;border-radius:7px;background:var(--orange-strong);color:#fff;font-size:11px;font-weight:950;line-height:1}
+.stage-copy{min-width:0}
+.stage-copy h2{margin:0;color:#17304d;font-size:22px;line-height:1.35;letter-spacing:-.035em}
+.stage-copy p{margin:7px 0 0;color:#76869a;font-size:14px;font-weight:700;line-height:1.55}
+.game-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;padding:16px}
+.game-card{min-width:0;border:1px solid #d6dfe8;border-radius:15px;background:#fff;overflow:hidden;box-shadow:0 3px 12px rgba(22,40,64,.035)}
+.video-slot{position:relative;aspect-ratio:16/9;background:#0e1723;overflow:hidden}
+.video-slot video{width:100%;height:100%;display:block;object-fit:contain;background:#0b111a}
+.video-slot[data-video-key="starrail"],.video-slot[data-video-key="limbus"],.video-slot[data-video-key="chaoszero"],.video-slot[data-video-key="reverse1999"],.video-slot[data-video-key="starsavior"],.video-slot[data-video-key="expedition33"]{aspect-ratio:4/3}
+.video-slot[data-video-key="starrail"] video,.video-slot[data-video-key="limbus"] video,.video-slot[data-video-key="chaoszero"] video,.video-slot[data-video-key="reverse1999"] video,.video-slot[data-video-key="starsavior"] video,.video-slot[data-video-key="expedition33"] video{object-fit:contain;width:100%;height:100%;background:#0b111a}
+.video-placeholder{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:20px;background:radial-gradient(circle at 50% 15%,#27384c 0,#111b28 52%,#0b121c 100%);color:#dbe5ef}
+.video-placeholder .play{width:47px;height:47px;display:grid;place-items:center;border:1px solid rgba(255,255,255,.35);border-radius:50%;font-size:17px;background:rgba(255,255,255,.06)}
+.video-placeholder b{margin-top:11px;font-size:14.5px}
+.video-placeholder span{margin-top:5px;color:#8798ab;font-size:12px;font-weight:700}
+.game-content{padding:17px 18px 18px}
+.game-name{font-size:20px;font-weight:950;line-height:1.25;color:#19314d;letter-spacing:-.035em}
+.game-tag{display:inline-flex;margin-top:7px;padding:6px 9px;border-radius:7px;background:#eef2f7;color:#66788e;font-size:12px;font-weight:900}
+.flow{margin-top:14px;padding:13px 14px;border:1px solid #ffd8bf;border-radius:10px;background:var(--orange-soft);color:#b85622;font-size:14.3px;font-weight:950;line-height:1.55;text-align:center}
+.details{margin:14px 0 0;padding:0;list-style:none;display:grid;gap:7px}
+.details li{position:relative;padding:0 0 0 15px;color:#607086;font-size:13.2px;font-weight:700;line-height:1.5}
+.details li::before{content:"";position:absolute;left:0;top:.67em;width:5px;height:5px;border-radius:50%;background:#7890aa}
+.details strong{color:#253b55;font-weight:950}
+.observation{margin-top:14px;padding:12px 14px;border-radius:10px;background:#f5f8fb;border:1px solid #e0e7ee;color:#455c75;font-size:13.2px;line-height:1.6;font-weight:760;text-align:center}
+.observation b{color:#17304d}
+.stage-result{margin:0 16px 16px;padding:15px 18px;border-radius:12px;background:var(--navy);color:#fff;font-size:15.5px;font-weight:900;line-height:1.55;text-align:center}
+
+/* 3단계 장르 융합 */
+.lineage{margin-top:10px;padding:10px 12px;border-radius:9px;background:var(--blue-soft);border:1px solid #d7e7f6;color:#416583;font-size:11.4px;font-weight:850;line-height:1.6}
+.fusion-label{display:inline-flex;margin-top:12px;padding:7px 10px;border-radius:8px;background:#172942;color:#fff;font-size:12.5px;font-weight:950}
+.fusion-summary{margin:0 16px 16px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:9px}
+.fusion-chip{padding:14px;border-radius:11px;border:1px solid #d9e0e9;background:#fbfcfe;text-align:center;color:#53677e;font-size:13.5px;font-weight:850;line-height:1.45}
+.fusion-chip strong{display:block;color:#17304d;font-size:15px;margin-bottom:3px}
+.fusion-chip.is-fillgrim{border-color:#ffbd92;background:#fff5ee;color:#9d5a33}
+.fusion-chip.is-fillgrim strong{color:#d86629}
+
+/* 최종 FILLGRIM 결론 */
+.fillgrim-final{margin-top:20px;border:1px solid #ffbe97;border-radius:16px;overflow:hidden;background:#fff}
+.fillgrim-final-head{padding:22px 24px;background:linear-gradient(135deg,#1b2b43,#13253e);color:#fff}
+.fillgrim-final-head .small{font-size:12.5px;color:#ffb483;font-weight:950;letter-spacing:.08em}
+.fillgrim-final-head h2{margin:7px 0 0;font-size:30px;line-height:1.25;letter-spacing:-.04em}
+.fillgrim-final-head p{margin:9px 0 0;color:#d4deea;font-size:14px;font-weight:700;line-height:1.65}
+.fillgrim-body{padding:18px 20px 20px}
+.fillgrim-flow{display:grid;grid-template-columns:1fr 34px 1fr 34px 1fr;align-items:center;gap:4px}
+.fillgrim-step{padding:15px 12px;border-radius:12px;border:1px solid #dbe3eb;background:#fbfcfe;text-align:center}
+.fillgrim-step b{display:block;color:#17304d;font-size:14px}
+.fillgrim-step span{display:block;margin-top:4px;color:#77889a;font-size:11px;font-weight:750;line-height:1.45}
+.fillgrim-arrow{text-align:center;color:#ec7f37;font-size:22px;font-weight:950}
+.fillgrim-note{margin-top:14px;padding:14px 15px;border-radius:11px;background:#fff3eb;border:1px solid #ffd4ba;color:#965129;font-size:12.5px;line-height:1.65;font-weight:800}
+.fillgrim-note strong{color:#d45f22}
+
+/* FILLGRIM 4단계 인게임 애니메이션 */
+.fillgrim-demo-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.fillgrim-demo-card{min-width:0;border:1px solid #27374c;border-radius:15px;overflow:hidden;background:#09111d;box-shadow:0 8px 20px rgba(14,28,46,.10);cursor:pointer}
+.fillgrim-demo-card,.fillgrim-demo-media,.fillgrim-demo-media video{cursor:pointer}
+.fillgrim-demo-media{position:relative;aspect-ratio:1.06/1;background:#0b1320;overflow:hidden}
+.fillgrim-demo-media video{width:112%;height:100%;display:block;object-fit:cover;object-position:center center;background:#0b1320;transform:translateX(-7.5%)}
+.fillgrim-demo-media::after{content:"";position:absolute;inset:auto 0 0;height:38%;background:linear-gradient(180deg,transparent,rgba(4,9,16,.18));pointer-events:none}
+.fillgrim-demo-caption{min-height:118px;padding:14px 15px 16px;background:#060c15;border-top:1px solid rgba(255,255,255,.04)}
+.fillgrim-demo-step{color:#ff8a43;font-size:11.5px;font-weight:950;letter-spacing:.06em}
+.fillgrim-demo-caption b{display:block;margin-top:6px;color:#fff;font-size:15.5px;line-height:1.35;letter-spacing:-.025em}
+.fillgrim-demo-desc{display:block;margin-top:7px;color:#c4cfdb;font-size:12.5px;font-weight:720;line-height:1.4;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;opacity:0;transform:translateY(-5px);transition:opacity .18s ease,transform .22s ease}
+.fillgrim-demo-card:hover .fillgrim-demo-desc,.fillgrim-demo-card:focus-within .fillgrim-demo-desc{opacity:1;transform:translateY(0)}
+.fillgrim-plan-title{margin-top:20px;color:#17304d;font-size:18px;font-weight:950;text-align:center;letter-spacing:-.025em}
+
+.fusion-intent-block{margin-top:14px;padding:18px;border:1px solid #dce4ec;border-radius:14px;background:#fff}
+.fusion-intent-heading{margin:0;color:#17304d;font-size:18px;font-weight:950;text-align:center;letter-spacing:-.025em}
+.fusion-intent-lead{max-width:960px;margin:8px auto 16px;color:#53677e;font-size:13.8px;font-weight:760;line-height:1.7;text-align:center}
+.fusion-intent-videos{display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:start}
+.fusion-intent-video-card{min-width:0;padding:12px;border:1px solid #dce4ec;border-radius:13px;background:#fbfcfe}
+.fusion-intent-video-label{margin:0 0 8px;color:#17304d;font-size:13.6px;font-weight:950;text-align:center}
+.fusion-intent-media{position:relative;aspect-ratio:4/3;overflow:hidden;border-radius:11px;background:#0b111a;border:1px solid #26374d;display:grid;place-items:center}
+.fusion-intent-media video{display:block;max-width:100%;max-height:100%;width:100%;height:100%;object-fit:contain;background:#0b111a}
+.fusion-intent-placeholder{position:absolute;inset:0;display:grid;place-items:center;text-align:center;padding:20px;background:radial-gradient(circle at 50% 15%,#27384c 0,#111b28 52%,#0b121c 100%);color:#dbe5ef}
+.fusion-intent-placeholder b{display:block;font-size:14px}
+.fusion-intent-placeholder span{display:block;margin-top:5px;color:#8798ab;font-size:11.5px;font-weight:700}
+.fusion-intent-note{margin-top:11px;padding:11px 0 0;border-top:1px solid #e5ebf1;display:grid;grid-template-columns:88px minmax(0,1fr);gap:10px;align-items:center;min-height:54px}
+.fusion-intent-note-label{color:#17304d;font-size:12.8px;font-weight:950;white-space:nowrap;display:flex;align-items:center;height:100%}
+.fusion-intent-note-text{color:#566b82;font-size:12.7px;font-weight:740;line-height:1.5;display:flex;align-items:center;height:100%;white-space:nowrap}
+.fusion-intent-summary{margin-top:14px;padding:13px 15px;border-radius:10px;border:1px solid #d8e1eb;background:#f7f9fc;color:#17304d;font-size:13.2px;font-weight:900;line-height:1.55;text-align:center}
+@media(max-width:760px){
+  .fusion-intent-videos{grid-template-columns:1fr}
+  .fusion-intent-note{grid-template-columns:1fr;gap:4px}
+  .fusion-intent-note-text{white-space:normal}
+}
+
+
+.fillgrim-plan-prose{margin-top:10px;padding:16px 18px;border-radius:12px;border:1px solid #dce4ec;background:#fbfcfe;color:#5a6d83;font-size:12.5px;font-weight:720;line-height:1.8;text-align:left}
+.fillgrim-plan-prose strong{color:#17304d;font-weight:950}
+.fillgrim-plan-prose em{font-style:normal;color:#d86629;font-weight:950}
+
+.fillgrim-logic-grid{margin-top:14px;display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.fillgrim-logic-card{padding:15px 17px;border-radius:11px;border:1px solid #d8e1eb;background:#fbfcfe;text-align:center;color:#596d84;font-size:13.2px;font-weight:760;line-height:1.55}
+.fillgrim-logic-card strong{color:#17304d;font-weight:950}
+.fillgrim-design-detail{margin-top:12px;border:1px solid #dce4ec;border-radius:12px;background:#fff;overflow:hidden}
+.fillgrim-design-detail-body{padding:19px 20px 20px;color:#53677e;font-size:13.5px;font-weight:720;line-height:1.72}
+.fillgrim-design-intro{margin:0 0 16px;color:#435970;font-size:14px;font-weight:760;line-height:1.75;text-align:center}
+.fillgrim-design-intro strong{color:#17304d;font-weight:950}
+.fillgrim-design-rows{border-top:1px solid #e5ebf1}
+.fillgrim-design-row{display:grid;grid-template-columns:116px minmax(0,1fr);gap:14px;align-items:start;padding:12px 2px;border-bottom:1px solid #e9eef3}
+.fillgrim-design-row:last-child{border-bottom:0;padding-bottom:1px}
+.fillgrim-design-label{color:#17304d;font-size:13px;font-weight:950;white-space:nowrap}
+.fillgrim-design-text{color:#566b82;font-size:13.4px;font-weight:740;line-height:1.68}
+.fillgrim-design-text strong{color:#e86222;font-weight:950}
+.fillgrim-design-text .design-accent{color:#e86222;font-weight:950}
+.fillgrim-design-text em{font-style:normal;color:#d86629;font-weight:950}
+.fillgrim-design-row-single .fillgrim-design-text{white-space:nowrap}
+
+@media(max-width:980px){
+  .intent-title-copy{grid-template-columns:1fr}
+  .intent-subtitle{text-align:left}
+}
+@media(max-width:640px){.fillgrim-design-row{grid-template-columns:1fr;gap:5px}}
+@media(max-width:1100px){.fillgrim-demo-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:640px){.fillgrim-demo-grid{grid-template-columns:1fr}.fillgrim-demo-media{aspect-ratio:16/9}.fillgrim-logic-grid{grid-template-columns:1fr}}
+
+
+@media(max-width:900px){
+  .game-grid{grid-template-columns:1fr}
+  .fusion-summary{grid-template-columns:1fr}
+  .fillgrim-flow{grid-template-columns:1fr}
+  .fillgrim-arrow{transform:rotate(90deg)}
+}
+@media(max-width:640px){
+  .preview-shell{width:min(100% - 20px,1440px);padding-top:18px}
+  .intent-titlebar{padding:16px 14px 16px 18px;grid-template-columns:minmax(0,1fr) 40px}
+  .intent-subtitle{font-size:12.5px;text-align:left}
+  .intent-body{padding:13px}
+  .thesis{padding:20px 18px 19px}
+  .thesis h1{font-size:26px}
+  .stage-head{padding:16px}
+  .game-grid{padding:10px;gap:10px}
+  .game-content{padding:14px}
+  .stage-result{margin:0 10px 10px}
+  .fusion-summary{margin:0 10px 10px}
+}
+@media(prefers-reduced-motion:reduce){.intent-collapse,.intent-toggle::before{transition:none}}
+
+@media(max-width:900px){.fillgrim-design-row-single .fillgrim-design-text{white-space:normal}}
+
+/* 메인 사이트의 기획 노트 iframe 안에서만 바깥 여백을 제거합니다. */
+html,body{background:transparent!important;}
+.preview-shell{width:100%!important;margin:0!important;padding:0!important;}
+
+</style>
+</head>
+<body>
+<main class="preview-shell">
+  <section class="intent-entry" id="planningIntentSection">
+    <header class="intent-titlebar">
+      <div class="intent-heading">
+        <span class="intent-accent" aria-hidden="true"></span>
+        <div class="intent-title-copy">
+          <div class="intent-title">기획 의도</div>
+          <div class="intent-subtitle">턴제의 자원 설계와 카드 시스템, 장르 융합 사례를 바탕으로 FILLGRIM의 출발점을 설명합니다.</div>
+        </div>
+      </div>
+      <button class="intent-toggle" id="intentToggle" type="button" aria-expanded="true" aria-controls="intentPanel" aria-label="기획 의도 접기"></button>
+    </header>
+
+    <div class="intent-collapse" id="intentPanel">
+      <div class="intent-clip">
+        <div class="intent-body">
+          <section class="thesis">
+            <h1>턴제 게임의 플레이 경험은 스킬 자체뿐 아니라,<br><strong>스킬을 사용하기 위한 자원을 어떻게 획득하게 하느냐에 따라 달라진다.</strong></h1>
+            <p>아래 세 단계의 레퍼런스를 분석해 자원 획득 방식, 카드 선택 구조, 장르 융합이 턴제의 플레이 경험을 어떻게 바꾸는지 확인하고, 기획에 활용했습니다.</p>
+          </section>
+
+          <section class="stage">
+            <div class="stage-head">
+              <span class="stage-num">01</span>
+              <div class="stage-copy">
+                <h2>같은 턴제라도, 전투 자원을 획득하는 방식에 따라 매 턴의 선택이 달라진다.</h2>
+                <p>자원을 만드는 행동과 소비하는 행동을 분리하면, 단순한 공격 선택이 파티 전체의 턴 운영으로 확장됩니다.</p>
+              </div>
+            </div>
+            <div class="game-grid">
+              <article class="game-card">
+                <div class="video-slot" data-video-key="starrail">
+                  <video controls playsinline preload="metadata" muted></video>
+                  <div class="video-placeholder"><div class="play">▶</div><b>붕괴: 스타레일 레퍼런스 영상</b><span>영상 전달 후 이 영역에 삽입</span></div>
+                </div>
+                <div class="game-content">
+                  <div class="game-name">붕괴: 스타레일</div>
+                  <div class="game-tag">공유 자원 기반 턴 운영</div>
+                  <div class="flow">일반 공격 → 스킬 포인트 획득 → 전투 스킬 사용</div>
+                  <ul class="details">
+                    <li><strong>스킬 포인트</strong> — 전투 시작 3개·기본 최대 5개, 일반 공격 +1 / 전투 스킬 -1.</li>
+                    <li><strong>궁극기 에너지</strong> — 기본적으로 일반 공격 +20 / 전투 스킬 +30 / 적 처치 +10 등으로 개인 에너지를 축적.</li>
+                    <li><strong>궁극기 사용</strong> — 요구 에너지를 채우면 활성화되며, 자신의 턴이 아니어도 즉시 사용 가능.</li>
+                  </ul>
+                  <div class="observation">일반 공격이 단순한 약공격이 아니라 다음 캐릭터의 강한 행동을 위한 ‘자원 생산 행동’이 된다.</div>
+                </div>
+              </article>
+
+              <article class="game-card">
+                <div class="video-slot" data-video-key="limbus">
+                  <video controls playsinline preload="metadata" muted></video>
+                  <div class="video-placeholder"><div class="play">▶</div><b>림버스 컴퍼니 레퍼런스 영상</b><span>영상 전달 후 이 영역에 삽입</span></div>
+                </div>
+                <div class="game-content">
+                  <div class="game-name">림버스 컴퍼니</div>
+                  <div class="game-tag">스킬 사용 기반 자원 축적</div>
+                  <div class="flow">공격 스킬 사용 → 속성 자원 획득 → E.G.O 사용</div>
+                  <ul class="details">
+                    <li><strong>자원 획득</strong> — 공격 스킬을 사용하면 해당 속성의 자원을 획득한다.</li>
+                    <li><strong>E.G.O 사용</strong> — 필요한 자원과 정신력을 소비해 강력한 E.G.O를 사용한다.</li>
+                    <li><strong>자원 판단</strong> — 현재 공격과 이후 필요한 자원을 함께 고려해 스킬을 선택한다.</li>
+                  </ul>
+                  <div class="observation">스킬 선택이 현재 공격과 다음 강력한 행동을 준비하는 자원 획득으로 이어진다.</div>
+                </div>
+              </article>
+            </div>
+            <div class="stage-result">전투 자원은 단순한 스킬 사용 제한이 아니라, 플레이어가 어떤 행동을 선택하게 할 것인가를 설계하는 장치다.</div>
+          </section>
+
+          <section class="stage">
+            <div class="stage-head">
+              <span class="stage-num">02</span>
+              <div class="stage-copy">
+                <h2>카드를 전투에 결합하면, ‘행동을 선택하는 방식’ 자체가 달라질 수 있다.</h2>
+                <p>고정된 스킬 버튼 대신 매 턴 변하는 손패를 제공하면, 선택의 기준이 ‘무엇을 쓸까’에서 ‘주어진 선택지를 어떻게 조합할까’로 바뀝니다.</p>
+              </div>
+            </div>
+            <div class="game-grid">
+              <article class="game-card">
+                <div class="video-slot" data-video-key="chaoszero">
+                  <video controls playsinline preload="metadata"></video>
+                  <div class="video-placeholder"><div class="play">▶</div><b>카오스 제로 나이트메어 레퍼런스 영상</b><span>영상 전달 후 이 영역에 삽입</span></div>
+                </div>
+                <div class="game-content">
+                  <div class="game-name">카오스 제로 나이트메어</div>
+                  <div class="game-tag">카드 기반 행동 선택</div>
+                  <div class="flow">카드 드로우 → 행동 포인트 배분 → 카드 사용</div>
+                  <ul class="details">
+                    <li><strong>손패</strong> — 기본 매 턴 5장 드로우, 세 전투원의 카드가 하나의 덱을 구성.</li>
+                    <li><strong>행동 포인트</strong> — 기본 매 턴 3 AP를 받고 카드별 코스트를 지불해 행동.</li>
+                    <li><strong>턴 판단</strong> — 같은 캐릭터 조합도 손패와 AP 배분에 따라 행동 순서와 조합이 달라짐.</li>
+                  </ul>
+                  <div class="observation">이 게임에서는 카드 자체가 전투 행동이다. 따라서 같은 캐릭터라도 매 턴 주어진 카드에 따라 행동 조합이 달라진다.</div>
+                </div>
+              </article>
+
+              <article class="game-card">
+                <div class="video-slot" data-video-key="reverse1999">
+                  <video controls playsinline preload="metadata"></video>
+                  <div class="video-placeholder"><div class="play">▶</div><b>리버스: 1999 레퍼런스 영상</b><span>영상 전달 후 이 영역에 삽입</span></div>
+                </div>
+                <div class="game-content">
+                  <div class="game-name">리버스: 1999</div>
+                  <div class="game-tag">손패 조작 기반 턴 설계</div>
+                  <div class="flow">마도술 사용·이동·융합 → 열정 획득 → 최종 술식</div>
+                  <ul class="details">
+                    <li><strong>마도술 카드</strong> — 캐릭터 스킬이 카드로 등장하고, 같은 마도술은 인접 시 상위 단계로 융합.</li>
+                    <li><strong>열정</strong> — 마도술 사용·이동 등으로 열정을 쌓고, 기본 5에 도달하면 최종 술식을 사용.</li>
+                    <li><strong>손패 설계</strong> — 현재 공격뿐 아니라 다음 턴의 카드 배치와 융합 가능성까지 함께 관리.</li>
+                  </ul>
+                  <div class="observation">카드는 스킬 버튼의 외형이 아니라, 손패의 이동과 조합까지 턴제의 의사결정으로 확장하는 규칙이 된다.</div>
+                </div>
+              </article>
+            </div>
+            <div class="stage-result">카드 시스템은 ‘정해진 스킬을 고르는 턴제’를 ‘주어진 선택지를 조합하는 턴제’로 변화시킬 수 있다.</div>
+          </section>
+
+          <section class="stage">
+            <div class="stage-head">
+              <span class="stage-num">03</span>
+              <div class="stage-copy">
+                <h2>턴제는 다른 장르의 핵심 재미를 결합하며, 새로운 플레이 경험으로 확장되고 있다.</h2>
+                <p>턴이라는 기본 구조를 유지하면서도 육성 시뮬레이션이나 실시간 액션의 핵심 규칙을 끌어오면 전혀 다른 감각의 게임이 됩니다.</p>
+              </div>
+            </div>
+            <div class="game-grid">
+              <article class="game-card">
+                <div class="video-slot" data-video-key="starsavior">
+                  <video controls playsinline preload="metadata" muted></video>
+                  <div class="video-placeholder"><div class="play">▶</div><b>스타세이비어 레퍼런스 영상</b><span>영상 전달 후 이 영역에 삽입</span></div>
+                </div>
+                <div class="game-content">
+                  <div class="game-name">스타세이비어</div>
+                  <div class="fusion-label">육성 시뮬레이션 × 턴제 RPG</div>
+                  <div class="flow">육성 시뮬레이션 → 육성한 캐릭터로 파티 편성 → 턴제 전투</div>
+                  <ul class="details">
+                    <li><strong>장르 결합</strong> — 『우마무스메 프리티 더비』로 대중화된 ‘육성 시뮬레이션’을 턴제 RPG와 결합.</li>
+                    <li><strong>여정</strong> — 훈련·휴식·이벤트를 선택해 능력치와 컨디션을 관리하며 캐릭터를 육성.</li>
+                    <li><strong>전투 연결</strong> — 여정 결과를 스텔라 아카이브로 저장해 실제 턴제 전투의 캐릭터 성능에 반영.</li>
+                  </ul>
+                  <div class="observation">‘캐릭터를 만드는 육성 시뮬레이션’과 ‘완성된 캐릭터를 사용하는 턴제 RPG’를 서로 다른 게임 루프로 연결한다.</div>
+                </div>
+              </article>
+
+              <article class="game-card">
+                <div class="video-slot" data-video-key="expedition33">
+                  <video controls playsinline preload="metadata" muted></video>
+                  <div class="video-placeholder"><div class="play">▶</div><b>클레르 옵스퀴르: 33 원정대 레퍼런스 영상</b><span>영상 전달 후 이 영역에 삽입</span></div>
+                </div>
+                <div class="game-content">
+                  <div class="game-name">클레르 옵스퀴르: 33 원정대</div>
+                  <div class="fusion-label">실시간 액션 × 턴제</div>
+                  <div class="flow">턴제 명령 선택 → 실시간 회피·점프·패링 → 반격</div>
+                  <ul class="details">
+                    <li><strong>턴제 전투</strong> — 자기 턴에는 공격·스킬·타깃을 선택하는 전통적인 턴제 구조를 유지.</li>
+                    <li><strong>실시간 방어</strong> — 적 공격 중 회피·점프·패링을 직접 입력하고, 성공 시 피해 방어와 반격으로 연결.</li>
+                    <li><strong>실시간 공격</strong> — 타이밍 입력과 자유 조준으로 공격 효율을 높이고 적의 약점을 직접 공략.</li>
+                  </ul>
+                  <div class="observation">턴제의 ‘생각하고 선택하는 재미’를 유지하면서, 액션 게임의 타이밍·반응·숙련을 전투 안에 결합한다.</div>
+                </div>
+              </article>
+            </div>
+            <div class="fusion-summary">
+              <div class="fusion-chip"><strong>스타세이비어</strong>육성 시뮬레이션 × 턴제 RPG</div>
+              <div class="fusion-chip"><strong>33 원정대</strong>실시간 액션 × 턴제</div>
+              <div class="fusion-chip is-fillgrim"><strong>FILLGRIM</strong>고스톱 × 턴제 PvP</div>
+            </div>
+            <div class="stage-result">턴제의 기본 구조를 유지하면서도, 어떤 장르의 핵심 플레이를 결합하느냐에 따라 새로운 플레이 경험을 만들 수 있다.</div>
+          </section>
+
+          <section class="fillgrim-final">
+            <div class="fillgrim-final-head">
+              <div class="small">FILLGRIM의 기획</div>
+              <h2>고스톱 × 턴제 PvP — FILLGRIM</h2>
+              <p>턴제 게임의 자원 획득 과정을 고스톱으로 분리해, 카드 획득과 스킬 사용을 하나의 전투 흐름으로 연결했습니다.</p>
+            </div>
+            <div class="fillgrim-body">
+              <div class="fillgrim-demo-grid" aria-label="FILLGRIM 핵심 플레이 흐름">
+                <article class="fillgrim-demo-card">
+                  <div class="fillgrim-demo-media"><video src="Assets/VIDEOS/SCENARIO/01_card_matching.mp4" muted loop playsinline preload="metadata"></video></div>
+                  <div class="fillgrim-demo-caption"><span class="fillgrim-demo-step">STEP 01</span><b>카드를 낸다</b><span class="fillgrim-demo-desc">카드를 내고, 같은 월을 맞춰 가져간다.</span></div>
+                </article>
+                <article class="fillgrim-demo-card">
+                  <div class="fillgrim-demo-media"><video src="Assets/VIDEOS/SCENARIO/02_yaku_complete.mp4" muted loop playsinline preload="metadata"></video></div>
+                  <div class="fillgrim-demo-caption"><span class="fillgrim-demo-step">STEP 02</span><b>같은 월을 맞춰 가져간다</b><span class="fillgrim-demo-desc">족보를 맞춰 코스트를 번다.</span></div>
+                </article>
+                <article class="fillgrim-demo-card">
+                  <div class="fillgrim-demo-media"><video src="Assets/VIDEOS/SCENARIO/03_special_situation.mp4" muted loop playsinline preload="metadata"></video></div>
+                  <div class="fillgrim-demo-caption"><span class="fillgrim-demo-step">STEP 03</span><b>특수 상황으로 코스트를 번다</b><span class="fillgrim-demo-desc">특수 상황이 성립하면 추가 코스트를 획득한다.</span></div>
+                </article>
+                <article class="fillgrim-demo-card">
+                  <div class="fillgrim-demo-media"><video src="Assets/VIDEOS/SCENARIO/04_game_end_condition.mp4" muted loop playsinline preload="metadata"></video></div>
+                  <div class="fillgrim-demo-caption"><span class="fillgrim-demo-step">STEP 04</span><b>스킬로 상대를 쓰러뜨린다</b><span class="fillgrim-demo-desc">코스트로 발동한 스킬로 상대의 체력을 0으로 만든다.</span></div>
+                </article>
+              </div>
+
+              <div class="fillgrim-plan-title">고스톱으로 전투 자원을 만들고, 그 자원을 턴제 PvP에서 사용한다.</div>
+
+              
+<section class="fusion-intent-block" aria-label="고스톱과 턴제 결합 의도">
+  <h3 class="fusion-intent-heading">고스톱과 턴제 결합 의도</h3>
+  <p class="fusion-intent-lead">단순히 자동으로 회복되는 자원이 아니라, 플레이어가 직접 카드 게임을 통해 전투자원을 획득하는 게임 구조를 만들고자 했습니다.</p>
+
+  <div class="fusion-intent-videos">
+    <div class="fusion-intent-video-card">
+      <div class="fusion-intent-video-label">고스톱 플레이</div>
+      <div class="fusion-intent-media">
+        <video src="Assets/VIDEOS/PLANNING_INTENT/gostop_reference.mp4" controls playsinline preload="metadata" muted></video>
+      </div>
+      <div class="fusion-intent-note">
+        <div class="fusion-intent-note-label">고스톱 선택</div>
+        <div class="fusion-intent-note-text">카드를 맞춰 원하는 패와 족보를 완성하며 선택의 재미와 성취감을 느낄 수 있습니다.</div>
+      </div>
+    </div>
+
+    <div class="fusion-intent-video-card">
+      <div class="fusion-intent-video-label">턴제 전투 연결</div>
+      <div class="fusion-intent-media">
+        <video src="Assets/VIDEOS/PLANNING_INTENT/fillgrim_skill.mp4" controls playsinline preload="metadata" muted></video>
+      </div>
+      <div class="fusion-intent-note">
+        <div class="fusion-intent-note-label">스킬 사용</div>
+        <div class="fusion-intent-note-text">모은 코스트로 필요한 스킬을 선택해 강한 행동을 직접 만들어내는 전투 쾌감을 주도록 했습니다.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="fusion-intent-summary">고스톱의 카드 매칭과 족보 완성에서 생기는 선택과 보상을 스킬 코스트 획득으로 연결해, 자원을 버는 단계 자체가 하나의 플레이가 되도록 기획했습니다.</div>
+</section>
+
+
+              <div class="fillgrim-logic-grid">
+                <div class="fillgrim-logic-card"><strong>고스톱 = 자원 획득</strong> — 같은 월의 카드를 맞추고 족보·특수 상황으로 스킬 코스트를 획득한다.</div>
+                <div class="fillgrim-logic-card"><strong>턴제 PvP = 자원 소비</strong> — 모은 코스트를 캐릭터 스킬에 사용해 상대의 체력을 0으로 만든다.</div>
+              </div>
+
+              <div class="fillgrim-design-detail">
+                <div class="fillgrim-design-detail-body">
+                  <p class="fillgrim-design-intro"><strong>고스톱에서 어떤 카드를 가져왔는지가 바로 다음 전투 선택으로 이어지도록 설계했습니다. 카드를 맞추고 족보나 특수 상황을 만들면 스킬 코스트를 얻고, 그 코스트로 현재 턴에 사용할 스킬을 결정합니다.</strong></p>
+                  <div class="fillgrim-design-rows">
+                    <div class="fillgrim-design-row"><div class="fillgrim-design-label">카드 판정</div><div class="fillgrim-design-text"><span class="design-accent">제출 카드와 추가 드로우 카드가 중앙의 같은 월 카드와 맞는지 순서대로 판정해 획득 카드를 결정</span>하고, 매 턴 어떤 월의 카드를 가져갈 수 있는지가 달라지도록 구성했습니다.</div></div>
+                    <div class="fillgrim-design-row"><div class="fillgrim-design-label">족보 → 코스트</div><div class="fillgrim-design-text">광·고도리·홍단·피 등 획득한 카드의 조합을 족보로 판정한 뒤 <span class="design-accent">카드 수집 결과를 스킬 자원으로 직접 환산</span>해, 카드 선택이 곧 다음 전투 행동을 준비하는 과정이 되도록 했습니다.</div></div>
+                    <div class="fillgrim-design-row"><div class="fillgrim-design-label">특수 판정</div><div class="fillgrim-design-text">총통·따닥·쪽·쓸이와 같은 고스톱의 특수 상황도 자원 변화에 연결하고, 일부 판정은 상대 자원에도 영향을 주어 <span class="design-accent">한 번의 카드 판정이 양쪽 플레이어의 자원 상황을 동시에 바꿀 수 있게 설계</span>했습니다.</div></div>
+                    <div class="fillgrim-design-row"><div class="fillgrim-design-label">획득 규칙의 변수</div><div class="fillgrim-design-text">폭탄은 같은 월 카드의 묶음 획득과 연속 드로우를 만들고, 뻑은 카드를 중앙에 잠시 묶어 두었다가 이후 조건을 맞추면 회수하게 해 <span class="design-accent">코스트를 얻기 전 단계인 카드 획득 과정 자체에도 리스크와 역전 요소</span>를 넣었습니다.</div></div>
+                    <div class="fillgrim-design-row"><div class="fillgrim-design-label">코스트 → 스킬</div><div class="fillgrim-design-text">스킬마다 필요한 코스트가 다르고 보유 코스트가 부족하면 해당 스킬을 사용할 수 없도록 해, <span class="design-accent">고스톱에서 만든 자원이 실제 전투 행동의 사용 가능 범위를 결정</span>하도록 연결했습니다.</div></div>
+                    <div class="fillgrim-design-row fillgrim-design-row-single"><div class="fillgrim-design-label">PvP에서의 의미</div><div class="fillgrim-design-text">두 플레이어가 같은 중앙 화투판을 공유하여 <span class="design-accent">자신이 가져간 카드는 상대가 가져갈 수 없습니다. 코스트를 늘리는 선택이 동시에 상대 족보 완성과 코스트 획득 기회를 막는 견제가 되며, 일부 특수 판정은 상대 코스트를 감소시킵니다.</span></div></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+<script>
+// 영상 전달 후 아래 값에 파일 경로나 URL을 넣으면 자리표시자가 자동으로 영상으로 바뀝니다.
+const STARSAVIOR_VIDEO = "Assets/VIDEOS/PLANNING_INTENT/starsavior.mp4";
+const VIDEO_SOURCES = {
+  starrail: "Assets/VIDEOS/PLANNING_INTENT/starrail.mp4",
+  limbus: "Assets/VIDEOS/PLANNING_INTENT/limbus.mp4",
+  chaoszero: "Assets/VIDEOS/PLANNING_INTENT/chaoszero.mp4",
+  reverse1999: "Assets/VIDEOS/PLANNING_INTENT/reverse1999.mp4",
+  starsavior: STARSAVIOR_VIDEO,
+  expedition33: "Assets/VIDEOS/PLANNING_INTENT/expedition33.mp4"
+};
+
+const intentSection=document.getElementById('planningIntentSection');
+intentSection.querySelectorAll('.video-slot').forEach(slot=>{
+  const key=slot.dataset.videoKey;
+  const src=VIDEO_SOURCES[key];
+  const video=slot.querySelector('video');
+  const placeholder=slot.querySelector('.video-placeholder');
+  if(src){
+    video.src=src;
+    video.muted=true;
+    video.autoplay=false;
+    video.loop=false;
+    video.pause();
+    video.style.display='block';
+    placeholder.style.display='none';
+  }else{
+    video.style.display='none';
+  }
+});
+
+
+// 스타세이비어는 하나로 합친 영상 파일을 기본 정지·음소거 상태로 재생합니다.
+
+// FILLGRIM 인게임 애니메이션은 카드에 마우스를 올렸을 때만 재생합니다.
+intentSection.querySelectorAll('.fillgrim-demo-card').forEach(card=>{
+  const video=card.querySelector('video');
+  if(!video)return;
+  video.pause();
+  video.currentTime=0;
+  const play=()=>{
+    video.play().catch(()=>{});
+  };
+  const stop=()=>{
+    video.pause();
+    try{ video.currentTime=0; }catch(e){}
+  };
+  card.addEventListener('mouseenter',play);
+  card.addEventListener('mouseleave',stop);
+  card.addEventListener('focusin',play);
+  card.addEventListener('focusout',stop);
+});
+
+const toggle=document.getElementById('intentToggle');
+const panel=document.getElementById('intentPanel');
+toggle.addEventListener('click',()=>{
+  const open=toggle.getAttribute('aria-expanded')==='true';
+  toggle.setAttribute('aria-expanded',String(!open));
+  toggle.setAttribute('aria-label',open?'기획 의도 펼치기':'기획 의도 접기');
+  panel.classList.toggle('is-closed',open);
+});
+</script>
+</body>
+</html>
