@@ -1129,8 +1129,8 @@
   display:block;
   margin-top:5px;
   color:#77879a;
-  font-size:11.5px;
-  line-height:1.3;
+  font-size:13.4px;
+  line-height:1.6;
   font-weight:750;
   white-space:nowrap;
   overflow:hidden;
@@ -1168,8 +1168,8 @@
 .scenario-current-desc{
   margin-top:5px;
   color:#6f7f91;
-  font-size:12px;
-  line-height:1.5;
+  font-size:13.4px;
+  line-height:1.6;
   font-weight:700;
 }
 .scenario-actions{display:flex;align-items:center;gap:8px;flex:none}
@@ -1723,8 +1723,8 @@
       </div>
     </div>
     <div class="character-switcher">
-      <button class="char-btn" data-character="mime"><span class="char-badge">MI</span><span>MIME</span></button>
       <button class="char-btn" data-character="neve"><span class="char-badge">NE</span><span>NEVE</span></button>
+      <button class="char-btn" data-character="mime"><span class="char-badge">MI</span><span>MIME</span></button>
       <button class="guide-toggle" id="characterGuideToggle" type="button" aria-expanded="false" aria-controls="characterGuideContent" aria-label="캐릭터 가이드 펼치기">
         <span class="guide-toggle-icon" aria-hidden="true"></span>
       </button>
@@ -2370,8 +2370,8 @@ setCharacter('mime');
         cs.textContent=
           ".flow{min-width:1240px!important}"+
           ".stage-desc{font-size:13.4px!important;line-height:1.6!important;font-weight:740!important}"+
-          ".video-shell{background:#0b111a!important}"+
-          ".video-shell video{width:100%!important;max-width:none!important;height:auto!important;max-height:720px!important;object-fit:contain!important;image-rendering:auto!important}";
+          ".video-shell{width:100%!important;aspect-ratio:16/9!important;overflow:hidden!important;background:#0b111a!important}"+
+          ".video-shell video{width:100%!important;height:100%!important;max-width:none!important;max-height:none!important;object-fit:contain!important;image-rendering:auto!important;display:block!important;background:#0b111a!important}";
         cd.head.appendChild(cs);
       }
 
