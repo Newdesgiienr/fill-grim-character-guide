@@ -58,27 +58,7 @@ html,body{margin:0;background:#f2f5f9;font-family:Inter,Pretendard,"Noto Sans KR
       '<div class="meta">화투 기반 카드 매칭 전략 게임</div>',
       '<div class="hero-meta-row"><div class="hero-tools-badge"><span class="hero-tool-item"><img class="hero-tool-icon" src="Assets/TOOLS/codex.png" alt=""><span>ChatGPT Codex</span></span><span class="hero-tool-item"><img class="hero-tool-icon" src="Assets/TOOLS/unity.png" alt=""><span>Unity</span></span><span class="hero-tool-note">연동 개발</span></div><div class="meta">화투 기반 카드 매칭 전략 게임</div></div>'
     );
-    html=html.replace(/<\/body>/i,`<script id="planning-process-ui-patch">
-document.addEventListener("DOMContentLoaded",function(){
-  setTimeout(function(){
-    const navButtons=[...document.querySelectorAll(".guide-nav-button")];
-    const planningButton=navButtons.find(btn=>/기획\s*노트/.test(btn.textContent||""));
-    if(planningButton){
-      planningButton.textContent="기획 과정";
-      const navParent=planningButton.parentElement;
-      if(navParent)navParent.insertBefore(planningButton,navParent.firstElementChild);
-    }
-    const planningTitle=document.querySelector("#planningNotesHeader h1");
-    if(planningTitle)planningTitle.textContent="기획 과정";
-    const planningToggle=document.getElementById("planningNotesToggle");
-    if(planningToggle){
-      const opened=planningToggle.getAttribute("aria-expanded")==="true";
-      planningToggle.setAttribute("aria-label",opened?"기획 과정 접기":"기획 과정 펼치기");
-    }
-  },0);
-});
-<\/script>
-</body>`);`;
+    html=html.replace(/<\\/body>/i,"<script id=\"planning-process-ui-patch\">\ndocument.addEventListener(\"DOMContentLoaded\",function(){\n  setTimeout(function(){\n    const navButtons=[...document.querySelectorAll(\".guide-nav-button\")];\n    const planningButton=navButtons.find(btn=>/기획\\s*노트/.test(btn.textContent||\"\"));\n    if(planningButton){\n      planningButton.textContent=\"기획 과정\";\n      const navParent=planningButton.parentElement;\n      if(navParent)navParent.insertBefore(planningButton,navParent.firstElementChild);\n    }\n    const planningTitle=document.querySelector(\"#planningNotesHeader h1\");\n    if(planningTitle)planningTitle.textContent=\"기획 과정\";\n    const planningToggle=document.getElementById(\"planningNotesToggle\");\n    if(planningToggle){\n      const opened=planningToggle.getAttribute(\"aria-expanded\")===\"true\";\n      planningToggle.setAttribute(\"aria-label\",opened?\"기획 과정 접기\":\"기획 과정 펼치기\");\n    }\n  },0);\n});\n<\\/script>\n</body>");`;
     source=replaceRequired(source,responseHook,responsePatch,"히어로 도구 표시");
 
     const cssHook='html=html.replace(/<\\/head>/i,planningCss+"\\n</head>");';
