@@ -171,28 +171,11 @@ button{font:inherit}
 }
 .intent-causal-copy .accent{color:#e86b28}
 .intent-causal-arrow{
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  color:#ff6a1a;
-}
-.intent-causal-arrow::before{
-  content:"";
-  width:48px;
-  height:18px;
-  border-radius:999px;
-  background:currentColor;
-  box-shadow:none;
-}
-.intent-causal-arrow::after{
-  content:"";
-  width:27px;
-  height:27px;
-  margin-left:-16px;
-  border-top:11px solid currentColor;
-  border-right:11px solid currentColor;
-  transform:rotate(45deg);
-  border-radius:4px;
+  width:58px;
+  height:40px;
+  margin:0 auto;
+  background:#ff5f0f;
+  clip-path:polygon(0 32%,58% 32%,58% 0,100% 50%,58% 100%,58% 68%,0 68%);
 }
 .intent-causal-note{
   margin:18px 0 0;
@@ -352,7 +335,7 @@ html,body{background:transparent!important;overflow-x:hidden!important;overflow-
               <div class="intent-causal-arrow" aria-hidden="true"></div>
               <div class="intent-causal-copy">
                 FILLGRIM은 플레이어가 <span class="accent">고스톱을 통해 획득한 점수를 스킬 자원으로 하여</span><br>
-                전투가 이어지도록 설계한다.
+                턴제 전투가 이어지도록 설계한다.
               </div>
             </div>
             <p class="intent-causal-note">고스톱의 점수 획득 구조를 단순한 결과값에 머물게 하지 않고, 카드 획득과 족보 완성의 결과가 턴제 PvP의 스킬 자원으로 이어지도록 기획했습니다.</p>
@@ -368,7 +351,7 @@ html,body{background:transparent!important;overflow-x:hidden!important;overflow-
               <div class="fillgrim-demo-grid" aria-label="FILLGRIM 핵심 플레이 흐름">
                 <article class="fillgrim-demo-card">
                   <div class="fillgrim-demo-media"><video src="Assets/VIDEOS/SCENARIO/01_card_matching.mp4" muted loop playsinline preload="metadata"></video></div>
-                  <div class="fillgrim-demo-caption"><span class="fillgrim-demo-step">STEP 01</span><b>카드를 낸다</b><span class="fillgrim-demo-desc">카드를 내고, 같은 월을 맞춰 가져간다.</span></div>
+                  <div class="fillgrim-demo-caption"><span class="fillgrim-demo-step">STEP 01</span><b>1명씩 번갈아 가며 카드를 낸다</b><span class="fillgrim-demo-desc">카드를 내고, 같은 월을 맞춰 가져간다.</span></div>
                 </article>
                 <article class="fillgrim-demo-card">
                   <div class="fillgrim-demo-media"><video src="Assets/VIDEOS/SCENARIO/02_yaku_complete.mp4" muted loop playsinline preload="metadata"></video></div>
