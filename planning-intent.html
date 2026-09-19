@@ -221,15 +221,15 @@ button{font:inherit}
 .fillgrim-demo-caption{min-height:118px;padding:14px 15px 16px;background:#060c15;border-top:1px solid rgba(255,255,255,.04)}
 .fillgrim-demo-step{color:#ff8a43;font-size:11.5px;font-weight:950;letter-spacing:.06em}
 .fillgrim-demo-caption b{display:block;margin-top:6px;color:#fff;font-size:15.5px;line-height:1.35;letter-spacing:-.025em}
-.fillgrim-demo-desc{display:block;margin-top:7px;color:#c4cfdb;font-size:12.5px;font-weight:720;line-height:1.4;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;opacity:0;transform:translateY(-5px);transition:opacity .18s ease,transform .22s ease}
-.fillgrim-demo-card:hover .fillgrim-demo-desc,.fillgrim-demo-card:focus-within .fillgrim-demo-desc{opacity:1;transform:translateY(0)}
+.fillgrim-demo-desc{display:block;margin-top:7px;color:#c4cfdb;font-size:12.5px;font-weight:720;line-height:1.4;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;opacity:1;transform:none}
 .fillgrim-plan-title{margin-top:20px;color:#17304d;font-size:18px;font-weight:950;text-align:center;letter-spacing:-.025em}
 
-.fusion-intent-block{margin-top:24px;padding:18px;border:1px solid #dce4ec;border-radius:14px;background:#fff}
+.fusion-intent-block{margin-top:24px;padding:0;border:0;border-radius:0;background:transparent}
+.fusion-intent-intro{padding:13px 15px;border-radius:10px;border:1px solid #d8e1eb;background:#f7f9fc}
 .fusion-intent-heading{margin:0;color:#17304d;font-size:18px;font-weight:950;text-align:center;letter-spacing:-.025em}
 .fusion-intent-lead-highlight{color:#ec6f2d;font-weight:950}
-.fusion-intent-lead{max-width:1120px;margin:8px auto 16px;color:#53677e;font-size:18px;font-weight:800;line-height:1.65;text-align:center}
-.fusion-intent-videos{display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:start;width:calc(100% + 36px);margin-left:-18px;margin-right:-18px}
+.fusion-intent-lead{max-width:1120px;margin:8px auto 0;color:#53677e;font-size:18px;font-weight:800;line-height:1.65;text-align:center}
+.fusion-intent-videos{display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:start;width:100%;margin:18px 0 0}
 .fusion-intent-video-card{min-width:0;padding:12px 0;border:1px solid #dce4ec;border-radius:13px;background:#fbfcfe;overflow:hidden}
 .fusion-intent-video-label{margin:0 0 8px;padding:0 12px;color:#17304d;font-size:18px;font-weight:950;text-align:center;letter-spacing:-.025em}
 .fusion-intent-video-tag{margin-left:4px;color:#ec6f2d;font-size:18px;font-weight:950;white-space:nowrap;letter-spacing:-.025em}
@@ -242,7 +242,7 @@ button{font:inherit}
 .fusion-intent-note-text{width:100%;color:#566b82;font-size:18px;font-weight:760;line-height:1.55;display:flex;align-items:center;justify-content:center;white-space:normal;text-align:center;letter-spacing:-.025em}
 .fusion-intent-summary{margin-top:14px;padding:13px 15px;border-radius:10px;border:1px solid #d8e1eb;background:#f7f9fc;color:#17304d;font-size:14.4px;font-weight:900;line-height:1.6;text-align:center}
 @media(max-width:760px){
-  .fusion-intent-videos{grid-template-columns:1fr;width:100%;margin-left:0;margin-right:0}
+  .fusion-intent-videos{grid-template-columns:1fr;width:100%;margin:18px 0 0}
   .fusion-intent-note{flex-wrap:wrap;gap:4px}
   .fusion-intent-note-text{white-space:normal}
 }
@@ -372,8 +372,10 @@ html,body{background:transparent!important;overflow-x:hidden!important;overflow-
 
               
 <section class="fusion-intent-block" aria-label="고스톱과 턴제 결합 의도">
-  <h3 class="fusion-intent-heading">고스톱과 턴제 결합 의도</h3>
-  <p class="fusion-intent-lead"><span class="fusion-intent-lead-highlight">단순히 자동으로 회복되는 자원이 아니라, 플레이어가 직접 카드 게임을 통해 전투자원을 획득하는 게임 구조</span>를 만들고자 했습니다.</p>
+  <div class="fusion-intent-intro">
+    <h3 class="fusion-intent-heading">고스톱과 턴제 결합 의도</h3>
+    <p class="fusion-intent-lead"><span class="fusion-intent-lead-highlight">단순히 자동으로 회복되는 자원이 아니라, 플레이어가 직접 카드 게임을 통해 전투자원을 획득하는 게임 구조</span>를 만들고자 했습니다.</p>
+  </div>
 
   <div class="fusion-intent-videos">
     <div class="fusion-intent-video-card">
