@@ -2333,7 +2333,7 @@ setCharacter('neve');
       <div class="logo planning-notes-logo">PLAN<br>NOTE</div>
       <div class="brand-copy">
         <h1>기획 과정</h1>
-        <div class="brand-sub">플레이 시나리오, 데이터 구조, 스킬 연계 연출을 확인합니다.</div>
+        <div class="brand-sub">기획 의도, 플레이 시나리오, 데이터 구조, 스킬 연계 연출, 레퍼런스를 확인합니다.</div>
       </div>
     </div>
     <button class="guide-toggle" id="planningNotesToggle" type="button"
@@ -2456,6 +2456,26 @@ setCharacter('neve');
           </div>
         </section>
 
+        <section class="planning-note-entry">
+          <div class="section-titlebar collapsible-section-titlebar">
+            <div class="section-heading">
+              <div class="section-title">레퍼런스</div>
+              <div class="section-subtitle">턴제 자원 설계, 카드 기반 선택 구조, 장르 융합 사례를 비교해 FILLGRIM의 기획 근거를 정리했습니다.</div>
+            </div>
+            <button class="section-toggle planning-entry-toggle" type="button"
+              aria-expanded="false" aria-controls="planningReferencePanel" aria-label="레퍼런스 펼치기">
+              <span class="section-toggle-icon" aria-hidden="true"></span>
+            </button>
+          </div>
+          <div class="planning-collapse" id="planningReferencePanel">
+            <div class="planning-entry-clip">
+              <div class="content-card panel section-collapse-content planning-entry-content">
+                <iframe class="planning-note-frame" id="planningReferenceFrame" data-note-key="reference" title="레퍼런스 내용" allow="autoplay; fullscreen"></iframe>
+              </div>
+            </div>
+          </div>
+        </section>
+
         
 
       </div>
@@ -2542,8 +2562,8 @@ setCharacter('neve');
     if(f)f.style.height=Math.max(84,Math.ceil(Number(m.height)||84))+"px";
   });
 }(function(){
-  const NOTE_URL={data:"planning-data.html",skill:"planning-skill.html"};
-  const frameIds={data:"planningDataFrame",skill:"planningSkillFrame"};
+  const NOTE_URL={data:"planning-data.html",skill:"planning-skill.html",reference:"planning-reference.html"};
+  const frameIds={data:"planningDataFrame",skill:"planningSkillFrame",reference:"planningReferenceFrame"};
   const urls={};
   let viewportLock=null;
   let viewportLockRaf=0;
@@ -2763,6 +2783,7 @@ setCharacter('neve');
   bindEntryToggle(document.querySelector('[aria-controls="planningScenarioPanel"]'),"플레이 시나리오",null);
   bindEntryToggle(document.querySelector('[aria-controls="planningDataPanel"]'),"데이터 테이블","data");
   bindEntryToggle(document.querySelector('[aria-controls="planningSkillPanel"]'),"스킬 연계 연출","skill");
+  bindEntryToggle(document.querySelector('[aria-controls="planningReferencePanel"]'),"레퍼런스","reference");
 
   /* 플레이 시나리오 */
   const scenarioStages=[{"title":"카드 매칭","desc":"카드를 내고, 같은 월을 맞춰 가져간다.","source":"Assets/VIDEOS/SCENARIO/01_card_matching.mp4"},{"title":"족보 완성","desc":"족보를 맞춰 코스트를 번다.","source":"Assets/VIDEOS/SCENARIO/02_yaku_complete.mp4"},{"title":"특수 상황","desc":"특수 상황으로 코스트를 번다.","source":"Assets/VIDEOS/SCENARIO/03_special_situation.mp4"},{"title":"게임 종료 조건","desc":"코스트로 발동한 스킬로 상대의 체력을 0으로 만든다.","source":"Assets/VIDEOS/SCENARIO/04_game_end_condition.mp4"}];
