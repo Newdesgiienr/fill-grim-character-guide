@@ -137,6 +137,82 @@ button{font:inherit}
 .fusion-chip.is-fillgrim{border-color:#ffbd92;background:#fff5ee;color:#9d5a33}
 .fusion-chip.is-fillgrim strong{color:#d86629}
 
+/* 기획 의도 핵심 인과 */
+.intent-causal-card{
+  margin:0 0 20px;
+  padding:25px 28px 22px;
+  border:1px solid #d7e0ea;
+  border-radius:16px;
+  background:#fff;
+  box-shadow:0 4px 14px rgba(15,23,42,.035);
+  position:relative;
+  overflow:hidden;
+}
+.intent-causal-card::after{
+  content:"";
+  position:absolute;
+  left:0;right:0;bottom:0;
+  height:4px;
+  background:#ff7a3d;
+}
+.intent-causal-flow{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) 72px minmax(0,1fr);
+  gap:18px;
+  align-items:center;
+}
+.intent-causal-copy{
+  color:#10243f;
+  font-size:clamp(20px,1.55vw,29px);
+  font-weight:950;
+  line-height:1.48;
+  letter-spacing:-.045em;
+  text-align:center;
+}
+.intent-causal-copy .accent{color:#e86b28}
+.intent-causal-arrow{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:#ff6a1a;
+}
+.intent-causal-arrow::before{
+  content:"";
+  width:48px;
+  height:18px;
+  border-radius:999px;
+  background:currentColor;
+  box-shadow:none;
+}
+.intent-causal-arrow::after{
+  content:"";
+  width:27px;
+  height:27px;
+  margin-left:-16px;
+  border-top:11px solid currentColor;
+  border-right:11px solid currentColor;
+  transform:rotate(45deg);
+  border-radius:4px;
+}
+.intent-causal-note{
+  margin:18px 0 0;
+  color:#5e7085;
+  font-size:15px;
+  font-weight:760;
+  line-height:1.7;
+  text-align:center;
+}
+@media(max-width:900px){
+  .intent-causal-flow{grid-template-columns:1fr;gap:12px}
+  .intent-causal-arrow{transform:rotate(90deg)}
+  .intent-causal-copy{font-size:22px}
+}
+@media(max-width:640px){
+  .intent-causal-card{padding:20px 16px 18px}
+  .intent-causal-copy{font-size:19px}
+  .intent-causal-note{font-size:14px;text-align:left}
+}
+
 /* 최종 FILLGRIM 결론 */
 .fillgrim-final{margin-top:20px;border:1px solid #ffbe97;border-radius:16px;overflow:hidden;background:#fff}
 .fillgrim-final-head{padding:22px 24px;background:linear-gradient(135deg,#1b2b43,#13253e);color:#fff}
@@ -267,6 +343,21 @@ html,body{background:transparent!important;overflow-x:hidden!important;overflow-
     <div class="intent-collapse is-closed" id="intentPanel">
       <div class="intent-clip">
         <div class="intent-body">
+          <section class="intent-causal-card" aria-label="기획 의도 핵심 인과">
+            <div class="intent-causal-flow">
+              <div class="intent-causal-copy">
+                턴제 게임의 플레이 경험은 스킬 자체뿐 아니라,<br>
+                <span class="accent">스킬을 사용하기 위한 자원을 어떻게 획득하게 하느냐에 따라 달라진다.</span>
+              </div>
+              <div class="intent-causal-arrow" aria-hidden="true"></div>
+              <div class="intent-causal-copy">
+                FILLGRIM은 플레이어가 <span class="accent">고스톱을 통해 획득한 점수를 스킬 자원으로 하여</span><br>
+                전투가 이어지도록 설계한다.
+              </div>
+            </div>
+            <p class="intent-causal-note">고스톱의 점수 획득 구조를 단순한 결과값에 머물게 하지 않고, 카드 획득과 족보 완성의 결과가 턴제 PvP의 스킬 자원으로 이어지도록 기획했습니다.</p>
+          </section>
+
           <section class="fillgrim-final">
             <div class="fillgrim-final-head">
               <div class="small">FILLGRIM의 기획</div>
