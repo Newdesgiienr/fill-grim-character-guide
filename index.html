@@ -2333,7 +2333,7 @@ setCharacter('neve');
       <div class="logo planning-notes-logo">PLAN<br>NOTE</div>
       <div class="brand-copy">
         <h1>기획 과정</h1>
-        <div class="brand-sub">기획 의도, 플레이 시나리오, 데이터 구조, 스킬 연계 연출, 레퍼런스를 확인합니다.</div>
+        <div class="brand-sub">기획 의도, 플레이 시나리오, 데이터 구조, 레퍼런스를 확인합니다.</div>
       </div>
     </div>
     <button class="guide-toggle" id="planningNotesToggle" type="button"
@@ -2436,25 +2436,7 @@ setCharacter('neve');
           </div>
         </section>
 
-        <section class="planning-note-entry">
-          <div class="section-titlebar collapsible-section-titlebar">
-            <div class="section-heading">
-              <div class="section-title">스킬 연계 연출</div>
-              <div class="section-subtitle">코스트를 모아 여러 스킬을 한 턴에 연속으로 사용하고, 스킬 콤보와 연출을 애니메이션처럼 연결했습니다.</div>
-            </div>
-            <button class="section-toggle planning-entry-toggle" type="button"
-              aria-expanded="false" aria-controls="planningSkillPanel" aria-label="스킬 연계 연출 펼치기">
-              <span class="section-toggle-icon" aria-hidden="true"></span>
-            </button>
-          </div>
-          <div class="planning-collapse" id="planningSkillPanel">
-            <div class="planning-entry-clip">
-              <div class="content-card panel section-collapse-content planning-entry-content">
-                <iframe class="planning-note-frame" id="planningSkillFrame" data-note-key="skill" title="스킬 연계 연출 내용" allow="autoplay; fullscreen"></iframe>
-              </div>
-            </div>
-          </div>
-        </section>
+        
 
         <section class="planning-note-entry">
           <div class="section-titlebar collapsible-section-titlebar">
@@ -2542,19 +2524,6 @@ setCharacter('neve');
     }catch(e){}
   });
 
-  const skf=node.querySelector("#planningSkillFrame");
-  if(skf)skf.addEventListener("load",()=>{
-    try{
-      const sd=skf.contentDocument;
-      if(sd&&sd.head&&!sd.getElementById("fillgrim-skill-copy-size")){
-        const ss=sd.createElement("style");
-        ss.id="fillgrim-skill-copy-size";
-        ss.textContent=".strategy-desc,.step .clip-note,.mechanic-summary,.control-note{font-size:13.4px!important;line-height:1.6!important}";
-        sd.head.appendChild(ss);
-      }
-    }catch(e){}
-  });
-
   window.addEventListener("message",e=>{
     const m=e.data;
     if(!m||m.type!=="fillgrim-intent-height")return;
@@ -2562,8 +2531,8 @@ setCharacter('neve');
     if(f)f.style.height=Math.max(84,Math.ceil(Number(m.height)||84))+"px";
   });
 }(function(){
-  const NOTE_URL={data:"planning-data.html",skill:"planning-skill.html",reference:"planning-reference.html"};
-  const frameIds={data:"planningDataFrame",skill:"planningSkillFrame",reference:"planningReferenceFrame"};
+  const NOTE_URL={data:"planning-data.html",reference:"planning-reference.html"};
+  const frameIds={data:"planningDataFrame",reference:"planningReferenceFrame"};
   const urls={};
   let viewportLock=null;
   let viewportLockRaf=0;
@@ -2782,7 +2751,6 @@ setCharacter('neve');
 
   bindEntryToggle(document.querySelector('[aria-controls="planningScenarioPanel"]'),"플레이 시나리오",null);
   bindEntryToggle(document.querySelector('[aria-controls="planningDataPanel"]'),"데이터 테이블","data");
-  bindEntryToggle(document.querySelector('[aria-controls="planningSkillPanel"]'),"스킬 연계 연출","skill");
   bindEntryToggle(document.querySelector('[aria-controls="planningReferencePanel"]'),"레퍼런스","reference");
 
   /* 플레이 시나리오 */
