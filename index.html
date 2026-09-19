@@ -4,7 +4,7 @@
 <!-- CARDLOG source: Assets/CARDLOG in Newdesgiienr/fill-grim-character-guide -->
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>FILL GRIM 캐릭터 가이드</title>
+<title>FILL GRIM 캐릭터 정보</title>
 <style>
   :root {
     --bg: #f2f5f9;
@@ -1269,7 +1269,7 @@
   .art-resources-section{margin:22px 0 10px}
   .art-resources-bar{
     position:relative;min-height:54px;border:1px solid #d8e1eb;border-radius:15px;background:#fff;
-    display:flex;align-items:center;justify-content:flex-end;padding:0 10px;
+    display:flex;align-items:center;justify-content:flex-end;padding:0 22px;
     box-shadow:0 6px 14px rgba(15,23,42,.045);
   }
   .art-resources-title{
@@ -1277,7 +1277,7 @@
     color:#17304d;font-size:15px;font-weight:950;letter-spacing:-.02em;white-space:nowrap;
   }
   .art-resources-toggle{
-    width:38px;height:38px;border:1px solid #d7e0ea;border-radius:10px;background:#f8fafc;
+    width:46px;height:38px;flex:0 0 46px;border:1px solid #d7e0ea;border-radius:10px;background:#f8fafc;
     color:#17304d;display:grid;place-items:center;cursor:pointer;
   }
   .art-resources-toggle::before{
@@ -1323,38 +1323,38 @@
 
   <nav class="guide-navigator" aria-label="가이드 빠른 이동">
     <button class="guide-nav-button" type="button" onclick="window.__openPlanningNotes&&window.__openPlanningNotes()">기획 과정</button>
-    <button class="guide-nav-button" type="button" data-guide-target="gameGuideHeader" data-guide-toggle="gameGuideToggle">게임 가이드로 이동</button>
-    <button class="guide-nav-button" type="button" data-guide-target="characterGuideHeader" data-guide-toggle="characterGuideToggle" data-guide-character="neve">캐릭터 가이드로 이동</button>
+    <button class="guide-nav-button" type="button" data-guide-target="gameGuideHeader" data-guide-toggle="gameGuideToggle">게임 정보로 이동</button>
+    <button class="guide-nav-button" type="button" data-guide-target="characterGuideHeader" data-guide-toggle="characterGuideToggle" data-guide-character="neve">캐릭터 정보로 이동</button>
     <button class="guide-nav-button balance-nav-button" id="balanceSiteButton" type="button">밸런싱 사이트로 이동</button>
     <button class="guide-nav-button resource-nav-button" type="button" onclick="window.__openResourceList&&window.__openResourceList()">리소스 리스트로 이동</button>
   </nav>
 
   <header class="top-card panel guide-overview-card" id="gameGuideHeader">
     <div class="brand">
-      <div class="logo">GAME<br>GUIDE</div>
+      <div class="logo">GAME<br>INFO</div>
       <div class="brand-copy">
-        <h1>게임 가이드</h1>
-        <div class="brand-sub">플레이 흐름, 카드 족보, 보너스 패와 특수상황을 확인합니다.</div>
+        <h1>게임 정보</h1>
+        <div class="brand-sub">게임의 플레이 방식 그리고, 전반적인 규칙에 대해 설명합니다.</div>
       </div>
     </div>
-    <button class="guide-toggle" id="gameGuideToggle" type="button" aria-expanded="true" aria-controls="gameGuideContent" aria-label="게임 가이드 접기">
+    <button class="guide-toggle" id="gameGuideToggle" type="button" aria-expanded="false" aria-controls="gameGuideContent" aria-label="게임 정보 펼치기">
       <span class="guide-toggle-icon" aria-hidden="true"></span>
     </button>
   </header>
 
-  <div class="guide-collapse-content" id="gameGuideContent">
+  <div class="guide-collapse-content" id="gameGuideContent" hidden>
 
   <section class="play-guide-block" aria-labelledby="playGuideTitle">
     <div class="section-titlebar play-guide-titlebar collapsible-section-titlebar">
       <div class="section-heading">
         <div class="section-title" id="playGuideTitle">플레이 규칙</div>
-        <div class="section-subtitle">각 카드에 마우스를 올려 카드 파밍부터 스킬 사용까지 확인합니다.</div>
+        <div class="section-subtitle">4개의 카드 이미지에 마우스를 올려 게임의 플레이 방식을 확인합니다.</div>
       </div>
-      <button class="section-toggle" id="playGuideToggle" type="button" aria-expanded="true" aria-controls="playGuidePanel" aria-label="플레이 규칙 접기">
+      <button class="section-toggle" id="playGuideToggle" type="button" aria-expanded="false" aria-controls="playGuidePanel" aria-label="플레이 규칙 펼치기">
         <span class="section-toggle-icon" aria-hidden="true"></span>
       </button>
     </div>
-    <div class="content-card panel play-guide-panel section-collapse-content" id="playGuidePanel">
+    <div class="content-card panel play-guide-panel section-collapse-content" id="playGuidePanel" hidden>
       <div class="play-guide-grid">
         <button class="play-step-card" type="button" aria-label="1단계 카드를 낸다">
           <span class="play-stage step-play" aria-hidden="true">
@@ -1789,16 +1789,16 @@
 
   <header class="top-card panel" id="characterGuideHeader">
     <div class="brand">
-      <div class="logo">CHAR<br>GUIDE</div>
+      <div class="logo">CHAR<br>INFO</div>
       <div>
-        <h1>캐릭터 가이드</h1>
+        <h1>캐릭터 정보</h1>
         <div class="brand-sub">일러스트와 스킬 효과를 한 페이지에서 확인합니다.</div>
       </div>
     </div>
     <div class="character-switcher">
       <button class="char-btn" data-character="neve"><span class="char-badge">NE</span><span>NEVE</span></button>
       <button class="char-btn" data-character="mime"><span class="char-badge">MI</span><span>MIME</span></button>
-      <button class="guide-toggle" id="characterGuideToggle" type="button" aria-expanded="false" aria-controls="characterGuideContent" aria-label="캐릭터 가이드 펼치기">
+      <button class="guide-toggle" id="characterGuideToggle" type="button" aria-expanded="false" aria-controls="characterGuideContent" aria-label="캐릭터 정보 펼치기">
         <span class="guide-toggle-icon" aria-hidden="true"></span>
       </button>
     </div>
@@ -1865,9 +1865,9 @@
 
   <section class="art-resources-section" id="artResourcesSection" aria-labelledby="artResourcesTitle">
     <div class="art-resources-bar">
-      <div class="art-resources-title" id="artResourcesTitle">아트 리소스</div>
+      <div class="art-resources-title" id="artResourcesTitle">리소스 리스트</div>
       <button class="art-resources-toggle" id="artResourcesToggle" type="button"
-        aria-expanded="false" aria-controls="artResourcesContent" aria-label="아트 리소스 펼치기"></button>
+        aria-expanded="false" aria-controls="artResourcesContent" aria-label="리소스 리스트 펼치기"></button>
     </div>
     <div class="art-resources-content" id="artResourcesContent" hidden>
       <div class="art-resources-divider"></div>
@@ -1884,13 +1884,13 @@
 
       <div class="art-resource-item">
         <div class="art-resource-title">3. NEVE, MIME [스킬 VFX] [출처]</div>
-        <div class="art-resource-source">[UNITY Asset] <a href="https://assetstore.unity.com/packages/vfx/particles/fire-explosions/free-stylizedvfx-fire-pack-321082" target="_blank" rel="noopener noreferrer">https://assetstore.unity.com/packages/vfx/particles/fire-explosions/free-stylizedvfx-fire-pack-321082</a></div>
-        <div class="art-resource-source">[UNITY Asset] <a href="https://assetstore.unity.com/packages/vfx/particles/fire-explosions/free-stylizedvfx-fire-pack-321082" target="_blank" rel="noopener noreferrer">https://assetstore.unity.com/packages/vfx/particles/fire-explosions/free-stylizedvfx-fire-pack-321082</a></div>
+        <div class="art-resource-source">[UNITY Asset] https://assetstore.unity.com/packages/vfx/particles/fire-explosions/free-stylizedvfx-fire-pack-321082</div>
+        <div class="art-resource-source">[UNITY Asset] https://assetstore.unity.com/packages/vfx/particles/fire-explosions/free-stylizedvfx-fire-pack-321082</div>
       </div>
 
       <div class="art-resource-item">
         <div class="art-resource-title">4. [화투 패] [일러스트] 48장 [출처]</div>
-        <div class="art-resource-source">[MiriCanvas Image Stock] <a href="https://www.miricanvas.com/ko" target="_blank" rel="noopener noreferrer">https://www.miricanvas.com/ko</a></div>
+        <div class="art-resource-source">[MiriCanvas Image Stock] https://www.miricanvas.com/ko</div>
       </div>
 
       <div class="art-resource-item">
@@ -2193,13 +2193,13 @@ setCharacter('neve');
     });
   }
 
-  bindGuideToggle('gameGuideToggle', 'gameGuideContent', '게임 가이드');
+  bindGuideToggle('gameGuideToggle', 'gameGuideContent', '게임 정보');
   bindGuideToggle('playGuideToggle', 'playGuidePanel', '플레이 규칙');
   bindGuideToggle('uiGuideToggle', 'uiGuidePanel', '게임 화면 안내');
   bindGuideToggle('monthGuideToggle', 'monthGuidePanel', '월별 카드 규칙');
   bindGuideToggle('yakuGuideToggle', 'yakuGuidePanel', '족보 규칙');
   bindGuideToggle('specialGuideToggle', 'specialGuidePanel', '특수상황 규칙');
-  bindGuideToggle('characterGuideToggle', 'characterGuideContent', '캐릭터 가이드');
+  bindGuideToggle('characterGuideToggle', 'characterGuideContent', '캐릭터 정보');
 
   document.querySelectorAll('.yaku-card').forEach(card => {
     card.addEventListener('click', () => {
@@ -2300,12 +2300,12 @@ setCharacter('neve');
       </div>
     </div>
     <button class="guide-toggle" id="planningNotesToggle" type="button"
-      aria-expanded="false" aria-controls="planningNotesContent" aria-label="기획 과정 펼치기">
+      aria-expanded="true" aria-controls="planningNotesContent" aria-label="기획 과정 접기">
       <span class="guide-toggle-icon" aria-hidden="true"></span>
     </button>
   </header>
 
-  <div class="planning-big-collapse" id="planningNotesContent">
+  <div class="planning-big-collapse is-open" id="planningNotesContent">
     <div class="planning-big-clip">
       <div class="planning-notes-inner">
 
@@ -2835,6 +2835,28 @@ setCharacter('neve');
 
   selectScenarioStage(0,false,false,null);
 
+  function openPlanningIntent(){
+    const frame=document.getElementById("planningIntentFrame");
+    if(!frame)return;
+
+    const open=()=>{
+      try{
+        const doc=frame.contentDocument;
+        const toggle=doc&&doc.getElementById("intentToggle");
+        if(toggle&&toggle.getAttribute("aria-expanded")!=="true")toggle.click();
+      }catch(e){}
+    };
+
+    try{
+      if(frame.contentDocument&&frame.contentDocument.readyState==="complete")open();
+      else frame.addEventListener("load",open,{once:true});
+    }catch(e){
+      frame.addEventListener("load",open,{once:true});
+    }
+
+    setTimeout(open,80);
+  }
+
   window.__openPlanningNotes=function(){
     if(bigToggle&&bigContent){
       bigToggle.setAttribute("aria-expanded","true");
@@ -2842,13 +2864,7 @@ setCharacter('neve');
       bigContent.classList.add("is-open");
     }
 
-    const scenarioToggle=document.querySelector('[aria-controls="planningScenarioPanel"]');
-    const scenarioPanel=document.getElementById("planningScenarioPanel");
-    if(scenarioToggle&&scenarioPanel){
-      scenarioToggle.setAttribute("aria-expanded","true");
-      scenarioToggle.setAttribute("aria-label","플레이 시나리오 접기");
-      scenarioPanel.classList.add("is-open");
-    }
+    openPlanningIntent();
 
     document.getElementById("planningNotesHeader")?.scrollIntoView({behavior:"smooth",block:"start"});
   };
@@ -2891,7 +2907,7 @@ setCharacter('neve');
   function setResourcesOpen(open){
     if(!resourceToggle||!resourceContent)return;
     resourceToggle.setAttribute("aria-expanded",String(open));
-    resourceToggle.setAttribute("aria-label",`아트 리소스 ${open?"접기":"펼치기"}`);
+    resourceToggle.setAttribute("aria-label",`리소스 리스트 ${open?"접기":"펼치기"}`);
     resourceContent.hidden=!open;
   }
 
