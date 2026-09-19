@@ -2336,7 +2336,7 @@ setCharacter('neve');
       <div class="logo planning-notes-logo">PLAN<br>NOTE</div>
       <div class="brand-copy">
         <h1>기획 과정</h1>
-        <div class="brand-sub">기획 의도, 플레이 시나리오, 데이터 구조, 레퍼런스를 확인합니다.</div>
+        <div class="brand-sub">기획 의도, 데이터 구조, 레퍼런스를 확인합니다.</div>
       </div>
     </div>
     <button class="guide-toggle" id="planningNotesToggle" type="button"
@@ -2352,72 +2352,6 @@ setCharacter('neve');
         <div class="planning-intent-host">
           <iframe class="planning-intent-frame" id="planningIntentFrame" src="planning-intent.html" title="기획 의도" loading="eager" scrolling="no"></iframe>
         </div>
-
-        <section class="planning-note-entry">
-          <div class="section-titlebar collapsible-section-titlebar">
-            <div class="section-heading">
-              <div class="section-title">플레이 시나리오</div>
-              <div class="section-subtitle">카드 획득부터 코스트 확보, 게임 종료 조건까지 실제 인게임 흐름을 단계별로 보여줍니다.</div>
-            </div>
-            <button class="section-toggle planning-entry-toggle" type="button"
-              aria-expanded="false" aria-controls="planningScenarioPanel" aria-label="플레이 시나리오 펼치기">
-              <span class="section-toggle-icon" aria-hidden="true"></span>
-            </button>
-          </div>
-
-          <div class="planning-collapse" id="planningScenarioPanel">
-            <div class="planning-entry-clip">
-              <div class="content-card panel section-collapse-content planning-entry-content scenario-demo">
-                <div class="scenario-flow-wrap">
-                  <div class="scenario-flow">
-                    <button class="scenario-stage active" type="button" data-scenario-index="0">
-                      <span class="scenario-step-num">01</span>
-                      <span class="scenario-stage-title">카드 매칭</span>
-                      <span class="scenario-stage-desc">카드를 내고, 같은 월을 맞춰 가져간다.</span>
-                    </button>
-                    <span class="scenario-arrow">→</span>
-                    <button class="scenario-stage" type="button" data-scenario-index="1">
-                      <span class="scenario-step-num">02</span>
-                      <span class="scenario-stage-title">족보 완성</span>
-                      <span class="scenario-stage-desc">족보를 맞춰 코스트를 번다.</span>
-                    </button>
-                    <span class="scenario-arrow">→</span>
-                    <button class="scenario-stage" type="button" data-scenario-index="2">
-                      <span class="scenario-step-num">03</span>
-                      <span class="scenario-stage-title">특수 상황</span>
-                      <span class="scenario-stage-desc">특수 상황으로 코스트를 번다.</span>
-                    </button>
-                    <span class="scenario-arrow">→</span>
-                    <button class="scenario-stage" type="button" data-scenario-index="3">
-                      <span class="scenario-step-num">04</span>
-                      <span class="scenario-stage-title">게임 종료 조건</span>
-                      <span class="scenario-stage-desc">코스트로 발동한 스킬로 상대의 체력을 0으로 만든다.</span>
-                    </button>
-                  </div>
-                </div>
-
-                <div class="scenario-workspace">
-                  <div class="scenario-workspace-head">
-                    <div>
-                      <div class="scenario-kicker" id="scenarioKicker">PLAY SCENARIO · 01</div>
-                      <div class="scenario-current-title" id="scenarioCurrentTitle">카드 매칭</div>
-                      <div class="scenario-current-desc" id="scenarioCurrentDesc">카드를 내고, 같은 월을 맞춰 가져간다.</div>
-                    </div>
-                    <div class="scenario-actions">
-                      <button class="scenario-play-btn" id="scenarioPlayBtn" type="button">▶ 재생</button>
-                    </div>
-                  </div>
-                  <div class="scenario-video-wrap">
-                    <video id="scenarioVideo" controls playsinline preload="metadata">
-                      
-                    </video>
-                    <div class="scenario-video-error" id="scenarioVideoError">플레이 시나리오 영상을 불러오지 못했습니다.</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
 
         <section class="planning-note-entry">
           <div class="section-titlebar collapsible-section-titlebar">
@@ -2753,117 +2687,8 @@ setCharacter('neve');
     });
   }
 
-  bindEntryToggle(document.querySelector('[aria-controls="planningScenarioPanel"]'),"플레이 시나리오",null);
   bindEntryToggle(document.querySelector('[aria-controls="planningDataPanel"]'),"데이터 테이블","data");
   bindEntryToggle(document.querySelector('[aria-controls="planningReferencePanel"]'),"레퍼런스","reference");
-
-  /* 플레이 시나리오 */
-  const scenarioStages=[{"title":"카드 매칭","desc":"카드를 내고, 같은 월을 맞춰 가져간다.","source":"Assets/VIDEOS/SCENARIO/01_card_matching.mp4"},{"title":"족보 완성","desc":"족보를 맞춰 코스트를 번다.","source":"Assets/VIDEOS/SCENARIO/02_yaku_complete.mp4"},{"title":"특수 상황","desc":"특수 상황으로 코스트를 번다.","source":"Assets/VIDEOS/SCENARIO/03_special_situation.mp4"},{"title":"게임 종료 조건","desc":"코스트로 발동한 스킬로 상대의 체력을 0으로 만든다.","source":"Assets/VIDEOS/SCENARIO/04_game_end_condition.mp4"}];
-  const scenarioVideo=document.getElementById("scenarioVideo");
-  const scenarioTitle=document.getElementById("scenarioCurrentTitle");
-  const scenarioDesc=document.getElementById("scenarioCurrentDesc");
-  const scenarioKicker=document.getElementById("scenarioKicker");
-  const scenarioPlayBtn=document.getElementById("scenarioPlayBtn");
-  let activeScenarioIndex=0;
-
-  function fmt(sec){
-    if(!Number.isFinite(sec)||sec<0)sec=0;
-    let whole=Math.floor(sec);
-    let ms=Math.floor((sec-whole)*1000);
-    if(ms>=1000){whole++;ms=0}
-    return `${String(whole).padStart(2,"0")}.${String(ms).padStart(3,"0")}`;
-  }
-
-  function updateScenarioTime(){
-    if(!scenarioVideo)return;
-    if(!scenarioVideo.paused&&!scenarioVideo.ended)requestAnimationFrame(updateScenarioTime);
-  }
-
-  function selectScenarioStage(index,autoplay=false,lockScroll=true,anchor=null){
-    if(lockScroll){
-      if(!viewportLock)beginViewportLock(anchor||document.querySelector(".scenario-flow-wrap"),3200);
-      else extendViewportLock(2200);
-    }
-    activeScenarioIndex=index;
-
-    document.querySelectorAll(".scenario-stage").forEach((el,n)=>el.classList.toggle("active",n===index));
-    scenarioKicker.textContent=`PLAY SCENARIO · ${String(index+1).padStart(2,"0")}`;
-    scenarioTitle.textContent=scenarioStages[index].title;
-    scenarioDesc.textContent=scenarioStages[index].desc;
-    scenarioPlayBtn.textContent="▶ 재생";
-
-    scenarioVideo.pause();
-    if(scenarioVideo.dataset.source!==scenarioStages[index].source){
-      scenarioVideo.dataset.source=scenarioStages[index].source;
-      scenarioVideo.src=scenarioStages[index].source;
-      scenarioVideo.load();
-    }else{
-      scenarioVideo.currentTime=0;
-      updateScenarioTime();
-      if(lockScroll)setTimeout(releaseViewportLock,500);
-    }
-
-    if(autoplay){
-      scenarioVideo.play().catch(()=>{});
-    }
-  }
-
-  document.querySelectorAll(".scenario-stage").forEach((btn,i)=>{
-    btn.addEventListener("pointerdown",e=>{
-      e.preventDefault();
-      beginViewportLock(btn,3400);
-    },true);
-    btn.addEventListener("mousedown",e=>{
-      e.preventDefault();
-    },true);
-    btn.addEventListener("click",e=>{
-      e.preventDefault();
-      e.stopPropagation();
-      selectScenarioStage(i,false,true,btn);
-      try{btn.focus({preventScroll:true})}catch(err){}
-      setTimeout(releaseViewportLock,2100);
-    });
-  });
-
-  scenarioPlayBtn?.addEventListener("click",async()=>{
-    if(scenarioVideo.paused){
-      if(scenarioVideo.ended)scenarioVideo.currentTime=0;
-      try{await scenarioVideo.play()}catch(e){}
-    }else{
-      scenarioVideo.pause();
-    }
-  });
-
-  scenarioVideo?.addEventListener("loadedmetadata",()=>{
-    updateScenarioTime();
-    if(viewportLock){
-      extendViewportLock(1200);
-      setTimeout(releaseViewportLock,1050);
-    }
-  });
-  scenarioVideo?.addEventListener("play",()=>{
-    scenarioPlayBtn.textContent="■ 정지";
-    requestAnimationFrame(updateScenarioTime);
-  });
-  scenarioVideo?.addEventListener("pause",()=>{
-    scenarioPlayBtn.textContent="▶ 재생";
-    updateScenarioTime();
-  });
-  scenarioVideo?.addEventListener("ended",()=>{
-    scenarioPlayBtn.textContent="↻ 다시 재생";
-    updateScenarioTime();
-  });
-  scenarioVideo?.addEventListener("timeupdate",updateScenarioTime);
-  scenarioVideo?.addEventListener("error",()=>{
-    const box=document.getElementById("scenarioVideoError");
-    if(box)box.style.display="block";
-    if(viewportLock){
-      extendViewportLock(1200);
-      setTimeout(releaseViewportLock,1050);
-    }
-  });
-
-  selectScenarioStage(0,false,false,null);
 
   function openPlanningIntent(){
     const frame=document.getElementById("planningIntentFrame");
