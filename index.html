@@ -2485,6 +2485,7 @@ setCharacter('neve');
           ".intent-subtitle{margin-left:10px!important;color:#d9e0eb!important;font-size:13px!important;font-weight:800!important;line-height:1.45!important;text-align:left!important;white-space:nowrap!important}"+
           ".intent-toggle{width:44px!important;height:44px!important;flex:0 0 auto!important;display:grid!important;place-items:center!important;z-index:3!important;border:1px solid rgba(255,255,255,.22)!important;border-radius:13px!important;background:rgba(255,255,255,.08)!important;color:#fff!important}"+
           ".fusion-intent-summary{font-size:18px!important;line-height:1.55!important}"+
+          ".fusion-intent-summary{margin:0 0 18px!important}"+
           ".fusion-intent-summary-highlight{display:block!important;margin-bottom:7px!important;color:#ec7f37!important;font-size:18px!important;font-weight:950!important;line-height:1.55!important}"+
           ".stage-head{align-items:flex-start!important}"+
           ".stage-copy{min-width:0!important}"+
@@ -2502,9 +2503,9 @@ setCharacter('neve');
         planTitle.remove();
       }
 
-      const fusionBlock=d.querySelector(".fusion-intent-block");
-      if(summary&&fusionBlock&&fusionBlock.parentNode){
-        fusionBlock.parentNode.insertBefore(summary,fusionBlock);
+      const demoGrid=d.querySelector(".fillgrim-demo-grid");
+      if(summary&&demoGrid&&demoGrid.parentNode){
+        demoGrid.parentNode.insertBefore(summary,demoGrid);
       }
 
       Array.from(d.querySelectorAll(".stage .stage-num")).forEach((badge,index)=>{
