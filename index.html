@@ -876,19 +876,14 @@
   /* Interactive game screen guide — site-matched style */
   .ui-guide-panel { padding:18px; }
   .ui-guide-intro {
-    display:flex; align-items:center; justify-content:space-between; gap:14px;
-    margin-bottom:14px; padding:14px 16px 14px 17px;
+    display:flex; align-items:center; justify-content:center; gap:14px;
+    margin-bottom:14px; padding:14px 16px;
     border:1px solid var(--line); border-radius:14px;
-    background:#f8fbff; color:var(--muted);
-    font-size:14px; font-weight:800; line-height:1.55;
+    background:#f8fbff; color:var(--text);
+    font-size:18px; font-weight:950; line-height:1.55;
+    text-align:center;
   }
   .ui-guide-intro strong { color:var(--text); }
-  .ui-guide-legend {
-    display:inline-flex; align-items:center; flex:0 0 auto;
-    min-height:30px; padding:0 12px; border-radius:999px;
-    background:var(--accent-soft); color:#d76538; white-space:nowrap;
-    font-size:12px; font-weight:950;
-  }
   .ui-screen-shell {
     padding:10px; border:1px solid var(--line); border-radius:19px;
     background:linear-gradient(180deg,#f7f9fc,#eef3f8);
@@ -989,7 +984,7 @@
 
   @media (max-width:760px) {
     .ui-guide-panel { padding:12px; }
-    .ui-guide-intro { align-items:flex-start; flex-direction:column; font-size:13px; }
+    .ui-guide-intro { align-items:center; justify-content:center; flex-direction:row; font-size:18px; text-align:center; }
     .ui-screen-shell { padding:6px; border-radius:15px; }
     .ui-screen-image { border-radius:10px; }
     .ui-hotspot { border-radius:7px; box-shadow:0 0 0 1.5px rgba(41,50,74,.78), inset 0 0 0 1px rgba(255,255,255,.10); }
@@ -1341,7 +1336,7 @@
 
   <nav class="guide-navigator" aria-label="가이드 빠른 이동">
     <button class="guide-nav-button" type="button" onclick="window.__openPlanningNotes&&window.__openPlanningNotes()">기획 과정</button>
-    <button class="guide-nav-button" type="button" data-guide-target="gameGuideHeader" data-guide-toggle="gameGuideToggle">게임 정보로 이동</button>
+    <button class="guide-nav-button" type="button" data-guide-target="gameGuideHeader" data-guide-toggle="gameGuideToggle">게임 규칙으로 이동</button>
     <button class="guide-nav-button" type="button" data-guide-target="characterGuideHeader" data-guide-toggle="characterGuideToggle" data-guide-character="neve">캐릭터 정보로 이동</button>
     <button class="guide-nav-button balance-nav-button" id="balanceSiteButton" type="button">밸런싱 사이트로 이동</button>
     <button class="guide-nav-button resource-nav-button" type="button" onclick="window.__openResourceList&&window.__openResourceList()">리소스 리스트로 이동</button>
@@ -2312,8 +2307,7 @@ window.__initUiGuide(document);
       <div class="planning-entry-clip">
         <div class="content-card panel rules-guide-panel ui-guide-panel section-collapse-content planning-entry-content">
       <div class="ui-guide-intro">
-        <span><strong>게임 화면 읽는 법</strong> 표시된 영역 전체를 선택할 수 있습니다. 마우스를 올리면 짧은 빛이 테두리를 따라 움직이며 설명을 미리 보고, 클릭하면 설명창이 고정됩니다.</span>
-        <span class="ui-guide-legend">9개 UI 영역</span>
+        <span>표시된 영역에 마우스를 올리면 해당 UI의 기능을 미리 볼 수 있고, 클릭 시 설명창이 고정됩니다.</span>
       </div>
       <div class="ui-screen-shell">
       <div class="ui-screen-stage" id="uiScreenStage">
