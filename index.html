@@ -2336,7 +2336,7 @@ setCharacter('neve');
       <div class="logo planning-notes-logo">PLAN<br>NOTE</div>
       <div class="brand-copy">
         <h1>기획 과정</h1>
-        <div class="brand-sub">기획 의도, 데이터 구조, 레퍼런스를 확인합니다.</div>
+        <div class="brand-sub">기획 의도, 레퍼런스, 데이터 구조를 확인합니다.</div>
       </div>
     </div>
     <button class="guide-toggle" id="planningNotesToggle" type="button"
@@ -2352,6 +2352,26 @@ setCharacter('neve');
         <div class="planning-intent-host">
           <iframe class="planning-intent-frame" id="planningIntentFrame" src="planning-intent.html" title="기획 의도" loading="eager" scrolling="no"></iframe>
         </div>
+
+        <section class="planning-note-entry">
+          <div class="section-titlebar collapsible-section-titlebar">
+            <div class="section-heading">
+              <div class="section-title">레퍼런스</div>
+              <div class="section-subtitle">턴제 자원 설계, 카드 기반 선택 구조, 장르 융합 사례를 비교해 FILLGRIM의 기획 근거를 정리했습니다.</div>
+            </div>
+            <button class="section-toggle planning-entry-toggle" type="button"
+              aria-expanded="false" aria-controls="planningReferencePanel" aria-label="레퍼런스 펼치기">
+              <span class="section-toggle-icon" aria-hidden="true"></span>
+            </button>
+          </div>
+          <div class="planning-collapse" id="planningReferencePanel">
+            <div class="planning-entry-clip">
+              <div class="content-card panel section-collapse-content planning-entry-content">
+                <iframe class="planning-note-frame" id="planningReferenceFrame" data-note-key="reference" title="레퍼런스 내용" allow="autoplay; fullscreen"></iframe>
+              </div>
+            </div>
+          </div>
+        </section>
 
         <section class="planning-note-entry">
           <div class="section-titlebar collapsible-section-titlebar">
@@ -2375,25 +2395,9 @@ setCharacter('neve');
 
         
 
-        <section class="planning-note-entry">
-          <div class="section-titlebar collapsible-section-titlebar">
-            <div class="section-heading">
-              <div class="section-title">레퍼런스</div>
-              <div class="section-subtitle">턴제 자원 설계, 카드 기반 선택 구조, 장르 융합 사례를 비교해 FILLGRIM의 기획 근거를 정리했습니다.</div>
-            </div>
-            <button class="section-toggle planning-entry-toggle" type="button"
-              aria-expanded="false" aria-controls="planningReferencePanel" aria-label="레퍼런스 펼치기">
-              <span class="section-toggle-icon" aria-hidden="true"></span>
-            </button>
-          </div>
-          <div class="planning-collapse" id="planningReferencePanel">
-            <div class="planning-entry-clip">
-              <div class="content-card panel section-collapse-content planning-entry-content">
-                <iframe class="planning-note-frame" id="planningReferenceFrame" data-note-key="reference" title="레퍼런스 내용" allow="autoplay; fullscreen"></iframe>
-              </div>
-            </div>
-          </div>
-        </section>
+        
+
+        
 
         
 
