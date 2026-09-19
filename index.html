@@ -1446,83 +1446,6 @@
   </section>
 
 
-  <section class="rules-guide-block ui-guide-block" aria-labelledby="uiGuideTitle">
-    <div class="section-titlebar collapsible-section-titlebar">
-      <div class="section-heading">
-        <div class="section-title" id="uiGuideTitle">게임 화면 안내</div>
-        <div class="section-subtitle">강조된 UI 영역에 마우스를 올리거나 클릭해 역할을 확인합니다.</div>
-      </div>
-      <button class="section-toggle" id="uiGuideToggle" type="button" aria-expanded="false" aria-controls="uiGuidePanel" aria-label="게임 화면 안내 펼치기">
-        <span class="section-toggle-icon" aria-hidden="true"></span>
-      </button>
-    </div>
-    <div class="content-card panel rules-guide-panel ui-guide-panel section-collapse-content" id="uiGuidePanel" hidden>
-      <div class="ui-guide-intro">
-        <span><strong>게임 화면 읽는 법</strong> 표시된 영역 전체를 선택할 수 있습니다. 마우스를 올리면 짧은 빛이 테두리를 따라 움직이며 설명을 미리 보고, 클릭하면 설명창이 고정됩니다.</span>
-        <span class="ui-guide-legend">9개 UI 영역</span>
-      </div>
-      <div class="ui-screen-shell">
-      <div class="ui-screen-stage" id="uiScreenStage">
-        <img class="ui-screen-image" loading="lazy" decoding="async" src="Assets/INLINE/ui-screen.png" alt="FILL GRIM 실제 게임 UI 화면">
-
-        <button class="ui-hotspot" type="button" aria-expanded="false" aria-label="아군 족보 현황판 설명" data-side="bottom-left" style="--x:.8%;--y:1.4%;--w:5.9%;--h:14.8%;">
-          <span class="ui-tooltip" role="tooltip"><strong><span class="team-ally">아군</span><span class="title-main">족보 현황판</span></strong><span>현재 획득한 카드가 <em>광·쌍·단·피</em> 범주에 얼마나 쌓였는지 보여줍니다. 각 항목을 통해 족보 진행 상태와 보유 카드를 미리 확인할 수 있습니다.</span></span>
-        </button>
-
-        <button class="ui-hotspot" type="button" aria-expanded="false" aria-label="아군 스킬 코스트 설명" data-side="bottom-left" style="--x:6.72%;--y:1.4%;--w:5.23%;--h:14.8%;">
-          <span class="ui-tooltip" role="tooltip"><strong><span class="team-ally">아군</span><span class="title-main">스킬 코스트</span></strong><span>현재 보유한 <em>스킬 코스트</em>입니다. 족보, 보너스 패, 특수상황으로 획득하며 기·승·전·결 스킬을 사용할 때 소모됩니다.</span></span>
-        </button>
-
-        <button class="ui-hotspot" type="button" aria-expanded="false" aria-label="아군 체력·버프·디버프 현황판 설명" data-side="bottom-left" style="--x:12%;--y:1.2%;--w:32.1%;--h:15.4%;">
-          <span class="ui-tooltip" role="tooltip"><strong><span class="team-ally">아군</span><span class="title-main">체력·버프·디버프 현황판</span></strong><span>캐릭터의 <em>현재 체력</em>과 <em>적용 중인 버프·디버프 상태</em>를 한 곳에서 확인할 수 있습니다.</span></span>
-        </button>
-
-        <button class="ui-hotspot" type="button" aria-expanded="false" aria-label="적군 체력·버프·디버프 현황판 설명" data-side="bottom-right" style="--x:55.85%;--y:1.2%;--w:32.20%;--h:15.4%;">
-          <span class="ui-tooltip" role="tooltip"><strong><span class="team-enemy">적군</span><span class="title-main">체력·버프·디버프 현황판</span></strong><span>적군 캐릭터의 <em>현재 체력</em>과 <em>적용 중인 버프·디버프 상태</em>를 한 곳에서 확인할 수 있습니다.</span></span>
-        </button>
-
-        <button class="ui-hotspot" type="button" aria-expanded="false" aria-label="적군 스킬 코스트 설명" data-side="bottom-right" style="--x:88.12%;--y:1.4%;--w:5.18%;--h:14.8%;">
-          <span class="ui-tooltip" role="tooltip"><strong><span class="team-enemy">적군</span><span class="title-main">스킬 코스트</span></strong><span>현재 보유한 <em>스킬 코스트</em>입니다. 족보, 보너스 패, 특수상황으로 획득하며 기·승·전·결 스킬을 사용할 때 소모됩니다.</span></span>
-        </button>
-
-        <button class="ui-hotspot" type="button" aria-expanded="false" aria-label="적군 족보 현황판 설명" data-side="bottom-right" style="--x:93.35%;--y:1.4%;--w:5.60%;--h:14.8%;">
-          <span class="ui-tooltip" role="tooltip"><strong><span class="team-enemy">적군</span><span class="title-main">족보 현황판</span></strong><span>현재 획득한 카드가 <em>광·쌍·단·피</em> 범주에 얼마나 쌓였는지 보여줍니다. 각 항목을 통해 족보 진행 상태와 보유 카드를 미리 확인할 수 있습니다.</span></span>
-        </button>
-
-        <button class="ui-hotspot" type="button" aria-expanded="false" aria-label="턴 진행 정보 설명" data-side="bottom" style="--x:46.4%;--y:.8%;--w:7.4%;--h:15.4%;">
-          <span class="ui-tooltip" role="tooltip"><strong>페이즈·턴 정보</strong><span><em>PH/TN</em> 표시는 현재 페이즈와 턴 진행 수를 보여줍니다. 전투 흐름이 어느 단계인지 확인하는 기준입니다.</span></span>
-        </button>
-
-        <button class="ui-hotspot" type="button" aria-expanded="false" aria-label="미리보기와 특수상황 표시 영역 설명" data-side="top" style="--x:38.2%;--y:43.3%;--w:31.7%;--h:8.4%;">
-          <span class="ui-tooltip" role="tooltip"><strong>미리보기·특수상황 표시 영역</strong><span>족보 현황판, 중립 영역에 겹친 패에 마우스 오버 시 해당 영역에 속한 카드 정보를 미리 볼 수 있고, 폭탄·뻑·따닥·쪽·쓸이 등 특수상황 발생 여부를 알리는 이펙트가 나타나는 공간입니다.</span></span>
-        </button>
-
-        <button class="ui-hotspot" type="button" aria-expanded="false" aria-label="중립 영역 설명" data-side="top" style="--x:38.2%;--y:52%;--w:31.7%;--h:13.2%;">
-          <span class="ui-tooltip" role="tooltip"><strong>중립 영역</strong><span>플레이어가 낸 카드가 놓이는 공간입니다. 손패에서 카드를 내고, 이곳의 <b>같은 월 카드</b>와 매칭해 카드를 획득합니다.</span></span>
-        </button>
-
-        <button class="ui-hotspot" type="button" aria-expanded="false" aria-label="상대 손패와 스킬 현황 설명" data-side="left" style="--x:79.80%;--y:62.55%;--w:16.44%;--h:7.92%;">
-          <span class="ui-tooltip" role="tooltip"><strong>상대 손패·스킬 현황</strong><span>붉은 칸으로 <em>상대의 남은 손패 수</em>를 확인하고, 기·승·전·결 버튼으로 <em>상대 스킬의 정보</em>를 확인합니다.</span></span>
-        </button>
-
-        <button class="ui-hotspot" type="button" aria-expanded="false" aria-label="아군 스킬 버튼 설명" data-side="top" style="--x:37.72%;--y:76.83%;--w:32.01%;--h:5.64%;">
-          <span class="ui-tooltip" role="tooltip"><strong>아군 스킬 버튼</strong><span>획득한 코스트를 사용해 <em>기·승·전·결</em> 스킬을 발동하는 영역입니다. 버튼 점멸 여부로 사용 가능 여부를 확인할 수 있습니다.</span></span>
-        </button>
-
-
-        <button class="ui-hotspot" type="button" aria-expanded="false" aria-label="턴 종료 버튼 설명" data-side="top" style="--x:92.54%;--y:76.83%;--w:6.50%;--h:5.64%;">
-          <span class="ui-tooltip" role="tooltip"><strong>턴 종료 버튼</strong><span>아군의 턴에 손패에서 카드를 낸 후에 활성화 되는 버튼으로, 누를 시 자신의 턴을 종료합니다.</span></span>
-        </button>
-
-        <button class="ui-hotspot" type="button" aria-expanded="false" aria-label="아군 손패 설명" data-side="top" style="--x:37.79%;--y:83.43%;--w:61.25%;--h:15.25%;">
-          <span class="ui-tooltip" role="tooltip"><strong>아군 손패</strong><span>현재 턴에 선택해 낼 수 있는 카드입니다. 중립 영역의 카드와 <b>같은 월</b>인지 확인한 뒤 한 장을 선택합니다.</span></span>
-        </button>
-      </div>
-      </div>
-    </div>
-  </section>
-
-
   <section class="rules-guide-block month-guide-block" aria-labelledby="monthGuideTitle">
     <div class="section-titlebar collapsible-section-titlebar">
       <div class="section-heading">
@@ -2235,7 +2158,6 @@ setCharacter('neve');
 
   bindGuideToggle('gameGuideToggle', 'gameGuideContent', '게임 규칙');
   bindGuideToggle('playGuideToggle', 'playGuidePanel', '플레이 규칙');
-  bindGuideToggle('uiGuideToggle', 'uiGuidePanel', '게임 화면 안내');
   bindGuideToggle('monthGuideToggle', 'monthGuidePanel', '월별 카드 규칙');
   bindGuideToggle('yakuGuideToggle', 'yakuGuidePanel', '족보 규칙');
   bindGuideToggle('specialGuideToggle', 'specialGuidePanel', '특수상황 규칙');
@@ -2293,41 +2215,44 @@ setCharacter('neve');
 
 
 <script>
-(() => {
-  const stage = document.getElementById('uiScreenStage');
-  if (!stage) return;
-  const hotspots = Array.from(stage.querySelectorAll('.ui-hotspot'));
+window.__initUiGuide=function(root=document){
+  const scope=root&&typeof root.querySelector==='function'?root:document;
+  const stage=scope.querySelector('#uiScreenStage');
+  if(!stage||stage.dataset.uiGuideBound==='1')return;
+  stage.dataset.uiGuideBound='1';
+  const hotspots=Array.from(stage.querySelectorAll('.ui-hotspot'));
 
-  const closeAll = except => {
-    hotspots.forEach(item => {
-      if (item === except) return;
+  const closeAll=except=>{
+    hotspots.forEach(item=>{
+      if(item===except)return;
       item.classList.remove('is-active');
-      item.setAttribute('aria-expanded', 'false');
+      item.setAttribute('aria-expanded','false');
     });
   };
 
-  hotspots.forEach(hotspot => {
-    hotspot.addEventListener('click', event => {
+  hotspots.forEach(hotspot=>{
+    hotspot.addEventListener('click',event=>{
       event.stopPropagation();
-      const willOpen = !hotspot.classList.contains('is-active');
+      const willOpen=!hotspot.classList.contains('is-active');
       closeAll(hotspot);
-      hotspot.classList.toggle('is-active', willOpen);
-      hotspot.setAttribute('aria-expanded', String(willOpen));
+      hotspot.classList.toggle('is-active',willOpen);
+      hotspot.setAttribute('aria-expanded',String(willOpen));
     });
-    hotspot.addEventListener('keydown', event => {
-      if (event.key === 'Escape') {
+    hotspot.addEventListener('keydown',event=>{
+      if(event.key==='Escape'){
         hotspot.classList.remove('is-active');
-        hotspot.setAttribute('aria-expanded', 'false');
+        hotspot.setAttribute('aria-expanded','false');
         hotspot.blur();
       }
     });
   });
 
-  stage.addEventListener('click', () => closeAll());
-  document.addEventListener('keydown', event => {
-    if (event.key === 'Escape') closeAll();
+  stage.addEventListener('click',()=>closeAll());
+  document.addEventListener('keydown',event=>{
+    if(event.key==='Escape')closeAll();
   });
-})();
+};
+window.__initUiGuide(document);
 </script>
 
 <template id="planningNotesTemplate"><section class="planning-notes-section" id="planningNotesSection">
@@ -2336,7 +2261,7 @@ setCharacter('neve');
       <div class="logo planning-notes-logo">PLAN<br>NOTE</div>
       <div class="brand-copy">
         <h1>기획 과정</h1>
-        <div class="brand-sub">기획 의도, 레퍼런스, 데이터 구조를 확인합니다.</div>
+        <div class="brand-sub">기획 의도, 레퍼런스, 인게임 구성, 데이터 구조를 확인합니다.</div>
       </div>
     </div>
     <button class="guide-toggle" id="planningNotesToggle" type="button"
@@ -2372,6 +2297,86 @@ setCharacter('neve');
             </div>
           </div>
         </section>
+
+        <section class="planning-note-entry ui-guide-block" aria-labelledby="uiGuideTitle">
+    <div class="section-titlebar collapsible-section-titlebar">
+      <div class="section-heading">
+        <div class="section-title" id="uiGuideTitle">인게임 구성</div>
+        <div class="section-subtitle">체력, 스킬 코스트, 족보 등 전투에 필요한 주요 UI 구성을 확인합니다.</div>
+      </div>
+      <button class="section-toggle planning-entry-toggle" id="uiGuideToggle" type="button" aria-expanded="false" aria-controls="uiGuidePanel" aria-label="인게임 구성 펼치기">
+        <span class="section-toggle-icon" aria-hidden="true"></span>
+      </button>
+    </div>
+    <div class="planning-collapse" id="uiGuidePanel">
+      <div class="planning-entry-clip">
+        <div class="content-card panel rules-guide-panel ui-guide-panel section-collapse-content planning-entry-content">
+      <div class="ui-guide-intro">
+        <span><strong>게임 화면 읽는 법</strong> 표시된 영역 전체를 선택할 수 있습니다. 마우스를 올리면 짧은 빛이 테두리를 따라 움직이며 설명을 미리 보고, 클릭하면 설명창이 고정됩니다.</span>
+        <span class="ui-guide-legend">9개 UI 영역</span>
+      </div>
+      <div class="ui-screen-shell">
+      <div class="ui-screen-stage" id="uiScreenStage">
+        <img class="ui-screen-image" loading="lazy" decoding="async" src="Assets/INLINE/ui-screen.png" alt="FILL GRIM 실제 게임 UI 화면">
+
+        <button class="ui-hotspot" type="button" aria-expanded="false" aria-label="아군 족보 현황판 설명" data-side="bottom-left" style="--x:.8%;--y:1.4%;--w:5.9%;--h:14.8%;">
+          <span class="ui-tooltip" role="tooltip"><strong><span class="team-ally">아군</span><span class="title-main">족보 현황판</span></strong><span>현재 획득한 카드가 <em>광·쌍·단·피</em> 범주에 얼마나 쌓였는지 보여줍니다. 각 항목을 통해 족보 진행 상태와 보유 카드를 미리 확인할 수 있습니다.</span></span>
+        </button>
+
+        <button class="ui-hotspot" type="button" aria-expanded="false" aria-label="아군 스킬 코스트 설명" data-side="bottom-left" style="--x:6.72%;--y:1.4%;--w:5.23%;--h:14.8%;">
+          <span class="ui-tooltip" role="tooltip"><strong><span class="team-ally">아군</span><span class="title-main">스킬 코스트</span></strong><span>현재 보유한 <em>스킬 코스트</em>입니다. 족보, 보너스 패, 특수상황으로 획득하며 기·승·전·결 스킬을 사용할 때 소모됩니다.</span></span>
+        </button>
+
+        <button class="ui-hotspot" type="button" aria-expanded="false" aria-label="아군 체력·버프·디버프 현황판 설명" data-side="bottom-left" style="--x:12%;--y:1.2%;--w:32.1%;--h:15.4%;">
+          <span class="ui-tooltip" role="tooltip"><strong><span class="team-ally">아군</span><span class="title-main">체력·버프·디버프 현황판</span></strong><span>캐릭터의 <em>현재 체력</em>과 <em>적용 중인 버프·디버프 상태</em>를 한 곳에서 확인할 수 있습니다.</span></span>
+        </button>
+
+        <button class="ui-hotspot" type="button" aria-expanded="false" aria-label="적군 체력·버프·디버프 현황판 설명" data-side="bottom-right" style="--x:55.85%;--y:1.2%;--w:32.20%;--h:15.4%;">
+          <span class="ui-tooltip" role="tooltip"><strong><span class="team-enemy">적군</span><span class="title-main">체력·버프·디버프 현황판</span></strong><span>적군 캐릭터의 <em>현재 체력</em>과 <em>적용 중인 버프·디버프 상태</em>를 한 곳에서 확인할 수 있습니다.</span></span>
+        </button>
+
+        <button class="ui-hotspot" type="button" aria-expanded="false" aria-label="적군 스킬 코스트 설명" data-side="bottom-right" style="--x:88.12%;--y:1.4%;--w:5.18%;--h:14.8%;">
+          <span class="ui-tooltip" role="tooltip"><strong><span class="team-enemy">적군</span><span class="title-main">스킬 코스트</span></strong><span>현재 보유한 <em>스킬 코스트</em>입니다. 족보, 보너스 패, 특수상황으로 획득하며 기·승·전·결 스킬을 사용할 때 소모됩니다.</span></span>
+        </button>
+
+        <button class="ui-hotspot" type="button" aria-expanded="false" aria-label="적군 족보 현황판 설명" data-side="bottom-right" style="--x:93.35%;--y:1.4%;--w:5.60%;--h:14.8%;">
+          <span class="ui-tooltip" role="tooltip"><strong><span class="team-enemy">적군</span><span class="title-main">족보 현황판</span></strong><span>현재 획득한 카드가 <em>광·쌍·단·피</em> 범주에 얼마나 쌓였는지 보여줍니다. 각 항목을 통해 족보 진행 상태와 보유 카드를 미리 확인할 수 있습니다.</span></span>
+        </button>
+
+        <button class="ui-hotspot" type="button" aria-expanded="false" aria-label="턴 진행 정보 설명" data-side="bottom" style="--x:46.4%;--y:.8%;--w:7.4%;--h:15.4%;">
+          <span class="ui-tooltip" role="tooltip"><strong>페이즈·턴 정보</strong><span><em>PH/TN</em> 표시는 현재 페이즈와 턴 진행 수를 보여줍니다. 전투 흐름이 어느 단계인지 확인하는 기준입니다.</span></span>
+        </button>
+
+        <button class="ui-hotspot" type="button" aria-expanded="false" aria-label="미리보기와 특수상황 표시 영역 설명" data-side="top" style="--x:38.2%;--y:43.3%;--w:31.7%;--h:8.4%;">
+          <span class="ui-tooltip" role="tooltip"><strong>미리보기·특수상황 표시 영역</strong><span>족보 현황판, 중립 영역에 겹친 패에 마우스 오버 시 해당 영역에 속한 카드 정보를 미리 볼 수 있고, 폭탄·뻑·따닥·쪽·쓸이 등 특수상황 발생 여부를 알리는 이펙트가 나타나는 공간입니다.</span></span>
+        </button>
+
+        <button class="ui-hotspot" type="button" aria-expanded="false" aria-label="중립 영역 설명" data-side="top" style="--x:38.2%;--y:52%;--w:31.7%;--h:13.2%;">
+          <span class="ui-tooltip" role="tooltip"><strong>중립 영역</strong><span>플레이어가 낸 카드가 놓이는 공간입니다. 손패에서 카드를 내고, 이곳의 <b>같은 월 카드</b>와 매칭해 카드를 획득합니다.</span></span>
+        </button>
+
+        <button class="ui-hotspot" type="button" aria-expanded="false" aria-label="상대 손패와 스킬 현황 설명" data-side="left" style="--x:79.80%;--y:62.55%;--w:16.44%;--h:7.92%;">
+          <span class="ui-tooltip" role="tooltip"><strong>상대 손패·스킬 현황</strong><span>붉은 칸으로 <em>상대의 남은 손패 수</em>를 확인하고, 기·승·전·결 버튼으로 <em>상대 스킬의 정보</em>를 확인합니다.</span></span>
+        </button>
+
+        <button class="ui-hotspot" type="button" aria-expanded="false" aria-label="아군 스킬 버튼 설명" data-side="top" style="--x:37.72%;--y:76.83%;--w:32.01%;--h:5.64%;">
+          <span class="ui-tooltip" role="tooltip"><strong>아군 스킬 버튼</strong><span>획득한 코스트를 사용해 <em>기·승·전·결</em> 스킬을 발동하는 영역입니다. 버튼 점멸 여부로 사용 가능 여부를 확인할 수 있습니다.</span></span>
+        </button>
+
+
+        <button class="ui-hotspot" type="button" aria-expanded="false" aria-label="턴 종료 버튼 설명" data-side="top" style="--x:92.54%;--y:76.83%;--w:6.50%;--h:5.64%;">
+          <span class="ui-tooltip" role="tooltip"><strong>턴 종료 버튼</strong><span>아군의 턴에 손패에서 카드를 낸 후에 활성화 되는 버튼으로, 누를 시 자신의 턴을 종료합니다.</span></span>
+        </button>
+
+        <button class="ui-hotspot" type="button" aria-expanded="false" aria-label="아군 손패 설명" data-side="top" style="--x:37.79%;--y:83.43%;--w:61.25%;--h:15.25%;">
+          <span class="ui-tooltip" role="tooltip"><strong>아군 손패</strong><span>현재 턴에 선택해 낼 수 있는 카드입니다. 중립 영역의 카드와 <b>같은 월</b>인지 확인한 뒤 한 장을 선택합니다.</span></span>
+        </button>
+      </div>
+      </div>
+    </div>
+      </div>
+    </div>
+  </section>
 
         <section class="planning-note-entry">
           <div class="section-titlebar collapsible-section-titlebar">
@@ -2409,6 +2414,7 @@ setCharacter('neve');
   const node=template.content.firstElementChild.cloneNode(true);
   const gg=document.getElementById("gameGuideHeader");
   if(gg)host.insertBefore(node,gg);else host.appendChild(node);
+  if(typeof window.__initUiGuide==="function")window.__initUiGuide(node);
 
   const pif=node.querySelector("#planningIntentFrame");
   if(pif)pif.addEventListener("load",()=>{
@@ -2693,6 +2699,7 @@ setCharacter('neve');
 
   bindEntryToggle(document.querySelector('[aria-controls="planningDataPanel"]'),"데이터 테이블","data");
   bindEntryToggle(document.querySelector('[aria-controls="planningReferencePanel"]'),"레퍼런스","reference");
+  bindEntryToggle(document.querySelector('[aria-controls="uiGuidePanel"]'),"인게임 구성",null);
 
   function openPlanningIntent(){
     const frame=document.getElementById("planningIntentFrame");
