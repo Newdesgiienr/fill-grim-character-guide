@@ -225,25 +225,26 @@ button{font:inherit}
 .fillgrim-demo-card:hover .fillgrim-demo-desc,.fillgrim-demo-card:focus-within .fillgrim-demo-desc{opacity:1;transform:translateY(0)}
 .fillgrim-plan-title{margin-top:20px;color:#17304d;font-size:18px;font-weight:950;text-align:center;letter-spacing:-.025em}
 
-.fusion-intent-block{margin-top:18px;padding:18px;border:1px solid #dce4ec;border-radius:14px;background:#fff}
+.fusion-intent-block{margin-top:24px;padding:18px;border:1px solid #dce4ec;border-radius:14px;background:#fff}
 .fusion-intent-heading{margin:0;color:#17304d;font-size:18px;font-weight:950;text-align:center;letter-spacing:-.025em}
 .fusion-intent-lead-highlight{color:#ec6f2d;font-weight:950}
 .fusion-intent-lead{max-width:1120px;margin:8px auto 16px;color:#53677e;font-size:18px;font-weight:800;line-height:1.65;text-align:center}
 .fusion-intent-videos{display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:start}
 .fusion-intent-video-card{min-width:0;padding:12px;border:1px solid #dce4ec;border-radius:13px;background:#fbfcfe}
 .fusion-intent-video-label{margin:0 0 8px;color:#17304d;font-size:18px;font-weight:950;text-align:center;letter-spacing:-.025em}
+.fusion-intent-video-tag{margin-left:4px;color:#ec6f2d;font-size:16px;font-weight:950;white-space:nowrap}
 .fusion-intent-media{position:relative;aspect-ratio:4/3;overflow:hidden;border-radius:11px;background:#0b111a;border:1px solid #26374d;display:grid;place-items:center}
 .fusion-intent-media video{display:block;max-width:100%;max-height:100%;width:100%;height:100%;object-fit:contain;background:#0b111a}
 .fusion-intent-placeholder{position:absolute;inset:0;display:grid;place-items:center;text-align:center;padding:20px;background:radial-gradient(circle at 50% 15%,#27384c 0,#111b28 52%,#0b121c 100%);color:#dbe5ef}
 .fusion-intent-placeholder b{display:block;font-size:14px}
 .fusion-intent-placeholder span{display:block;margin-top:5px;color:#8798ab;font-size:11.5px;font-weight:700}
-.fusion-intent-note{margin-top:11px;padding:11px 0 0;border-top:1px solid #e5ebf1;display:grid;grid-template-columns:88px minmax(0,1fr);gap:10px;align-items:center;min-height:54px;text-align:center}
-.fusion-intent-note-label{color:#17304d;font-size:13.8px;font-weight:950;white-space:nowrap;display:flex;align-items:center;justify-content:center;height:100%;text-align:center}
-.fusion-intent-note-text{color:#566b82;font-size:13.8px;font-weight:740;line-height:1.55;display:flex;align-items:center;justify-content:center;height:100%;white-space:nowrap;text-align:center}
+.fusion-intent-note{margin-top:11px;padding:11px 0 0;border-top:1px solid #e5ebf1;display:flex;align-items:center;justify-content:center;gap:6px;min-height:54px;text-align:center;flex-wrap:nowrap}
+.fusion-intent-note-label{color:#17304d;font-size:13.8px;font-weight:950;white-space:nowrap;display:inline-flex;align-items:center;justify-content:center;flex:0 0 auto;text-align:center}
+.fusion-intent-note-text{color:#566b82;font-size:13.8px;font-weight:740;line-height:1.55;display:inline-flex;align-items:center;justify-content:center;flex:0 1 auto;white-space:nowrap;text-align:center}
 .fusion-intent-summary{margin-top:14px;padding:13px 15px;border-radius:10px;border:1px solid #d8e1eb;background:#f7f9fc;color:#17304d;font-size:14.4px;font-weight:900;line-height:1.6;text-align:center}
 @media(max-width:760px){
   .fusion-intent-videos{grid-template-columns:1fr}
-  .fusion-intent-note{grid-template-columns:1fr;gap:4px}
+  .fusion-intent-note{flex-wrap:wrap;gap:4px}
   .fusion-intent-note-text{white-space:normal}
 }
 
@@ -377,7 +378,7 @@ html,body{background:transparent!important;overflow-x:hidden!important;overflow-
 
   <div class="fusion-intent-videos">
     <div class="fusion-intent-video-card">
-      <div class="fusion-intent-video-label">카드 매칭과 자원 획득</div>
+      <div class="fusion-intent-video-label">카드 매칭과 자원 획득 <span class="fusion-intent-video-tag">[고스톱]</span></div>
       <div class="fusion-intent-media">
         <video src="Assets/VIDEOS/PLANNING_INTENT/gostop_reference.mp4" controls playsinline preload="metadata" muted></video>
       </div>
@@ -388,7 +389,7 @@ html,body{background:transparent!important;overflow-x:hidden!important;overflow-
     </div>
 
     <div class="fusion-intent-video-card">
-      <div class="fusion-intent-video-label">자원으로 스킬 운용</div>
+      <div class="fusion-intent-video-label">자원으로 스킬 운용 <span class="fusion-intent-video-tag">[1대1 턴제 PVP]</span></div>
       <div class="fusion-intent-media">
         <video src="Assets/VIDEOS/PLANNING_INTENT/fillgrim_skill.mp4" controls playsinline preload="metadata" muted></video>
       </div>
