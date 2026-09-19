@@ -1298,6 +1298,21 @@
   .art-resource-source{margin-top:6px;font-size:13.5px;font-weight:740;line-height:1.7;word-break:break-word}
   .art-resource-source a{color:#2563eb;font-weight:850;text-decoration:none;word-break:break-all}
   .art-resource-source a:hover{text-decoration:underline}
+  .ai-prompt-source{
+    appearance:none;border:0;padding:0;background:transparent;color:#2563eb;
+    font:inherit;font-weight:900;cursor:pointer;text-decoration:underline;text-underline-offset:3px;
+  }
+  .ai-prompt-source:hover{color:#1d4ed8}
+  .ai-prompt-source:focus-visible{outline:3px solid rgba(37,99,235,.18);outline-offset:3px;border-radius:4px}
+  .prompt-modal{width:min(760px,100%)}
+  .prompt-modal-body{padding:18px 22px 20px;color:#53677e}
+  .prompt-block{padding:14px 15px;border:1px solid #e1e8f0;border-radius:12px;background:#f8fafc}
+  .prompt-block+.prompt-block{margin-top:12px}
+  .prompt-label{margin-bottom:7px;color:#17304d;font-size:13px;font-weight:950}
+  .prompt-copy{
+    margin:0;color:#40556e;font-size:13px;font-weight:720;line-height:1.7;
+    white-space:normal;word-break:break-word;
+  }
   @media(max-width:640px){
     .balance-modal-backdrop{padding:14px}
     .balance-modal-title{font-size:19px}
@@ -1879,7 +1894,7 @@
 
       <div class="art-resource-item">
         <div class="art-resource-title">2. 인게임 [배경] 일러스트 [출처]</div>
-        <div class="art-resource-source">[Chat GPT AI 일러스트]</div>
+        <div class="art-resource-source"><button class="ai-prompt-source" id="aiPromptSourceButton" type="button">[Chat GPT AI 일러스트]</button></div>
       </div>
 
       <div class="art-resource-item">
@@ -1919,6 +1934,28 @@
       </div>
     </div>
   </section>
+
+  <div class="balance-modal-backdrop" id="aiPromptModal" hidden>
+    <section class="balance-modal prompt-modal" role="dialog" aria-modal="true" aria-labelledby="aiPromptModalTitle">
+      <div class="balance-modal-head">
+        <div class="balance-modal-kicker">AI ART PROMPT</div>
+        <h2 class="balance-modal-title" id="aiPromptModalTitle">생성 프롬프트</h2>
+      </div>
+      <div class="prompt-modal-body">
+        <div class="prompt-block">
+          <div class="prompt-label">Prompt</div>
+          <p class="prompt-copy">masterpiece, best quality, game background, environment concept art, traditional Japanese dojo interior, tatami room, wooden temple architecture, dark wooden beams, wooden pillars, shoji screens, symmetrical interior, centered composition, one-point perspective, wide angle, spacious empty room, warm daylight, soft ambient lighting, realistic materials, detailed wood texture, detailed tatami texture, cinematic lighting, clean background, highly detailed, no people, 16:9</p>
+        </div>
+        <div class="prompt-block">
+          <div class="prompt-label">Negative Prompt</div>
+          <p class="prompt-copy">people, character, furniture, clutter, text, logo, watermark, distorted architecture, crooked pillars, asymmetrical windows, fisheye distortion, oversaturated colors, blurry, low resolution, noisy image, excessive decoration, modern objects</p>
+        </div>
+      </div>
+      <div class="balance-modal-actions">
+        <button class="balance-modal-button" id="aiPromptModalClose" type="button">닫기</button>
+      </div>
+    </section>
+  </div>
 
   <div class="balance-modal-backdrop" id="balanceSiteModal" hidden>
     <section class="balance-modal" role="dialog" aria-modal="true" aria-labelledby="balanceModalTitle" aria-describedby="balanceModalDesc">
@@ -2875,6 +2912,9 @@ setCharacter('neve');
   const balanceButton=document.getElementById("balanceSiteButton");
   const modal=document.getElementById("balanceSiteModal");
   const closeButton=document.getElementById("balanceModalClose");
+  const aiPromptButton=document.getElementById("aiPromptSourceButton");
+  const aiPromptModal=document.getElementById("aiPromptModal");
+  const aiPromptClose=document.getElementById("aiPromptModalClose");
   const resourceSection=document.getElementById("artResourcesSection");
   const resourceToggle=document.getElementById("artResourcesToggle");
   const resourceContent=document.getElementById("artResourcesContent");
@@ -2900,8 +2940,32 @@ setCharacter('neve');
   modal?.addEventListener("click",e=>{
     if(e.target===modal)closeModal();
   });
+
+  let aiPromptLastFocused=null;
+  function openAiPrompt(){
+    if(!aiPromptModal)return;
+    aiPromptLastFocused=document.activeElement;
+    aiPromptModal.hidden=false;
+    document.body.style.overflow="hidden";
+    requestAnimationFrame(()=>aiPromptClose?.focus());
+  }
+  function closeAiPrompt(){
+    if(!aiPromptModal)return;
+    aiPromptModal.hidden=true;
+    document.body.style.overflow="";
+    if(aiPromptLastFocused&&typeof aiPromptLastFocused.focus==="function")aiPromptLastFocused.focus();
+  }
+
+  aiPromptButton?.addEventListener("click",openAiPrompt);
+  aiPromptClose?.addEventListener("click",closeAiPrompt);
+  aiPromptModal?.addEventListener("click",e=>{
+    if(e.target===aiPromptModal)closeAiPrompt();
+  });
+
   document.addEventListener("keydown",e=>{
-    if(e.key==="Escape"&&modal&&!modal.hidden)closeModal();
+    if(e.key!=="Escape")return;
+    if(aiPromptModal&&!aiPromptModal.hidden){closeAiPrompt();return;}
+    if(modal&&!modal.hidden)closeModal();
   });
 
   function setResourcesOpen(open){
