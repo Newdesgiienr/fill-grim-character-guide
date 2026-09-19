@@ -212,11 +212,11 @@ button{font:inherit}
 .fillgrim-note strong{color:#d45f22}
 
 /* FILLGRIM 4단계 인게임 애니메이션 */
-.fillgrim-demo-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.fillgrim-demo-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;width:100%;align-items:stretch}
 .fillgrim-demo-card{min-width:0;border:1px solid #27374c;border-radius:15px;overflow:hidden;background:#09111d;box-shadow:0 8px 20px rgba(14,28,46,.10);cursor:pointer}
 .fillgrim-demo-card,.fillgrim-demo-media,.fillgrim-demo-media video{cursor:pointer}
-.fillgrim-demo-media{position:relative;aspect-ratio:1.06/1;background:#0b1320;overflow:hidden}
-.fillgrim-demo-media video{width:112%;height:100%;display:block;object-fit:cover;object-position:center center;background:#0b1320;transform:translateX(-7.5%)}
+.fillgrim-demo-media{position:relative;aspect-ratio:16/9;background:#0b1320;overflow:hidden}
+.fillgrim-demo-media video{width:100%;height:100%;display:block;object-fit:contain;object-position:center center;background:#0b1320;transform:none}
 .fillgrim-demo-media::after{content:"";position:absolute;inset:auto 0 0;height:38%;background:linear-gradient(180deg,transparent,rgba(4,9,16,.18));pointer-events:none}
 .fillgrim-demo-caption{min-height:118px;padding:14px 15px 16px;background:#060c15;border-top:1px solid rgba(255,255,255,.04)}
 .fillgrim-demo-step{color:#ff8a43;font-size:11.5px;font-weight:950;letter-spacing:.06em}
@@ -274,7 +274,7 @@ button{font:inherit}
   .intent-subtitle{text-align:left}
 }
 @media(max-width:640px){.fillgrim-design-row{grid-template-columns:1fr;gap:5px}}
-@media(max-width:1100px){.fillgrim-demo-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:1100px){.fillgrim-demo-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}}
 @media(max-width:640px){.fillgrim-demo-grid{grid-template-columns:1fr}.fillgrim-demo-media{aspect-ratio:16/9}.fillgrim-logic-grid{grid-template-columns:1fr}}
 
 
