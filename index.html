@@ -158,6 +158,11 @@
     .art-card:hover::after,
     .art-card:focus-visible::after,
     .art-card.revealed::after { opacity: .62; }
+    /* NEVE: enlarge the five gallery illustrations by 20% without changing card sizes. */
+    #artGrid[data-character="neve"] .art-card img { transform: scale(1.248); }
+    #artGrid[data-character="neve"] .art-card:hover img,
+    #artGrid[data-character="neve"] .art-card:focus-visible img,
+    #artGrid[data-character="neve"] .art-card.revealed img { transform: scale(1.326); }
 
   /* Skill detail */
   .skill-layout { display:grid; grid-template-columns:minmax(0, 1.16fr) minmax(360px, .84fr); gap:18px; align-items:start; }
@@ -1978,6 +1983,7 @@ function renderTabs() {
 function renderIllustrations() {
   const character = CHARACTERS[currentCharacter];
   const grid = $('#artGrid');
+  grid.dataset.character = currentCharacter;
   grid.innerHTML = '';
   character.gallery.forEach((item, idx) => {
     const card = document.createElement('button');
